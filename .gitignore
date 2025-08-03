@@ -1,0 +1,26 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+# User-specific
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Auto-generated
+ExportedObj/
+*.apk
+*.unitypackage

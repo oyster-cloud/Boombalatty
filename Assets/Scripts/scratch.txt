@@ -1,0 +1,3 @@
+functionality where the value appears visually on the ball
+
+Would you like me to also suggest a pooling-friendly way to return the balls rather than just SetActive(false)? Or are you already handling that in BallPool?
