@@ -8,9 +8,8 @@ public class BallPool : MonoBehaviour
 
   private List<GameObject> ballPool;
 
-  void Awake()
+  public void Initialize()
   {
-    // Pre-instantiate balls and disable them
     ballPool = new List<GameObject>();
     for (int i = 0; i < poolSize; i++)
     {
@@ -19,6 +18,13 @@ public class BallPool : MonoBehaviour
       ballPool.Add(ball);
     }
   }
+
+
+  void Awake()
+  {
+    Initialize(); // still runs during real game play
+  }
+
 
   // Retrieves an inactive ball from the pool and repositions it
   public GameObject GetBall(Vector2 position)

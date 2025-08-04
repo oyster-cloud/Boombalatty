@@ -28,6 +28,21 @@ public class BallSpawner : MonoBehaviour
   [Header("Ball Variants")]
   public List<BallVariant> ballVariants = new List<BallVariant>();
 
+  public void Initialize()
+  {
+    if (ballPool == null)
+    {
+      Debug.LogError("BallPool is not assigned in BallSpawner!");
+      return;
+    }
+
+    if (ballVariants == null || ballVariants.Count == 0)
+    {
+      Debug.LogError("No ball variants assigned!");
+      return;
+    }
+  }
+
   void Start()
   {
     // Spawn balls when game starts
@@ -97,7 +112,7 @@ public class BallSpawner : MonoBehaviour
 
     if (variant == null)
     {
-      Debug.LogWarning($"No variant found with value: {value}");
+      Debug.Log($"No variant found with value: {value}");
       return null;
     }
 

@@ -24,3 +24,7 @@ Thumbs.db
 ExportedObj/
 *.apk
 *.unitypackage
+
+# Custom
+/Assets/Scripts/notes.md
+/Assets/Scripts/notes.md.meta

@@ -28,4 +28,16 @@ public class BallAutoDespawnTests
 
     Object.DestroyImmediate(go);
   }
+
+  [Test]
+  public void DisablesOnInvisibility()
+  {
+    var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    go.AddComponent<BallAutoDespawn>();
+
+    go.SendMessage("OnBecameInvisible");
+
+    Assert.IsFalse(go.activeSelf);
+    Object.DestroyImmediate(go);
+  }
 }

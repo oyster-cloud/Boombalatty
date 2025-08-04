@@ -1,81 +1,71 @@
 using System.Collections;
 using UnityEngine;
 
+// This script handles merging behavior between balls that collide and share the same value.
+[RequireComponent(typeof(BallProperties))]
 public class BallMergeHandler : MonoBehaviour
 {
-  private bool isMerging = false;      // Prevents simultaneous merge attempts
-  private BallSpawner spawner;         // Reference to the BallSpawner in the scene
+  public bool isMerging = false; // Flag to prevent double-merging during physics events
 
-  void OnEnable()
+  public void OnEnable()
   {
     isMerging = false;
-  }
-
-  void Awake()
-  {
-    spawner = FindFirstObjectByType<BallSpawner>(); // Find the spawner once at start
   }
 
   private void OnCollisionEnter2D(Collision2D collision)
   {
     Debug.Log($"Trying to merge: {name} and {collision.gameObject.name}");
 
-    // Don't allow merge if already merging or inactive
-    if (isMerging || !gameObject.activeInHierarchy) {
-      Debug.Log($"(isMerging || !gameObject.activeInHierarchy): {!gameObject.activeInHierarchy}");
+    // Don't proceed if already merging or disabled
+    if (isMerging || !gameObject.activeInHierarchy)
       return;
-    }
 
-    Debug.Log($"2: {name} and {collision.gameObject.name}");
-
-    // Check if the other object is a mergeable ball
+    // Get BallMergeHandler on the other colliding object
     BallMergeHandler other = collision.gameObject.GetComponent<BallMergeHandler>();
-    if (other == null || other.isMerging || !other.gameObject.activeInHierarchy) {
-      Debug.Log($"(other == null || other.isMerging || !other.gameObject.activeInHierarchy): {(other == null || other.isMerging || !other.gameObject.activeInHierarchy)}");
+    if (other == null || other.isMerging || !other.gameObject.activeInHierarchy)
       return;
-    }
 
-    // Get each ball’s value
+    // Get BallProperties for both objects
     BallProperties thisProps = GetComponent<BallProperties>();
     BallProperties otherProps = other.GetComponent<BallProperties>();
-    if (thisProps == null || otherProps == null) {
-      Debug.Log($"(thisProps == null || otherProps == null): {thisProps}, {otherProps}");
+    if (thisProps == null || otherProps == null)
       return;
-    }
 
-    // Only merge balls with the same value
-    if (thisProps.value != otherProps.value) {
-      Debug.Log($"(thisProps.value != otherProps.value): {otherProps.value}");
+    // Only merge if the values match, according to game rules
+    if (!BallMergeRules.ShouldMerge(thisProps.value, otherProps.value))
       return;
-    }
 
-    // Prevent both sides from merging simultaneously (resolve using instance ID)
+    // Prevent both objects from merging simultaneously; one side "wins" based on instance ID
     if (GetInstanceID() < other.GetInstanceID())
     {
-      Debug.Log($"(GetInstanceID() < other.GetInstanceID(): {GetInstanceID()}, {other.GetInstanceID()}");
       isMerging = true;
       other.isMerging = true;
       StartCoroutine(SpawnMergedBallAndDisable(other.gameObject));
     }
   }
 
-  private IEnumerator SpawnMergedBallAndDisable(GameObject otherBall)
+  // Coroutine that spawns a new merged ball, then disables the original two
+  private IEnumerator SpawnMergedBallAndDisable(GameObject other)
   {
-    yield return null; // Delay by one frame to ensure physics resolves
+    yield return new WaitForEndOfFrame(); // Optional short delay before merge
 
-    // Safety check in case spawner is missing
-    if (spawner == null)
-      spawner = FindFirstObjectByType<BallSpawner>();
+    BallProperties thisProps = GetComponent<BallProperties>();
+    if (thisProps == null) yield break;
 
-    // Calculate midpoint between two merged balls
-    Vector2 midPoint = (transform.position + otherBall.transform.position) / 2f;
+    // Determine new value to spawn
+    int mergedValue = BallMergeRules.GetNextValue(thisProps.value);
 
-    // Create a new ball with value incremented by 1
-    int newValue = GetComponent<BallProperties>().value + 1;
-    spawner.SpawnBallWithValue(midPoint, newValue);
+    // Find the spawner and create the new ball at the average position
+    BallSpawner spawner = FindAnyObjectByType<BallSpawner>();
+    if (spawner != null)
+    {
+      Vector2 mergedPosition = (transform.position + other.transform.position) / 2f;
+      spawner.SpawnBallWithValue(mergedPosition, mergedValue);
+    }
 
-    // Disable the original merged balls
+    // Disable both original balls
     gameObject.SetActive(false);
-    otherBall.SetActive(false);
+    other.SetActive(false);
+    isMerging = false;
   }
 }
