@@ -21,8 +21,8 @@ public class BallSpawner : MonoBehaviour
   [Header("Spawn Settings")]
   public int minBalls = 3;
   public int maxBalls = 7;
-  private Vector2 spawnAreaMin = new Vector2(-2.5f, 3f);
-  private Vector2 spawnAreaMax = new Vector2(2.5f, 3f);
+  public Vector2 spawnAreaMin = new Vector2(-2.5f, 3f);
+  public Vector2 spawnAreaMax = new Vector2(2.5f, 3f);
   public float spawnDelay = 0.8f;
 
   [Header("Ball Variants")]
