@@ -1,6 +1,9 @@
 using NUnit.Framework;
 using UnityEngine;
 
+/// <summary>
+/// Unit tests for BallAutoDespawn functionality (despawning on invisible).
+/// </summary>
 public class BallAutoDespawnTests
 {
   [Test]
@@ -9,8 +12,8 @@ public class BallAutoDespawnTests
     var go = new GameObject("Ball");
     go.AddComponent<SpriteRenderer>();
 
+    // Ensure the component can be added without errors
     var despawner = go.AddComponent<BallAutoDespawn>();
-
     Assert.IsNotNull(despawner);
 
     Object.DestroyImmediate(go);
@@ -22,7 +25,8 @@ public class BallAutoDespawnTests
     var go = new GameObject("Ball");
     go.AddComponent<BallAutoDespawn>();
 
-    go.SetActive(false); // simulate despawn
+    // Simulate manual deactivation
+    go.SetActive(false);
 
     Assert.IsFalse(go.activeSelf);
 
@@ -32,12 +36,13 @@ public class BallAutoDespawnTests
   [Test]
   public void DisablesOnInvisibility()
   {
+    // Simulate OnBecameInvisible behavior
     var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
     go.AddComponent<BallAutoDespawn>();
 
-    go.SendMessage("OnBecameInvisible");
+    go.SendMessage("OnBecameInvisible"); // triggers despawn
 
-    Assert.IsFalse(go.activeSelf);
+    Assert.IsFalse(go.activeSelf); // should be inactive
     Object.DestroyImmediate(go);
   }
 }

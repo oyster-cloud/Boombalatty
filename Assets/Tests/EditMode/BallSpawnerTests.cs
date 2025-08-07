@@ -87,4 +87,17 @@ public class BallSpawnerTests
 
     return fakeBall;
   }
+
+  private class MockBallSpawner : BallSpawner
+  {
+      public bool WasCalled { get; private set; } = false;
+      public Vector2 LastSpawnPosition { get; private set; }
+
+      public override GameObject SpawnBallWithValue(Vector2 position, int value)
+      {
+          WasCalled = true;
+          LastSpawnPosition = position;
+          return new GameObject("MockBall");
+      }
+  }
 }

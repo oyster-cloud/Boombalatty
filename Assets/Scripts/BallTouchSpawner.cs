@@ -1,26 +1,40 @@
 using UnityEngine;
 
+/// <summary>
+/// Listens for touch or mouse input and spawns a ball through the BallSpawner.
+/// </summary>
 public class BallTouchSpawner : MonoBehaviour
 {
   [Header("Dependencies")]
-  public BallSpawner ballSpawner; // Reference to your BallSpawner script in the scene
+  public BallSpawner ballSpawner; // Reference to the spawner used to create balls
 
+  /// <summary>
+  /// Converts a screen position to world coordinates, clamps it to the spawn area, and spawns a ball.
+  /// </summary>
+  /// <param name="screenPosition">The screen position from the user's input.</param>
+  public void HandleTouch(Vector2 screenPosition)
+  {
+    // Convert screen to world position using the main camera
+    Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+    // Clamp the position within allowed spawn boundaries
+    worldPosition = new Vector2(
+      Mathf.Clamp(worldPosition.x, ballSpawner.spawnAreaMin.x, ballSpawner.spawnAreaMax.x),
+      Mathf.Clamp(worldPosition.y, ballSpawner.spawnAreaMin.y, ballSpawner.spawnAreaMax.y)
+    );
+
+    // Spawn the ball at the clamped world position
+    ballSpawner.SpawnBallWithValue(worldPosition, 1);
+  }
+
+  /// <summary>
+  /// Checks for user input each frame.
+  /// </summary>
   void Update()
   {
-    // Check for mouse click or screen tap (left click or first finger)
-    if (Input.GetMouseButtonDown(0))
+    if (Input.GetMouseButtonDown(0)) // left-click or first touch
     {
-      // Convert screen coordinates (mouse/tap) to world space coordinates
-      Vector2 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-      // Clamp the world position to the BallSpawner’s configured spawn area
-      worldPosition = new Vector2(
-        Mathf.Clamp(worldPosition.x, ballSpawner.spawnAreaMin.x, ballSpawner.spawnAreaMax.x),
-        Mathf.Clamp(worldPosition.y, ballSpawner.spawnAreaMin.y, ballSpawner.spawnAreaMax.y)
-      );
-
-      // Ask the BallSpawner to create a random ball at the clamped position
-      ballSpawner.SpawnBallWithValue(worldPosition, 1);
+      HandleTouch(Input.mousePosition);
     }
   }
 }

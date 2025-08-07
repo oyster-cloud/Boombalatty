@@ -106,7 +106,7 @@ public class BallSpawner : MonoBehaviour
   }
 
   // Allows spawning a ball with a specific value (e.g. for merges)
-  public GameObject SpawnBallWithValue(Vector2 position, int value)
+  public virtual GameObject SpawnBallWithValue(Vector2 position, int value)
   {
     BallVariant variant = ballVariants.Find(v => v.value == value);
 
