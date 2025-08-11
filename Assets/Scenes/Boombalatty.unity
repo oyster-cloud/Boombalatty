@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballSpawner: {fileID: 600681270}
+  spawnY: 4
 --- !u!4 &548325238
 Transform:
   m_ObjectHideFlags: 0

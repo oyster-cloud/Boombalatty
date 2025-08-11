@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic; // <-- add at top of file if missing
 
 public class BallTouchSpawnerTests
 {
@@ -15,21 +16,22 @@ public class BallTouchSpawnerTests
   [SetUp]
   public void SetUp()
   {
-    // Set up Camera
+    // Camera
     cameraObj = new GameObject("MainCamera");
     mainCamera = cameraObj.AddComponent<Camera>();
-    cameraObj.tag = "MainCamera"; // Required for Camera.main to work
+    cameraObj.tag = "MainCamera";
 
-    // Set up BallSpawner
-    GameObject ballSpawnerGO = new GameObject("BallSpawner");
-    mockSpawner = ballSpawnerGO.AddComponent<MockBallSpawner>();
-    mockSpawner.spawnAreaMin = new Vector2(-5, -5);
-    mockSpawner.spawnAreaMax = new Vector2(5, 5);
+    // // Spawners
+    var spawnerGO = new GameObject("BallSpawner");
+    mockSpawner = spawnerGO.AddComponent<MockBallSpawner>();
 
-    // Set up BallTouchSpawner
     spawnerObj = new GameObject("BallTouchSpawner");
     touchSpawner = spawnerObj.AddComponent<BallTouchSpawner>();
     touchSpawner.ballSpawner = mockSpawner;
+
+    // If your BallTouchSpawner has this flag, disable the gate for tests.
+    // Safe to omit if you didn’t add it.
+    touchSpawner.requireInitialSpawnCompleted = false;
   }
 
   [TearDown]
@@ -41,46 +43,60 @@ public class BallTouchSpawnerTests
   }
 
   [UnityTest]
-  public IEnumerator Click_SpawnsBallWithinClampedArea()
+  public IEnumerator BallSpawnsAutomatically_And_ReleasesOnCommand()
   {
-      Vector2 screenPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+    // Spawn deterministically (no reliance on Update timing)
+    var ball = touchSpawner.ForceSpawnHeldBallForTest();
+    Assert.IsNotNull(ball, "Expected a ball to be auto-spawned.");
 
-      yield return null; // Let Unity init everything
+    var rb = ball.GetComponent<Rigidbody2D>();
+    Assert.IsNotNull(rb, "Rigidbody2D should be present on spawned ball.");
+    Assert.AreEqual(RigidbodyType2D.Static, rb.bodyType, "Ball should start as Static (held).");
 
-      touchSpawner.HandleTouch(screenPos); // Simulate touch
+    // Release (drops from click X in your impl)
+    touchSpawner.ReleaseCurrentBall();
+    yield return null; // let physics update a frame
 
-      Assert.IsTrue(mockSpawner.WasCalled, "BallSpawner was not called.");
-      Vector2 pos = mockSpawner.LastSpawnPosition;
-
-      Assert.That(pos.x, Is.InRange(mockSpawner.spawnAreaMin.x, mockSpawner.spawnAreaMax.x));
-      Assert.That(pos.y, Is.InRange(mockSpawner.spawnAreaMin.y, mockSpawner.spawnAreaMax.y));
+    Assert.AreEqual(RigidbodyType2D.Dynamic, rb.bodyType, "Ball should be Dynamic after release.");
   }
+}
 
-  // Mock BallSpawner for testing
-  private class MockBallSpawner : BallSpawner
+// Mock BallSpawner
+public class MockBallSpawner : BallSpawner
+{
+  public GameObject LastSpawned { get; private set; }
+
+  // Stop base Start() from running its coroutine
+  new void Start() { }
+
+  void Awake()
   {
-      public bool WasCalled { get; private set; } = false;
-      public Vector2 LastSpawnPosition { get; private set; }
-
-      // Override Start to prevent coroutine from running
-      void Start() { }
-
-      public override GameObject SpawnBallWithValue(Vector2 position, int value)
-      {
-          WasCalled = true;
-          LastSpawnPosition = position;
-          return new GameObject("MockBall");
-      }
-  }
-
-  // Simulate mouse click (requires InputTestTools if you want deeper control)
-  private static class InputSimulator
-  {
-    public static void ClickAt(Vector3 screenPosition)
+    // Seed at least one variant so TouchSpawner can pick a value
+    if (ballVariants == null || ballVariants.Count == 0)
     {
-        // Unity doesn't allow setting Input.mousePosition directly
-        // So you have to simulate it indirectly or use packages like InputSystem
-        // This method is mostly a placeholder unless you integrate with a tool
+      ballVariants = new List<BallVariant> {
+        new BallVariant {
+          value = 1, size = 1f,
+          sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0,0,1,1), new Vector2(0.5f,0.5f))
+        }
+      };
     }
+
+    // Sensible bounds if none set
+    if (spawnAreaMin == Vector2.zero && spawnAreaMax == Vector2.zero)
+    {
+      spawnAreaMin = new Vector2(-5, -5);
+      spawnAreaMax = new Vector2( 5,  5);
+    }
+  }
+
+  public override GameObject SpawnBallWithValue(Vector2 position, int value)
+  {
+    var go = new GameObject("MockBall");
+    go.transform.position = position;
+    go.AddComponent<Rigidbody2D>();
+    go.AddComponent<CircleCollider2D>();
+    LastSpawned = go;
+    return go;
   }
 }

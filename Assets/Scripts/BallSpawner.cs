@@ -18,6 +18,9 @@ public class BallSpawner : MonoBehaviour
   [Header("Dependencies")]
   public BallPool ballPool;
 
+  [Header("Testing")]
+  public bool requireInitialSpawnCompleted = false; // test-only hook
+
   [Header("Spawn Settings")]
   public int minBalls = 3;
   public int maxBalls = 7;
@@ -27,6 +30,12 @@ public class BallSpawner : MonoBehaviour
 
   [Header("Ball Variants")]
   public List<BallVariant> ballVariants = new List<BallVariant>();
+
+  /// True once the initial delayed spawn wave completes.
+  public bool InitialSpawnCompleted { get; private set; } = false;
+
+  /// Fired once when the initial wave finishes.
+  public event System.Action OnInitialSpawnComplete;
 
   public void Initialize()
   {
@@ -46,6 +55,7 @@ public class BallSpawner : MonoBehaviour
   void Start()
   {
     // Spawn balls when game starts
+    InitialSpawnCompleted = false;
     StartCoroutine(SpawnBallsWithDelay());
   }
 
@@ -103,6 +113,10 @@ public class BallSpawner : MonoBehaviour
 
       yield return new WaitForSeconds(spawnDelay);
     }
+
+    // ✅ mark complete and notify
+    InitialSpawnCompleted = true;
+    OnInitialSpawnComplete?.Invoke();
   }
 
   // Allows spawning a ball with a specific value (e.g. for merges)
@@ -142,6 +156,7 @@ public class BallSpawner : MonoBehaviour
       ball.SetActive(false);
     }
 
+    InitialSpawnCompleted = false;
     StartCoroutine(SpawnBallsWithDelay());
   }
 }
