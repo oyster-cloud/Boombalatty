@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballSpawner: {fileID: 600681270}
+  requireInitialSpawnCompleted: 0
   spawnY: 4
 --- !u!4 &548325238
 Transform:
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPool: {fileID: 1319032625}
+  requireInitialSpawnCompleted: 0
   minBalls: 5
   maxBalls: 12
   spawnAreaMin: {x: -2.5, y: 3}
@@ -340,7 +342,7 @@ MonoBehaviour:
   - sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
     size: 0.3
     value: 1
-  - sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  - sprite: {fileID: -4946059046825326055, guid: 5e33b66a077274e6893802daec47fdff, type: 3}
     size: 0.8
     value: 2
   - sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}

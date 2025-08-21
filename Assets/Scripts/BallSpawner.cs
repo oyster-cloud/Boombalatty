@@ -11,6 +11,8 @@ public class BallVariant
   [Range(0.3f, 3.0f)]
   public float size;
   public int value;
+  [Range(0.1f, 2f)]
+  public float ImageScale = 1f;
 }
 
 public class BallSpawner : MonoBehaviour
@@ -94,22 +96,10 @@ public class BallSpawner : MonoBehaviour
 
       int limit = Mathf.CeilToInt(ballVariants.Count / 2f);
       int variantIndex = Random.Range(0, limit);
+
       BallVariant variant = ballVariants[variantIndex];
 
-      GameObject ball = ballPool.GetBall(randomPos);
-      ball.transform.localScale = Vector3.one * variant.size;
-
-      SpriteRenderer renderer = ball.GetComponent<SpriteRenderer>();
-      if (renderer != null)
-      {
-        renderer.sprite = variant.sprite;
-      }
-
-      BallProperties props = ball.GetComponent<BallProperties>();
-      if (props != null)
-      {
-        props.SetValue(variant.value);
-      }
+      SpawnBallWithValue(randomPos, variant.value);
 
       yield return new WaitForSeconds(spawnDelay);
     }
@@ -133,10 +123,19 @@ public class BallSpawner : MonoBehaviour
     GameObject ball = ballPool.GetBall(position);
     ball.transform.localScale = Vector3.one * variant.size;
 
-    SpriteRenderer renderer = ball.GetComponent<SpriteRenderer>();
+    Debug.Log(variant.sprite);
+
+    SpriteRenderer renderer = ball.GetComponentInChildren<SpriteRenderer>();
+    Debug.Log($"renderer ==> : {renderer}");
+    // renderer.sprite = variant.sprite;
     if (renderer != null)
     {
       renderer.sprite = variant.sprite;
+
+      // Optional: scale only the image, not the collider/physics
+      renderer.transform.localScale = Vector3.one * variant.ImageScale; // e.g., 0.8f
+    } else {
+      Debug.Log("Nope");
     }
 
     BallProperties props = ball.GetComponent<BallProperties>();
