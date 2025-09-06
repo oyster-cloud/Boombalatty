@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1027
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Hierarchy
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -41,8 +41,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 514
-    height: 500
+    width: 512
+    height: 465
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 17}
@@ -69,12 +69,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 878
     y: 0
-    width: 514
+    width: 512
     height: 971
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 142
+  controlID: 27
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 133
+  controlID: 18
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -211,24 +211,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1392
+    x: 1390
     y: 0
-    width: 528
+    width: 530
     height: 971
-  m_MinSize: {x: 51, y: 76}
+  m_MinSize: {x: 276, y: 76}
   m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 13}
+  m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
   - {fileID: 13}
   - {fileID: 11}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,9 +245,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 500
-    width: 514
-    height: 471
+    y: 465
+    width: 512
+    height: 506
   m_MinSize: {x: 232, y: 276}
   m_MaxSize: {x: 10002, y: 10026}
   m_ActualView: {fileID: 14}
@@ -277,10 +277,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Test Runner\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1255.5
-    y: 102
-    width: 471.5
-    height: 969
+    x: 3118
+    y: 89
+    width: 529
+    height: 945
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -293,12 +293,12 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 540
+    ID: 678
     splitterInitialOffset: 445
     currentActiveSplitter: -1
     realSizes:
-    - 405
-    - 494
+    - 394
+    - 481
     relativeSizes:
     - 0.4502857
     - 0.5497143
@@ -308,7 +308,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 899
+    lastTotalSize: 875
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_TestListGUIs:
   - m_Window: {fileID: 11}
     runProgress:
-      RunGuid: d7dd1aff-b76f-4bd2-89ec-91d173d92c36
+      RunGuid: 9ae26689-d89c-4c91-a19e-057a08c1b9ab
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -347,11 +347,11 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999998
+      Progress: 0.99999976
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
     m_NewResultList:
-    - id: 1000
+    - id: 1011
       uniqueId: '[Boombalatty][suite]'
       name: Boombalatty
       fullName: Boombalatty
@@ -367,7 +367,7 @@ MonoBehaviour:
       categories: []
       parentId: 
       parentUniqueId: 
-    - id: 1007
+    - id: 1028
       uniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
       name: Tests.dll
       fullName: /Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll
@@ -381,12 +381,12 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1000
+      parentId: 1033
       parentUniqueId: '[Boombalatty][suite]'
-    - id: 1001
-      uniqueId: 'Tests.dll/[Tests][BallAutoDespawnTests][suite]'
-      name: BallAutoDespawnTests
-      fullName: BallAutoDespawnTests
+    - id: 1012
+      uniqueId: 'Tests.dll/[Tests][BallMergeHandlerTests][suite]'
+      name: BallMergeHandlerTests
+      fullName: BallMergeHandlerTests
       resultStatus: 1
       duration: 0
       messages: 
@@ -397,70 +397,181 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1007
-      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
-    - id: 1002
-      uniqueId: 'Tests.dll/BallAutoDespawnTests/[Tests][BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded]'
-      name: BallAutoDespawn_Component_CanBeAdded
-      fullName: BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded
-      resultStatus: 1
-      duration: 0.0070476
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1001
-      parentUniqueId: 'Tests.dll/[Tests][BallAutoDespawnTests][suite]'
-    - id: 1003
-      uniqueId: 'Tests.dll/BallAutoDespawnTests/[Tests][BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated]'
-      name: BallAutoDespawn_GameObject_CanBeDeactivated
-      fullName: BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated
-      resultStatus: 1
-      duration: 0.0008698
-      messages: 
-      output: 'Adding component failed. Add required component of type ''BillboardRenderer''
-        or ''LineRenderer'' or ''MeshRenderer'' or ''ParticleSystemRenderer'' or
-        ''SkinnedMeshRenderer'' or ''SpriteMask'' or ''SpriteRenderer'' or ''SpriteShapeRenderer''
-        or ''TilemapRenderer'' or ''TrailRenderer'' or ''UIRenderer'' or ''VFXRenderer''
-        to the game object ''Ball'' first.
-
-'
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1001
-      parentUniqueId: 'Tests.dll/[Tests][BallAutoDespawnTests][suite]'
-    - id: 1004
-      uniqueId: 'Tests.dll/[Tests][BallLogicTests][suite]'
-      name: BallLogicTests
-      fullName: BallLogicTests
-      resultStatus: 1
-      duration: 0
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1007
+      parentId: 1028
       parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
     - id: 1005
-      uniqueId: 'Tests.dll/BallLogicTests/[Tests][BallLogicTests.BallPrefab_IsNotNull_WhenAssigned]'
+      uniqueId: 'Tests.dll/BallMergeHandlerTests/[Tests][BallMergeHandlerTests.OnEnable_ResetsIsMerging]'
+      name: OnEnable_ResetsIsMerging
+      fullName: BallMergeHandlerTests.OnEnable_ResetsIsMerging
+      resultStatus: 1
+      duration: 0.0395457
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1004
+      parentUniqueId: 'Tests.dll/[Tests][BallMergeHandlerTests][suite]'
+    - id: 1014
+      uniqueId: 'Tests.dll/[Tests][BallMergeRulesTests][suite]'
+      name: BallMergeRulesTests
+      fullName: BallMergeRulesTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1009
+      uniqueId: 'Tests.dll/BallMergeRulesTests/[Tests][BallMergeRulesTests.GetNextValue_IncrementsCorrectly]'
+      name: GetNextValue_IncrementsCorrectly
+      fullName: BallMergeRulesTests.GetNextValue_IncrementsCorrectly
+      resultStatus: 1
+      duration: 0.0354451
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: 'Tests.dll/[Tests][BallMergeRulesTests][suite]'
+    - id: 1008
+      uniqueId: 'Tests.dll/BallMergeRulesTests/[Tests][BallMergeRulesTests.ShouldMerge_ReturnsFalse_WhenValuesDiffer]'
+      name: ShouldMerge_ReturnsFalse_WhenValuesDiffer
+      fullName: BallMergeRulesTests.ShouldMerge_ReturnsFalse_WhenValuesDiffer
+      resultStatus: 1
+      duration: 0.0000583
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: 'Tests.dll/[Tests][BallMergeRulesTests][suite]'
+    - id: 1007
+      uniqueId: 'Tests.dll/BallMergeRulesTests/[Tests][BallMergeRulesTests.ShouldMerge_ReturnsTrue_WhenValuesAreEqual]'
+      name: ShouldMerge_ReturnsTrue_WhenValuesAreEqual
+      fullName: BallMergeRulesTests.ShouldMerge_ReturnsTrue_WhenValuesAreEqual
+      resultStatus: 1
+      duration: 0.000103
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: 'Tests.dll/[Tests][BallMergeRulesTests][suite]'
+    - id: 1018
+      uniqueId: 'Tests.dll/[Tests][BallPoolTests][suite]'
+      name: BallPoolTests
+      fullName: BallPoolTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1010
+      uniqueId: 'Tests.dll/BallPoolTests/[Tests][BallPoolTests.ExpandsPoolWhenAllActive]'
+      name: ExpandsPoolWhenAllActive
+      fullName: BallPoolTests.ExpandsPoolWhenAllActive
+      resultStatus: 1
+      duration: 0.002575
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1007
+      parentUniqueId: 'Tests.dll/[Tests][BallPoolTests][suite]'
+    - id: 1008
+      uniqueId: 'Tests.dll/BallPoolTests/[Tests][BallPoolTests.PreloadsBallPool]'
+      name: PreloadsBallPool
+      fullName: BallPoolTests.PreloadsBallPool
+      resultStatus: 1
+      duration: 0.000127
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1007
+      parentUniqueId: 'Tests.dll/[Tests][BallPoolTests][suite]'
+    - id: 1009
+      uniqueId: 'Tests.dll/BallPoolTests/[Tests][BallPoolTests.ReusesInactiveBall]'
+      name: ReusesInactiveBall
+      fullName: BallPoolTests.ReusesInactiveBall
+      resultStatus: 1
+      duration: 0.0001783
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1007
+      parentUniqueId: 'Tests.dll/[Tests][BallPoolTests][suite]'
+    - id: 1022
+      uniqueId: 'Tests.dll/[Tests][BallPrefabTests][suite]'
+      name: BallPrefabTests
+      fullName: BallPrefabTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1010
+      uniqueId: 'Tests.dll/BallPrefabTests/[Tests][BallPrefabTests.BallPrefab_IsNotNull_WhenAssigned]'
       name: BallPrefab_IsNotNull_WhenAssigned
-      fullName: BallLogicTests.BallPrefab_IsNotNull_WhenAssigned
+      fullName: BallPrefabTests.BallPrefab_IsNotNull_WhenAssigned
       resultStatus: 1
-      duration: 0.0001333
+      duration: 0.0001103
       messages: 
       output: 
       stacktrace: 
@@ -470,14 +581,30 @@ MonoBehaviour:
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1003
-      parentUniqueId: 'Tests.dll/[Tests][BallLogicTests][suite]'
-    - id: 1004
-      uniqueId: 'Tests.dll/BallLogicTests/[Tests][BallLogicTests.RandomBallSize_IsWithinRange]'
-      name: RandomBallSize_IsWithinRange
-      fullName: BallLogicTests.RandomBallSize_IsWithinRange
+      parentId: 1009
+      parentUniqueId: 'Tests.dll/[Tests][BallPrefabTests][suite]'
+    - id: 1024
+      uniqueId: 'Tests.dll/[Tests][BallPropertiesTests][suite]'
+      name: BallPropertiesTests
+      fullName: BallPropertiesTests
       resultStatus: 1
-      duration: 0.0013879
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1009
+      uniqueId: 'Tests.dll/BallPropertiesTests/[Tests][BallPropertiesTests.SetValue_UpdatesValueAndText]'
+      name: SetValue_UpdatesValueAndText
+      fullName: BallPropertiesTests.SetValue_UpdatesValueAndText
+      resultStatus: 1
+      duration: 0.0012576
       messages: 
       output: 
       stacktrace: 
@@ -487,15 +614,48 @@ MonoBehaviour:
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1003
-      parentUniqueId: 'Tests.dll/[Tests][BallLogicTests][suite]'
-    m_ResultText: Boombalatty (4 tests) (0.000s)
+      parentId: 1008
+      parentUniqueId: 'Tests.dll/[Tests][BallPropertiesTests][suite]'
+    - id: 1026
+      uniqueId: 'Tests.dll/[Tests][BallSpawnerTests][suite]'
+      name: BallSpawnerTests
+      fullName: BallSpawnerTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1028
+      parentUniqueId: '[Tests][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/Tests.dll][suite]'
+    - id: 1015
+      uniqueId: 'Tests.dll/BallSpawnerTests/[Tests][BallSpawnerTests.SpawnBallWithSpecificValue_CreatesBall]'
+      name: SpawnBallWithSpecificValue_CreatesBall
+      fullName: BallSpawnerTests.SpawnBallWithSpecificValue_CreatesBall
+      resultStatus: 1
+      duration: 0.0027256
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: 'Tests.dll/[Tests][BallSpawnerTests][suite]'
+    m_ResultText: BallSpawnerTests (1 tests) (0.000s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6638ecb6
-      m_LastClickedID: -1226033050
-      m_ExpandedIDs: 6638ecb6699df056ffffff7f
+      m_SelectedIDs: 4f0aa8c1
+      m_LastClickedID: -1045951921
+      m_ExpandedIDs: c3b348a06638ecb64f0aa8c1eeebf9ce699df056430fa775ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -523,9 +683,9 @@ MonoBehaviour:
       availableCategories:
       - Uncategorized
     m_SelectedOption: 0
-  - m_Window: {fileID: 0}
+  - m_Window: {fileID: 11}
     runProgress:
-      RunGuid: d7dd1aff-b76f-4bd2-89ec-91d173d92c36
+      RunGuid: 9ae26689-d89c-4c91-a19e-057a08c1b9ab
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -552,17 +712,155 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999998
+      Progress: 0.99999976
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
-    m_NewResultList: []
-    m_ResultText: 
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[Boombalatty][suite]'
+      name: Boombalatty
+      fullName: Boombalatty
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1007
+      uniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+      name: PlayMode.dll
+      fullName: /Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Boombalatty][suite]'
+    - id: 1001
+      uniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+      name: BallAutoDespawnTests
+      fullName: BallAutoDespawnTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1007
+      parentUniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+    - id: 1020
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded]'
+      name: BallAutoDespawn_Component_CanBeAdded
+      fullName: BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded
+      resultStatus: 1
+      duration: 0.0370872
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1021
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated]'
+      name: BallAutoDespawn_GameObject_CanBeDeactivated
+      fullName: BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated
+      resultStatus: 1
+      duration: 0.0010946
+      messages: 
+      output: 'Adding component failed. Add required component of type ''BillboardRenderer''
+        or ''LineRenderer'' or ''MeshRenderer'' or ''ParticleSystemRenderer'' or
+        ''SkinnedMeshRenderer'' or ''SpriteMask'' or ''SpriteRenderer'' or ''SpriteShapeRenderer''
+        or ''TilemapRenderer'' or ''TrailRenderer'' or ''UIRenderer'' or ''VFXRenderer''
+        to the game object ''Ball'' first.
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1022
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.DisablesOnInvisibility]'
+      name: DisablesOnInvisibility
+      fullName: BallAutoDespawnTests.DisablesOnInvisibility
+      resultStatus: 1
+      duration: 0.0003911
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1005
+      uniqueId: 'PlayMode.dll/[PlayMode][BallTouchSpawnerTests][suite]'
+      name: BallTouchSpawnerTests
+      fullName: BallTouchSpawnerTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1007
+      parentUniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+    - id: 1006
+      uniqueId: 'PlayMode.dll/BallTouchSpawnerTests/[PlayMode][BallTouchSpawnerTests.BallSpawnsAutomatically_And_ReleasesOnCommand]'
+      name: BallSpawnsAutomatically_And_ReleasesOnCommand
+      fullName: BallTouchSpawnerTests.BallSpawnsAutomatically_And_ReleasesOnCommand
+      resultStatus: 1
+      duration: 0.4670949
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallTouchSpawnerTests][suite]'
+    m_ResultText: BallSpawnsAutomatically_And_ReleasesOnCommand (0.467s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 
+      m_SelectedIDs: 8d525dc6
+      m_LastClickedID: -966962547
+      m_ExpandedIDs: 6638ecb69cd364d41933db0558d5b84dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -587,11 +885,12 @@ MonoBehaviour:
       NotRunHidden: 0
       m_SearchString: 
       selectedCategories: []
-      availableCategories: []
+      availableCategories:
+      - Uncategorized
     m_SelectedOption: 0
-  - m_Window: {fileID: 0}
+  - m_Window: {fileID: 11}
     runProgress:
-      RunGuid: d7dd1aff-b76f-4bd2-89ec-91d173d92c36
+      RunGuid: 9ae26689-d89c-4c91-a19e-057a08c1b9ab
       ExecutionSettings:
         m_TargetPlatform: 0
         m_HasTargetPlatform: 0
@@ -618,17 +917,163 @@ MonoBehaviour:
           disableNestedEnumeratorBugfix: 0
         randomOrderSeed: 0
       HasFinished: 1
-      Progress: 0.9999998
+      Progress: 0.99999976
       CurrentStepName: Unlock Reload Assemblies
       CurrentStageName: 
-    m_NewResultList: []
-    m_ResultText: 
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[Boombalatty][suite]'
+      name: Boombalatty
+      fullName: Boombalatty
+      resultStatus: 2
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1007
+      uniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+      name: PlayMode.dll
+      fullName: /Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll
+      resultStatus: 2
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1011
+      parentUniqueId: '[Boombalatty][suite]'
+    - id: 1001
+      uniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+      name: BallAutoDespawnTests
+      fullName: BallAutoDespawnTests
+      resultStatus: 1
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1007
+      parentUniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+    - id: 1002
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded]'
+      name: BallAutoDespawn_Component_CanBeAdded
+      fullName: BallAutoDespawnTests.BallAutoDespawn_Component_CanBeAdded
+      resultStatus: 1
+      duration: 0.0063237
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1003
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated]'
+      name: BallAutoDespawn_GameObject_CanBeDeactivated
+      fullName: BallAutoDespawnTests.BallAutoDespawn_GameObject_CanBeDeactivated
+      resultStatus: 1
+      duration: 0.0010535
+      messages: 
+      output: 'Adding component failed. Add required component of type ''BillboardRenderer''
+        or ''LineRenderer'' or ''MeshRenderer'' or ''ParticleSystemRenderer'' or
+        ''SkinnedMeshRenderer'' or ''SpriteMask'' or ''SpriteRenderer'' or ''SpriteShapeRenderer''
+        or ''TilemapRenderer'' or ''TrailRenderer'' or ''UIRenderer'' or ''VFXRenderer''
+        to the game object ''Ball'' first.
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1004
+      uniqueId: 'PlayMode.dll/BallAutoDespawnTests/[PlayMode][BallAutoDespawnTests.DisablesOnInvisibility]'
+      name: DisablesOnInvisibility
+      fullName: BallAutoDespawnTests.DisablesOnInvisibility
+      resultStatus: 1
+      duration: 0.0005161
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallAutoDespawnTests][suite]'
+    - id: 1005
+      uniqueId: 'PlayMode.dll/[PlayMode][BallTouchSpawnerTests][suite]'
+      name: BallTouchSpawnerTests
+      fullName: BallTouchSpawnerTests
+      resultStatus: 2
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1007
+      parentUniqueId: '[PlayMode][/Users/main/Projects/Boombalatty/Boombalatty/Library/ScriptAssemblies/PlayMode.dll][suite]'
+    - id: 1006
+      uniqueId: 'PlayMode.dll/BallTouchSpawnerTests/[PlayMode][BallTouchSpawnerTests.BallSpawnsAutomatically_AndReleasesOnCommand]'
+      name: BallSpawnsAutomatically_AndReleasesOnCommand
+      fullName: BallTouchSpawnerTests.BallSpawnsAutomatically_AndReleasesOnCommand
+      resultStatus: 2
+      duration: 0.1202839
+      messages: "  Expected a ball to be auto-spawned.\n  Expected: not null\n  But
+        was:  null\n"
+      output: 
+      stacktrace: 'at BallTouchSpawnerTests+<BallSpawnsAutomatically_AndReleasesOnCommand>d__7.MoveNext
+        () [0x00055] in /Users/main/Projects/Boombalatty/Boombalatty/Assets/Tests/PlayMode/BallTouchSpawnerTests.cs:50
+
+        at
+        UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e]
+        in ./Library/PackageCache/com.unity.test-framework/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:44
+
+'
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: 'PlayMode.dll/[PlayMode][BallTouchSpawnerTests][suite]'
+    m_ResultText: PlayMode.dll (4 tests)  1 tests failed (0.000s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 
+      m_SelectedIDs: 1933db05
+      m_LastClickedID: 98251545
+      m_ExpandedIDs: 6638ecb69cd364d41933db05ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -653,7 +1098,8 @@ MonoBehaviour:
       NotRunHidden: 0
       m_SearchString: 
       selectedCategories: []
-      availableCategories: []
+      availableCategories:
+      - Uncategorized
     m_SelectedOption: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -676,9 +1122,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 3120
-    y: 89
-    width: 527
+    x: 1391
+    y: 24
+    width: 529
     height: 945
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -725,9 +1171,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Console\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1393
-    y: 24
-    width: 527
+    x: 3118
+    y: 89
+    width: 529
     height: 945
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -762,9 +1208,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1
-    y: 524
-    width: 512
-    height: 445
+    y: 489
+    width: 510
+    height: 480
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -786,8 +1232,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 0
-    m_Folders:
-    - Assets/Scripts
+    m_Folders: []
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -805,7 +1250,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: dec30000
     m_LastClickedID: 50142
-    m_ExpandedIDs: 0000000086af000088af0000
+    m_ExpandedIDs: 0000000010af000012af000014af000016af000018af00001aaf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -834,7 +1279,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000086af000088af0000
+    m_ExpandedIDs: 0000000010af000012af000014af000016af000018af00001aaf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1557,9 +2002,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0.110282205, y: 0.38405818, z: 0.012594048}
+    m_Target: {x: 260, y: 462, z: 0}
     speed: 2
-    m_Value: {x: 0.110282205, y: 0.38405818, z: 0.012594048}
+    m_Value: {x: 260, y: 462, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1609,9 +2054,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.2408698
+    m_Target: 530.1358
     speed: 2
-    m_Value: 3.2408698
+    m_Value: 530.1358
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1665,8 +2110,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1
     y: 24
-    width: 512
-    height: 474
+    width: 510
+    height: 439
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1683,7 +2128,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 38faffff
+      m_ExpandedIDs: 0877efff522ff2ff16f4f7ffb4e7f8ffe4e9f8ff5cf6f8ff9e09f9ff0812f9ff5419f9ff241ef9ff0839f9ff3847f9ffe851f9ff9c71f9ff6283f9ff02b4f9ff6cb7f9ff26baf9ff48c0f9ff88c1f9ff48c4f9ff56c4f9ffaac5f9ff1259fbffbc59fbffe65ffbff2c61fbffea63fbfff863fbff6265fbff7c6afbff3e6efbff5482fbff9287fbff869efbff0cb4fbff92b7fbff42b5fcffe8b8fcff7abcfcff8e23fdffcc25fdffb628fdff0e6bfdff206cfdffe670fdfff486fdffcc9dfdff56a4fdff6eacfdff3cadfdff8cb0fdff62c2fdff94c5fdffd6c8fdff46cbfdffc0effdff8423feff6625feff6282feff0688feff5c8ffeff8295feffc896feff8299feff9099feff009bfeff96a0feff14a3feffc824ffffb8faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1700,7 +2145,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 2}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
