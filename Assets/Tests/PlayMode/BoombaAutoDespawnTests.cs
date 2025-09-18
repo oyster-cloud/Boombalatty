@@ -2,28 +2,28 @@ using NUnit.Framework;
 using UnityEngine;
 
 /// <summary>
-/// Unit tests for AnimalAutoDespawn functionality (despawning on invisible).
+/// Unit tests for BoombaAutoDespawn functionality (despawning on invisible).
 /// </summary>
-public class AnimalAutoDespawnTests
+public class BoombaAutoDespawnTests
 {
   [Test]
-  public void AnimalAutoDespawn_Component_CanBeAdded()
+  public void BoombaAutoDespawn_Component_CanBeAdded()
   {
-    var go = new GameObject("Animal");
+    var go = new GameObject("Boomba");
     go.AddComponent<SpriteRenderer>();
 
     // Ensure the component can be added without errors
-    var despawner = go.AddComponent<AnimalAutoDespawn>();
+    var despawner = go.AddComponent<BoombaAutoDespawn>();
     Assert.IsNotNull(despawner);
 
     Object.DestroyImmediate(go);
   }
 
   [Test]
-  public void AnimalAutoDespawn_GameObject_CanBeDeactivated()
+  public void BoombaAutoDespawn_GameObject_CanBeDeactivated()
   {
-    var go = new GameObject("Animal");
-    go.AddComponent<AnimalAutoDespawn>();
+    var go = new GameObject("Boomba");
+    go.AddComponent<BoombaAutoDespawn>();
 
     // Simulate manual deactivation
     go.SetActive(false);
@@ -38,7 +38,7 @@ public class AnimalAutoDespawnTests
   {
     // Simulate OnBecameInvisible behavior
     var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-    go.AddComponent<AnimalAutoDespawn>();
+    go.AddComponent<BoombaAutoDespawn>();
 
     go.SendMessage("OnBecameInvisible"); // triggers despawn
 

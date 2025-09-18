@@ -2,14 +2,14 @@ using NUnit.Framework;
 using UnityEngine;
 using TMPro;
 
-public class AnimalPropertiesTests
+public class BoombaPropertiesTests
 {
   [Test]
   public void SetValue_UpdatesValueAndText()
   {
-    // Set up dummy GameObject with AnimalProperties
+    // Set up dummy GameObject with BoombaProperties
     var go = new GameObject();
-    var props = go.AddComponent<AnimalProperties>();
+    var props = go.AddComponent<BoombaProperties>();
 
     // Add dummy TextMeshProUGUI (requires TMPro assembly reference)
     var canvasGO = new GameObject();

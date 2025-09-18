@@ -4,14 +4,14 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic; // <-- add at top of file if missing
 
-public class AnimalTouchSpawnerTests
+public class BoombaTouchSpawnerTests
 {
   private GameObject cameraObj;
   private Camera mainCamera;
 
   private GameObject spawnerObj;
-  private AnimalTouchSpawner touchSpawner;
-  private MockAnimalSpawner mockSpawner;
+  private BoombaTouchSpawner touchSpawner;
+  private MockBoombaSpawner mockSpawner;
 
   [SetUp]
   public void SetUp()
@@ -22,14 +22,14 @@ public class AnimalTouchSpawnerTests
     cameraObj.tag = "MainCamera";
 
     // // Spawners
-    var spawnerGO = new GameObject("AnimalSpawner");
-    mockSpawner = spawnerGO.AddComponent<MockAnimalSpawner>();
+    var spawnerGO = new GameObject("BoombaSpawner");
+    mockSpawner = spawnerGO.AddComponent<MockBoombaSpawner>();
 
-    spawnerObj = new GameObject("AnimalTouchSpawner");
-    touchSpawner = spawnerObj.AddComponent<AnimalTouchSpawner>();
-    touchSpawner.ballSpawner = mockSpawner;
+    spawnerObj = new GameObject("BoombaTouchSpawner");
+    touchSpawner = spawnerObj.AddComponent<BoombaTouchSpawner>();
+    touchSpawner.boombaSpawner = mockSpawner;
 
-    // If your AnimalTouchSpawner has this flag, disable the gate for tests.
+    // If your BoombaTouchSpawner has this flag, disable the gate for tests.
     // Safe to omit if you didn’t add it.
     touchSpawner.requireInitialSpawnCompleted = false;
   }
@@ -43,26 +43,26 @@ public class AnimalTouchSpawnerTests
   }
 
   [UnityTest]
-  public IEnumerator AnimalSpawnsAutomatically_And_ReleasesOnCommand()
+  public IEnumerator BoombaSpawnsAutomatically_And_ReleasesOnCommand()
   {
     // Spawn deterministically (no reliance on Update timing)
-    var ball = touchSpawner.ForceSpawnHeldAnimalForTest();
-    Assert.IsNotNull(ball, "Expected a ball to be auto-spawned.");
+    var boomba = touchSpawner.ForceSpawnHeldBoombaForTest();
+    Assert.IsNotNull(boomba, "Expected a boomba to be auto-spawned.");
 
-    var rb = ball.GetComponent<Rigidbody2D>();
-    Assert.IsNotNull(rb, "Rigidbody2D should be present on spawned ball.");
-    Assert.AreEqual(RigidbodyType2D.Static, rb.bodyType, "Animal should start as Static (held).");
+    var rb = boomba.GetComponent<Rigidbody2D>();
+    Assert.IsNotNull(rb, "Rigidbody2D should be present on spawned boomba.");
+    Assert.AreEqual(RigidbodyType2D.Static, rb.bodyType, "Boomba should start as Static (held).");
 
     // Release (drops from click X in your impl)
-    touchSpawner.ReleaseCurrentAnimal();
+    touchSpawner.ReleaseCurrentBoomba();
     yield return null; // let physics update a frame
 
-    Assert.AreEqual(RigidbodyType2D.Dynamic, rb.bodyType, "Animal should be Dynamic after release.");
+    Assert.AreEqual(RigidbodyType2D.Dynamic, rb.bodyType, "Boomba should be Dynamic after release.");
   }
 }
 
-// Mock AnimalSpawner
-public class MockAnimalSpawner : AnimalSpawner
+// Mock BoombaSpawner
+public class MockBoombaSpawner : BoombaSpawner
 {
   public GameObject LastSpawned { get; private set; }
 
@@ -72,10 +72,10 @@ public class MockAnimalSpawner : AnimalSpawner
   void Awake()
   {
     // Seed at least one variant so TouchSpawner can pick a value
-    if (ballVariants == null || ballVariants.Count == 0)
+    if (boombaVariants == null || boombaVariants.Count == 0)
     {
-      ballVariants = new List<AnimalVariant> {
-        new AnimalVariant {
+      boombaVariants = new List<BoombaVariant> {
+        new BoombaVariant {
           value = 1, size = 1f,
           sprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0,0,1,1), new Vector2(0.5f,0.5f))
         }
@@ -90,9 +90,9 @@ public class MockAnimalSpawner : AnimalSpawner
     }
   }
 
-  public override GameObject SpawnAnimalWithValue(Vector2 position, int value)
+  public override GameObject SpawnBoombaWithValue(Vector2 position, int value)
   {
-    var go = new GameObject("MockAnimal");
+    var go = new GameObject("MockBoomba");
     go.transform.position = position;
     go.AddComponent<Rigidbody2D>();
     go.AddComponent<CircleCollider2D>();

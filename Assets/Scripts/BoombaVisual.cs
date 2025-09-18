@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class AnimalVisual : MonoBehaviour
+public class BoombaVisual : MonoBehaviour
 {
-  [SerializeField] private Transform artTransform;        // drag Animal/Art here
-  [SerializeField] private SpriteRenderer artRenderer;     // drag Animal/Art SpriteRenderer here
+  [SerializeField] private Transform artTransform;        // drag Boomba/Art here
+  [SerializeField] private SpriteRenderer artRenderer;     // drag Boomba/Art SpriteRenderer here
 
   public void SetSprite(Sprite sprite) => artRenderer.sprite = sprite;
 

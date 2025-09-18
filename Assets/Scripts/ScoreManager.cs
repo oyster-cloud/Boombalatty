@@ -7,10 +7,10 @@ public class ScoreManager : MonoBehaviour
   int score;
 
   void Awake()        => ResetScore();
-  void OnEnable()     => AnimalAutoDespawn.OnAnimalOffscreen += HandleOffscreen;
-  void OnDisable()    => AnimalAutoDespawn.OnAnimalOffscreen -= HandleOffscreen;
+  void OnEnable()     => BoombaAutoDespawn.OnBoombaOffscreen += HandleOffscreen;
+  void OnDisable()    => BoombaAutoDespawn.OnBoombaOffscreen -= HandleOffscreen;
 
-  void HandleOffscreen(AnimalProperties props)
+  void HandleOffscreen(BoombaProperties props)
   {
     if (props != null && props.IsLastVariant)
     {

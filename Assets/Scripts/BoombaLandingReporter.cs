@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimalLandingReporter : MonoBehaviour
+public class BoombaLandingReporter : MonoBehaviour
 {
   private System.Action _onLanded;
   private bool _fired;
@@ -11,7 +11,7 @@ public class AnimalLandingReporter : MonoBehaviour
     _fired = false;
   }
 
-  // Called when this (dynamic) rigidbody hits anything (floor, another ball, walls, etc.)
+  // Called when this (dynamic) rigidbody hits anything (floor, another boomba, walls, etc.)
   private void OnCollisionEnter2D(Collision2D collision)
   {
     if (_fired) return;

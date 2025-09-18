@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345de5a64c8bc463784e91ca41c2bf52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballSpawner: {fileID: 600681270}
+  boombaSpawner: {fileID: 600681270}
   requireInitialSpawnCompleted: 0
   spawnY: 4
 --- !u!4 &548325238
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 600681271}
   - component: {fileID: 600681270}
   m_Layer: 0
-  m_Name: BallSpawner
+  m_Name: BoombaSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,14 +331,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38719d458ac8446db9f0ac5a9ba9f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPool: {fileID: 1319032625}
+  boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBalls: 5
-  maxBalls: 12
+  minBoombas: 3
+  maxBoombas: 7
   spawnAreaMin: {x: -2.5, y: 3}
   spawnAreaMax: {x: 2.5, y: 3}
   spawnDelay: 0.5
-  ballVariants:
+  boombaVariants:
   - sprite: {fileID: -1177013875623287103, guid: f2899ba81eb53498aa79b6992b04740f, type: 3}
     size: 0.5
     value: 1
@@ -358,7 +358,7 @@ MonoBehaviour:
   - sprite: {fileID: 6602966838755796383, guid: ef37e653f7fdd4329a07f3cb0bcf05fe, type: 3}
     size: 3
     value: 5
-    ImageScale: 0.11
+    ImageScale: 0.1
   - sprite: {fileID: -4376745654473388752, guid: 5df3f34f0d47f4b20ad93f14e5be274d, type: 3}
     size: 4
     value: 6
@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 1319032626}
   - component: {fileID: 1319032625}
   m_Layer: 0
-  m_Name: BallPooler
+  m_Name: BoombaPooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a87435a8fe747c684237b963920787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 8793317536880415919, guid: 3566acf4284454eae9501d8cb6676019, type: 3}
+  boombaPrefab: {fileID: 8793317536880415919, guid: 3566acf4284454eae9501d8cb6676019, type: 3}
   poolSize: 20
 --- !u!4 &1319032626
 Transform:

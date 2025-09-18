@@ -6,7 +6,6 @@ public class MenuUI : MonoBehaviour
   [SerializeField] string gameSceneName = "Boombalatty";
 
   public void StartGame() {
-    Debug.Log("Start game");
     SceneManager.LoadScene(gameSceneName);
   }
 

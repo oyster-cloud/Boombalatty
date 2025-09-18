@@ -24,12 +24,11 @@ public class MergeSfxListener : MonoBehaviour
     sfx.spatialBlend = 0f; // 2D
   }
 
-  void OnEnable()  => AnimalEvents.OnMerged += HandleMerged;
-  void OnDisable() => AnimalEvents.OnMerged -= HandleMerged;
+  void OnEnable()  => BoombaEvents.OnMerged += HandleMerged;
+  void OnDisable() => BoombaEvents.OnMerged -= HandleMerged;
 
-  void HandleMerged(AnimalProperties a, AnimalProperties b, AnimalProperties result)
+  void HandleMerged(BoombaProperties a, BoombaProperties b, BoombaProperties result)
   {
-    Debug.Log("HandleMerged");
     var clip = PickClip(result);
     if (clip) {
       // tiny pitch variance keeps repeats fresh
@@ -39,7 +38,7 @@ public class MergeSfxListener : MonoBehaviour
     }
   }
 
-  AudioClip PickClip(AnimalProperties result)
+  AudioClip PickClip(BoombaProperties result)
   {
     // If you set this earlier when spawning (as we did for scoring)
     if (result != null && result.IsLastVariant && lastVariantMerge) return lastVariantMerge;

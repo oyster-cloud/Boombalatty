@@ -2,14 +2,14 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class AnimalMergeHandlerTests
+public class BoombaMergeHandlerTests
 {
   [Test]
   public void OnEnable_ResetsIsMerging()
   {
-    // Arrange: create a GameObject and add AnimalMergeHandler
-    GameObject go = new GameObject("TestAnimal");
-    AnimalMergeHandler mergeHandler = go.AddComponent<AnimalMergeHandler>();
+    // Arrange: create a GameObject and add BoombaMergeHandler
+    GameObject go = new GameObject("TestBoomba");
+    BoombaMergeHandler mergeHandler = go.AddComponent<BoombaMergeHandler>();
 
     // Simulate a merge in progress
     mergeHandler.isMerging = true;
