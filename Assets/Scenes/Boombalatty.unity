@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 692616736}
   - component: {fileID: 692616735}
   - component: {fileID: 692616734}
+  - component: {fileID: 692616737}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -601,6 +602,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692616737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692616733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc06b484fcb92407aaeceef82a6795a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 600681270}
 --- !u!1 &726512578
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819361151}
   - component: {fileID: 819361150}
+  - component: {fileID: 819361152}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -962,6 +977,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &819361152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819361149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816b5c6a217e64e7f8056486119c0633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toDisable:
+  - {fileID: 548325237}
+  gameOverPanel: {fileID: 0}
+  pauseOnEnd: 1
 --- !u!1 &1319032624
 GameObject:
   m_ObjectHideFlags: 0
