@@ -29,6 +29,15 @@ public class BoombaMergeHandler : MonoBehaviour
     if (thisProps == null || otherProps == null)
       return;
 
+    // --- LAYER/TAG detection: are these Snacks? ---
+    // Prefer layer; if you use a tag instead, swap to CompareTag("Snack")
+    int snackLayer = LayerMask.NameToLayer("Snack");
+    bool aIsSnack = (snackLayer != -1) && (gameObject.layer == snackLayer);
+    bool bIsSnack = (snackLayer != -1) && (collision.gameObject.layer == snackLayer);
+
+    // 1) Snack + Snack -> never merge
+    if (aIsSnack && bIsSnack) return;
+
     // Only merge if the values match, according to game rules
     if (!BoombaMergeRules.ShouldMerge(thisProps.Value, otherProps.Value))
       return;
@@ -45,15 +54,13 @@ public class BoombaMergeHandler : MonoBehaviour
   // Coroutine that spawns a new merged boomba, then disables the original two
   private IEnumerator SpawnMergedBoombaAndDisable(GameObject other)
   {
-    yield return new WaitForEndOfFrame(); // Optional short delay before merge
+    yield return new WaitForEndOfFrame();
 
     BoombaProperties thisProps = GetComponent<BoombaProperties>();
     if (thisProps == null) yield break;
 
-    // Determine new value to spawn
     int mergedValue = BoombaMergeRules.GetNextValue(thisProps.Value);
 
-    // Find the spawner and create the new boomba at the average position
     BoombaSpawner spawner = FindAnyObjectByType<BoombaSpawner>();
     GameObject mergedGO = null;
     if (spawner != null)
@@ -62,14 +69,52 @@ public class BoombaMergeHandler : MonoBehaviour
       mergedGO = spawner.SpawnBoombaWithValue(mergedPosition, mergedValue);
     }
 
-     // 🔊 notify audio/UI/etc. — AFTER spawning, BEFORE disabling originals
-    BoombaProperties otherProps = other ? other.GetComponent<BoombaProperties>() : null;
-    BoombaProperties resultProps = mergedGO ? mergedGO.GetComponent<BoombaProperties>() : null;
+    var otherProps = other ? other.GetComponent<BoombaProperties>() : null;
+    var resultProps = mergedGO ? mergedGO.GetComponent<BoombaProperties>() : null;
     BoombaEvents.RaiseMerged(thisProps, otherProps, resultProps);
 
-    // Disable both original boombas
+    // Debug.Log("BEFORE IF");
+
+    // --- Handle last variant behavior ---
+    if (resultProps != null && resultProps.IsLastVariant)
+    {
+      // DISABLING THESE SEEMS TO CAUSE A PROBLEM
+      foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
+        sr.enabled = false;
+      foreach (var sr in other.GetComponentsInChildren<SpriteRenderer>())
+        sr.enabled = false;
+
+      Vector3 center = Camera.main != null
+        ? Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0))
+        : Vector3.zero;
+      center.z = 0f;
+      mergedGO.transform.position = center;
+
+      Rigidbody2D rb = mergedGO.GetComponent<Rigidbody2D>();
+      if (rb)
+      {
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+      }
+
+      Debug.Log("ABOUT TO PAUSE");
+
+    //   yield return new WaitForSecondsRealtime(2f);
+    //   Debug.Log("GO FALSE");
+    //   mergedGO.SetActive(false);
+    // }
+
+    var gm = GameManager.Instance ?? FindAnyObjectByType<GameManager>();
+    if (gm != null)
+      gm.HideAfterSecondsRealtime(mergedGO, 2f);
+
+    }
+
+    // Only now disable the originals (after coroutine finishes)
     gameObject.SetActive(false);
-    other.SetActive(false);
-    isMerging = false; // should this be set in the caller?
+    if (other) other.SetActive(false);
+    isMerging = false;
   }
+
 }

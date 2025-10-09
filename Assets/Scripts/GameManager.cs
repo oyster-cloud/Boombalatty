@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+  public static GameManager Instance { get; private set; }
+
   [Header("What to disable when game ends")]
   [SerializeField] MonoBehaviour[] toDisable;   // e.g., BoombaSpawner, BoombaTouchSpawner
 
@@ -13,7 +16,22 @@ public class GameManager : MonoBehaviour
 
   void Awake()
   {
+    if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+    Instance = this;
+    DontDestroyOnLoad(gameObject);
     if (gameOverPanel) gameOverPanel.SetActive(false);
+  }
+
+  // Call this to hide any GameObject after N seconds (unscaled time)
+  public void HideAfterSecondsRealtime(GameObject target, float seconds)
+  {
+    StartCoroutine(HideRoutine(target, seconds));
+  }
+
+  IEnumerator HideRoutine(GameObject target, float seconds)
+  {
+    yield return new WaitForSecondsRealtime(seconds);
+    if (target) target.SetActive(false);
   }
 
   void OnEnable()

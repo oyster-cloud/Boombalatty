@@ -302,16 +302,28 @@ MonoBehaviour:
   snackPrefab: {fileID: 8793317536880415919, guid: 8455adaf9120341aa8fcbb56c251cbba, type: 3}
   snackVariants:
   - sprite: {fileID: 8322249557181746279, guid: 0ca8fda3a564b4dbd9b7cae0330b8802, type: 3}
-    size: 0.1
+    size: 0.5
     value: 1
     imageScale: 0.05
   - sprite: {fileID: 4355406826481311455, guid: 906a5b9d8e6514500bbe0d514888dc9b, type: 3}
-    size: 1
-    value: 1
+    size: 0.5
+    value: 2
     imageScale: 0.1
   - sprite: {fileID: -3366272070310193754, guid: b3597095de4fb4047b8b6bd56995cd89, type: 3}
-    size: 1
-    value: 1
+    size: 0.5
+    value: 3
+    imageScale: 0.1
+  - sprite: {fileID: -6521346793507321066, guid: f35bd5bc186614a4f9603564dffe756e, type: 3}
+    size: 0.5
+    value: 4
+    imageScale: 0.1
+  - sprite: {fileID: -1052293630627624191, guid: b689f8ed18d2a44ed981fba50e77f8e1, type: 3}
+    size: 0.5
+    value: 5
+    imageScale: 0.1
+  - sprite: {fileID: 8532703672136922592, guid: f9752cfcf484347f9819cd47907f23db, type: 3}
+    size: 0.5
+    value: 6
     imageScale: 0.1
   requireInitialSpawnCompleted: 1
   initialSpawnSource: {fileID: 0}
