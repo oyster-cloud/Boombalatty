@@ -73,17 +73,9 @@ public class BoombaMergeHandler : MonoBehaviour
     var resultProps = mergedGO ? mergedGO.GetComponent<BoombaProperties>() : null;
     BoombaEvents.RaiseMerged(thisProps, otherProps, resultProps);
 
-    // Debug.Log("BEFORE IF");
-
     // --- Handle last variant behavior ---
     if (resultProps != null && resultProps.IsLastVariant)
     {
-      // DISABLING THESE SEEMS TO CAUSE A PROBLEM
-      foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
-        sr.enabled = false;
-      foreach (var sr in other.GetComponentsInChildren<SpriteRenderer>())
-        sr.enabled = false;
-
       Vector3 center = Camera.main != null
         ? Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0))
         : Vector3.zero;
@@ -98,16 +90,10 @@ public class BoombaMergeHandler : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
       }
 
-      Debug.Log("ABOUT TO PAUSE");
 
-    //   yield return new WaitForSecondsRealtime(2f);
-    //   Debug.Log("GO FALSE");
-    //   mergedGO.SetActive(false);
-    // }
-
-    var gm = GameManager.Instance ?? FindAnyObjectByType<GameManager>();
-    if (gm != null)
-      gm.HideAfterSecondsRealtime(mergedGO, 2f);
+      var gm = GameManager.Instance ?? FindAnyObjectByType<GameManager>();
+      if (gm != null)
+        gm.HideAfterSecondsRealtime(mergedGO, 2f);
 
     }
 
