@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5694698614521008440}
   - component: {fileID: 1196290535278197233}
   - component: {fileID: 6816488158372732381}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 8249097693828150327}
   - component: {fileID: 7403510813199290304}
   - component: {fileID: 5235816181666918781}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ Canvas:
   m_GameObject: {fileID: 1218827069265069201}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -156,8 +156,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1821714883
   m_SortingOrder: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5235816181666918781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 5823363363047479582}
   - component: {fileID: 6240268953911155036}
   - component: {fileID: 5274072891565868427}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: ValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843001825377283974}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,8 +382,8 @@ GameObject:
   - component: {fileID: 4396502831965537357}
   - component: {fileID: 4227933442287134646}
   - component: {fileID: -7887069673449653442}
-  - component: {fileID: -2050924163925375295}
-  m_Layer: 7
+  - component: {fileID: 1537969445835531454}
+  m_Layer: 9
   m_Name: Snack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,6 +484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMerging: 0
+  snackLayerName: Snack
+  boombaLayerName: Boomba
 --- !u!114 &-7887069673449653442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: 0
   valueText: {fileID: 5274072891565868427}
---- !u!114 &-2050924163925375295
+--- !u!114 &1537969445835531454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -507,8 +509,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8793317536880415919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edeaefe6c1ec45149ad789e5a3e55fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3859a5574acc1450cad6d62dd22d6705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artTransform: {fileID: 5694698614521008440}
-  artRenderer: {fileID: 1196290535278197233}
+  preLandLayerName: SnackPreLand
+  snackLayerName: Snack
+  dropDistanceToEnable: 1
+  enableAtWorldY: 3

@@ -5,7 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(BoombaProperties))]
 public class BoombaMergeHandler : MonoBehaviour
 {
+  private static float lastMergeTime = 0f;  // shared cooldown tracker
+  private static float mergeDelay = 0.5f;  // shared cooldown tracker
   public bool isMerging = false; // Flag to prevent double-merging during physics events
+  [SerializeField] string snackLayerName = "Snack";
+  [SerializeField] string boombaLayerName = "Boomba";
 
   public void OnEnable()
   {
@@ -29,14 +33,37 @@ public class BoombaMergeHandler : MonoBehaviour
     if (thisProps == null || otherProps == null)
       return;
 
+    // Skip all interactions if either is the last variant
+    if (thisProps.IsLastVariant || otherProps.IsLastVariant)
+    {
+      Physics2D.IgnoreCollision(
+        collision.collider,
+        GetComponent<Collider2D>()
+      );
+      return;
+    }
+
     // --- LAYER/TAG detection: are these Snacks? ---
     // Prefer layer; if you use a tag instead, swap to CompareTag("Snack")
-    int snackLayer = LayerMask.NameToLayer("Snack");
+    int snackLayer = LayerMask.NameToLayer(snackLayerName);
+    int boombaLayer = LayerMask.NameToLayer(boombaLayerName);
+
     bool aIsSnack = (snackLayer != -1) && (gameObject.layer == snackLayer);
     bool bIsSnack = (snackLayer != -1) && (collision.gameObject.layer == snackLayer);
+    bool aIsBoomba = (boombaLayer != -1) && (gameObject.layer == boombaLayer);
+    bool bIsBoomba = (boombaLayer != -1) && (collision.gameObject.layer == boombaLayer);
 
-    // 1) Snack + Snack -> never merge
-    if (aIsSnack && bIsSnack) return;
+
+
+    // // 1) Snack + Snack -> never merge
+    // if (aIsSnack && bIsSnack) return;
+
+    // // 2) Boomba + Boomba => now disabled
+    // if (!aIsSnack && !bIsSnack) return;
+
+    // Only proceed for Snack-Boomba pair (in either order)
+    if (!((aIsSnack && bIsBoomba) || (aIsBoomba && bIsSnack)))
+      return;
 
     // Only merge if the values match, according to game rules
     if (!BoombaMergeRules.ShouldMerge(thisProps.Value, otherProps.Value))
@@ -54,6 +81,13 @@ public class BoombaMergeHandler : MonoBehaviour
   // Coroutine that spawns a new merged boomba, then disables the original two
   private IEnumerator SpawnMergedBoombaAndDisable(GameObject other)
   {
+    // prevent rapid chain merges
+    float elapsed = Time.time - lastMergeTime;
+    if (elapsed < mergeDelay)
+      yield return new WaitForSeconds(mergeDelay - elapsed);
+
+    lastMergeTime = Time.time;
+
     yield return new WaitForEndOfFrame();
 
     BoombaProperties thisProps = GetComponent<BoombaProperties>();

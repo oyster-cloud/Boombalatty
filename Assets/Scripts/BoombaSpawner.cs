@@ -26,18 +26,30 @@ public class BoombaSpawner : MonoBehaviour
   [Header("Spawn Settings")]
   public int minBoombas = 3;
   public int maxBoombas = 7;
-  public Vector2 spawnAreaMin = new Vector2(-2.5f, 3f);
-  public Vector2 spawnAreaMax = new Vector2(2.5f, 3f);
+  public Vector2 spawnAreaMin = new Vector2(-2.5f, 2.5f);
+  public Vector2 spawnAreaMax = new Vector2(2.5f, 2.5f);
   public float spawnDelay = 0.8f;
 
   [Header("Boomba Variants")]
   public List<BoombaVariant> boombaVariants = new List<BoombaVariant>();
 
-  /// True once the initial delayed spawn wave completes.
+  // True once the initial delayed spawn wave completes.
+  // I'm defining this in multiple places. I want to use this in one universal place
   public bool InitialSpawnCompleted { get; private set; } = false;
 
   /// Fired once when the initial wave finishes.
   public event System.Action OnInitialSpawnComplete;
+
+  void OnEnable()
+  {
+    Services.BoombaSpawner = this;
+  }
+
+  void OnDisable()
+  {
+    if (Services.BoombaSpawner == this)
+      Services.BoombaSpawner = null;
+  }
 
   public void Initialize()
   {
@@ -73,6 +85,7 @@ public class BoombaSpawner : MonoBehaviour
   // Coroutine to spawn a series of boombas with delay
   IEnumerator SpawnBoombasWithDelay()
   {
+    Debug.Log("SpawnBoombasWithDelay");
     if (boombaPool == null)
     {
       Debug.LogError("BoombaPool is not assigned in BoombaSpawner!");
@@ -152,6 +165,15 @@ public class BoombaSpawner : MonoBehaviour
       boomba.SetActive(false);
     }
 
+    InitialSpawnCompleted = false;
+    StartCoroutine(SpawnBoombasWithDelay());
+  }
+
+  // BoombaSpawner.cs
+  public void ResetAndStartInitialSpawn()
+  {
+    Debug.Log("ResetAndStartInitialSpawn");
+    StopAllCoroutines();
     InitialSpawnCompleted = false;
     StartCoroutine(SpawnBoombasWithDelay());
   }

@@ -382,7 +382,6 @@ GameObject:
   - component: {fileID: 4396502831965537357}
   - component: {fileID: 4227933442287134646}
   - component: {fileID: -7887069673449653442}
-  - component: {fileID: -2050924163925375295}
   m_Layer: 6
   m_Name: Boomba
   m_TagString: Untagged
@@ -498,17 +497,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: 0
   valueText: {fileID: 5274072891565868427}
---- !u!114 &-2050924163925375295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8793317536880415919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edeaefe6c1ec45149ad789e5a3e55fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  artTransform: {fileID: 5694698614521008440}
-  artRenderer: {fileID: 1196290535278197233}

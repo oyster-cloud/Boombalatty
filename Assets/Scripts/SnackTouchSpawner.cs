@@ -10,7 +10,6 @@ public class SnackTouchSpawner : MonoBehaviour
   [SerializeField] List<SnackVariant> snackVariants = new();  // set in Inspector
 
   [Header("Spawn gating (optional)")]
-  [SerializeField] bool requireInitialSpawnCompleted = false;
   [SerializeField] BoombaSpawner initialSpawnSource;          // read-only gate
 
   [Header("Placement")]
@@ -30,9 +29,20 @@ public class SnackTouchSpawner : MonoBehaviour
     if (!snackPrefab) Debug.LogError("SnackTouchSpawner: assign snackPrefab.");
   }
 
+  void OnEnable()
+  {
+    Services.SnackTouchSpawner = this;
+  }
+
+  void OnDisable()
+  {
+    if (Services.SnackTouchSpawner == this)
+      Services.SnackTouchSpawner = null;
+  }
+
   void Update()
   {
-    if (requireInitialSpawnCompleted && initialSpawnSource && !initialSpawnSource.InitialSpawnCompleted)
+    if (initialSpawnSource && !initialSpawnSource.InitialSpawnCompleted)
       return;
 
     // Ensure there is exactly one hanging snack when not waiting for landing
@@ -156,5 +166,20 @@ public class SnackTouchSpawner : MonoBehaviour
 
     var props = go.GetComponent<BoombaProperties>();
     if (props) props.SetValue(v.value);
+  }
+
+  public void ResetHeldAndArm()
+  {
+    // kill any held instance
+    if (currentSnack)
+    {
+      Destroy(currentSnack);
+      currentSnack = null;
+    }
+
+    // reset internal flags so Start/Update will spawn the held snack again
+    waitingForLanding = false;
+    // Optionally force immediate held-spawn here:
+    // SpawnHeldSnack();  // if your flow expects it right away
   }
 }
