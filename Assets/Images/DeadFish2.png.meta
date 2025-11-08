@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DeadFish2_0: 4355406826481311455
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

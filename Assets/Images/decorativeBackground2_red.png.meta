@@ -473,7 +473,20 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      decorativeBackground2_red_0: 8998423361997986947
+      decorativeBackground2_red_1: -1878634919274185738
+      decorativeBackground2_red_10: -3376869312309819838
+      decorativeBackground2_red_11: -2698929958841782195
+      decorativeBackground2_red_12: 8350111815741659013
+      decorativeBackground2_red_2: 4647735124452952363
+      decorativeBackground2_red_3: 8115005089103082997
+      decorativeBackground2_red_4: -4089126667130953308
+      decorativeBackground2_red_5: 5040398765888112774
+      decorativeBackground2_red_6: -3992569682656983024
+      decorativeBackground2_red_7: 5554679370674150252
+      decorativeBackground2_red_8: -7401619384760871907
+      decorativeBackground2_red_9: 2201695430298259504
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
