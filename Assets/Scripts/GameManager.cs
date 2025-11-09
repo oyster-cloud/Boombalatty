@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
   // Call this instead of directly setting panel active in TriggerGameOver
   public void TriggerGameOver()
   {
-    Debug.Log("TriggerGameOver");
+    Debug.Log("## TriggerGameOver ##");
     if (IsGameOver) return;
     IsGameOver = true;
 

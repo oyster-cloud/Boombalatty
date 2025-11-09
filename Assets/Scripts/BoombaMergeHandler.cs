@@ -22,7 +22,7 @@ public class BoombaMergeHandler : MonoBehaviour
     if (isMerging || !gameObject.activeInHierarchy)
       return;
 
-    // Get BoombaMergeHandler on the other colliding object
+    // Get BoombaMergeHandler on the other colliding object. Return if no exist, active or isMerging
     BoombaMergeHandler other = collision.gameObject.GetComponent<BoombaMergeHandler>();
     if (other == null || other.isMerging || !other.gameObject.activeInHierarchy)
       return;
@@ -101,6 +101,24 @@ public class BoombaMergeHandler : MonoBehaviour
     {
       Vector2 mergedPosition = (transform.position + other.transform.position) / 2f;
       mergedGO = spawner.SpawnBoombaWithValue(mergedPosition, mergedValue);
+    }
+
+    // --- Force merged Boomba into LIVE layer so it can continue merging ---
+    if (mergedGO != null)
+    {
+      var flip = mergedGO.GetComponent<GameOverZoneFlipLayer>();
+      if (flip != null)
+      {
+        flip.ForceLiveLayer(); // ensures it's Boomba-layer now (and marks it flipped)
+      }
+      else
+      {
+        // Fallback: set Boomba layer on root + children
+        int liveBoombaLayer = LayerMask.NameToLayer(boombaLayerName);
+        var trs = mergedGO.GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < trs.Length; i++)
+          trs[i].gameObject.layer = liveBoombaLayer;
+      }
     }
 
     var otherProps = other ? other.GetComponent<BoombaProperties>() : null;
