@@ -85,7 +85,6 @@ public class BoombaSpawner : MonoBehaviour
   // Coroutine to spawn a series of boombas with delay
   IEnumerator SpawnBoombasWithDelay()
   {
-    Debug.Log("SpawnBoombasWithDelay");
     if (boombaPool == null)
     {
       Debug.LogError("BoombaPool is not assigned in BoombaSpawner!");
@@ -172,7 +171,6 @@ public class BoombaSpawner : MonoBehaviour
   // BoombaSpawner.cs
   public void ResetAndStartInitialSpawn()
   {
-    Debug.Log("ResetAndStartInitialSpawn");
     StopAllCoroutines();
     InitialSpawnCompleted = false;
     StartCoroutine(SpawnBoombasWithDelay());

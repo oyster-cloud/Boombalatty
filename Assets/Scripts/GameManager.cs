@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
 
   void HandleCeilingCross(BoombaProperties who)
   {
-    Debug.Log("HandleCeilingCross" + who);
     TriggerGameOver();
   }
 
@@ -79,9 +78,6 @@ public class GameManager : MonoBehaviour
       }));
     }
 
-    // Hide Game Over UI
-    // if (gameOverPanel) gameOverPanel.SetActive(false);
-
     // Do I need this? Am I disabling anything?
     if (toDisable != null)
       for (int i = 0; i < toDisable.Length; i++)
@@ -101,25 +97,6 @@ public class GameManager : MonoBehaviour
     if (snack  != null) snack.ResetHeldAndArm();
 
     IsGameOver = false;
-
-    // if (gameOverPanel) gameOverPanel.SetActive(false);
-    // if (pauseOnEnd) Time.timeScale = 1f;
-
-    // if (gameOverPanel)
-    // {
-    //   var cg = gameOverPanel.GetComponent<CanvasGroup>();
-    //   if (!cg) cg = gameOverPanel.AddComponent<CanvasGroup>();
-    //   cg.interactable = false;
-    //   cg.blocksRaycasts = false;
-
-    //   // quick fade out then hide
-    //   StartCoroutine(FadeCanvasGroup(cg, cg.alpha, 0f, 0.2f, () =>
-    //   {
-    //     gameOverPanel.SetActive(false);
-    //   }));
-    // }
-
-    // IsGameOver = false;
   }
 
   // Destroys all dynamic pieces. If you pool, replace Destroy with SetActive(false).
@@ -151,7 +128,6 @@ public class GameManager : MonoBehaviour
   // Call this instead of directly setting panel active in TriggerGameOver
   public void TriggerGameOver()
   {
-    Debug.Log("## TriggerGameOver ##");
     if (IsGameOver) return;
     IsGameOver = true;
 

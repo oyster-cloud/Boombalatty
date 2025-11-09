@@ -28,18 +28,15 @@ public class GameOverZoneFlipLayer : MonoBehaviour
 
   void OnTriggerExit2D(Collider2D other)
   {
-    Debug.Log($"OnTriggerExit2D, other: '{other}'");
-    Debug.Log($"OnTriggerExit2D, flipped: '{flipped}'");
-    Debug.Log($"OnTriggerExit2D, tag: '{other.tag}'");
     if (flipped) return;
     if (!other || other.tag != gameOverZoneTag) return;
-    Debug.Log($"OnTriggerExit2D THRU");
+
     if (liveLayer != -1)
     {
       foreach (var t in GetComponentsInChildren<Transform>(true))
         t.gameObject.layer = liveLayer;
       flipped = true;
-      Debug.Log($"{name} flipped to live layer '{liveLayerName}' after exiting GameOverZone");
+      // Debug.Log($"{name} flipped to live layer '{liveLayerName}' after exiting GameOverZone");
     }
   }
 

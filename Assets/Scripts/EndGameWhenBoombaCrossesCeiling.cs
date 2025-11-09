@@ -58,7 +58,6 @@ public class EndGameWhenBoombaCrossesCeiling : MonoBehaviour
     var gm = GameManager.Instance;
     if (gm && !gm.IsGameOver)
     {
-      Debug.Log($"Ceiling triggered by {other.name} (layer {LayerMask.LayerToName(other.gameObject.layer)}). Game over!");
       gm.TriggerGameOver();
     }
 
