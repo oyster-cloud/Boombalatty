@@ -79,7 +79,7 @@ public class BoombaMergeHandler : MonoBehaviour
   }
 
   // Coroutine that spawns a new merged boomba, then disables the original two
-  private IEnumerator SpawnMergedBoombaAndDisable(GameObject other)
+  private IEnumerator SpawnMergedBoombaAndDisable(GameObject otherGO)
   {
     // prevent rapid chain merges
     float elapsed = Time.time - lastMergeTime;
@@ -99,9 +99,12 @@ public class BoombaMergeHandler : MonoBehaviour
     GameObject mergedGO = null;
     if (spawner != null)
     {
-      Vector2 mergedPosition = (transform.position + other.transform.position) / 2f;
+      Vector2 mergedPosition = (transform.position + otherGO.transform.position) / 2f;
       mergedGO = spawner.SpawnBoombaWithValue(mergedPosition, mergedValue);
     }
+
+    // --- Remove all other Snacks matching the merging value (before disabling originals) ---
+    PurgeOtherSnacksOfValue(thisProps.Value, this.gameObject, otherGO);
 
     // --- Force merged Boomba into LIVE layer so it can continue merging ---
     if (mergedGO != null)
@@ -121,7 +124,7 @@ public class BoombaMergeHandler : MonoBehaviour
       }
     }
 
-    var otherProps = other ? other.GetComponent<BoombaProperties>() : null;
+    var otherProps = otherGO ? otherGO.GetComponent<BoombaProperties>() : null;
     var resultProps = mergedGO ? mergedGO.GetComponent<BoombaProperties>() : null;
     BoombaEvents.RaiseMerged(thisProps, otherProps, resultProps);
 
@@ -151,8 +154,31 @@ public class BoombaMergeHandler : MonoBehaviour
 
     // Only now disable the originals (after coroutine finishes)
     gameObject.SetActive(false);
-    if (other) other.SetActive(false);
+    if (otherGO) otherGO.SetActive(false);
     isMerging = false;
   }
+
+  // Despawn all *other* snacks that match a given value.
+// Skips the two merging objects (exceptions).
+  void PurgeOtherSnacksOfValue(int value, GameObject exceptA, GameObject exceptB)
+  {
+    int snackLayer = LayerMask.NameToLayer(snackLayerName); // uses your serialized field
+    if (snackLayer == -1) return;
+
+    var all = FindObjectsByType<BoombaProperties>(FindObjectsSortMode.None);
+    for (int i = 0; i < all.Length; i++)
+    {
+      var bp = all[i];
+      if (!bp || !bp.gameObject.activeInHierarchy) continue;
+
+      var go = bp.gameObject;
+      if (go == exceptA || go == exceptB) continue;
+      if (go.layer != snackLayer) continue;        // only purge Snacks
+      if (bp.Value != value) continue;             // only same-level Snacks
+
+      go.SetActive(false);                          // or return to pool if you have one
+    }
+  }
+
 
 }
