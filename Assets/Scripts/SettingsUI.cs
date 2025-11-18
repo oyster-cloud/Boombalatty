@@ -4,6 +4,11 @@ using TMPro;
 
 public class SettingsUI : MonoBehaviour
 {
+  [Header("Score UI")]
+  [SerializeField] TMP_Text currentScoreLabel;
+  [SerializeField] TMP_Text highScoreLabel;
+  [SerializeField] UnityEngine.UI.Button resetHighScoreButton;
+
   [Header("Hook these in Inspector")]
   [SerializeField] GameObject settingsPanel;
   [SerializeField] Button muteButton;
@@ -23,8 +28,20 @@ public class SettingsUI : MonoBehaviour
     ApplyMute(isMuted, save:false);
     UpdateMuteLabel();
 
-    if (restartButton)
-      restartButton.onClick.AddListener(RestartFromSettings);
+    if (ScoreManagerExists())
+    {
+      ScoreManager.Instance.OnScoreChanged += HandleScoreChanged;
+      ScoreManager.Instance.OnHighScoreChanged += HandleHighScoreChanged;
+    }
+  }
+
+  void OnDestroy()
+  {
+    if (ScoreManagerExists())
+    {
+      ScoreManager.Instance.OnScoreChanged -= HandleScoreChanged;
+      ScoreManager.Instance.OnHighScoreChanged -= HandleHighScoreChanged;
+    }
   }
 
   // ⚙️ Settings (gear) button
@@ -38,6 +55,12 @@ public class SettingsUI : MonoBehaviour
     // Pause gameplay; remember previous scale in case you were already paused
     prevTimeScale = Time.timeScale;
     Time.timeScale = 0f;
+
+    if (ScoreManagerExists())
+    {
+      HandleScoreChanged(ScoreManager.Instance.CurrentScore);
+      HandleHighScoreChanged(ScoreManager.Instance.HighScore);
+    }
   }
 
   // X Close on the panel
@@ -87,4 +110,30 @@ public class SettingsUI : MonoBehaviour
     var gm = GameManager.Instance;
     if (gm != null) gm.Restart();
   }
+
+  void HandleScoreChanged(int s)
+  {
+    if (currentScoreLabel) currentScoreLabel.text = $"Score: {s}";
+  }
+
+  void HandleHighScoreChanged(int hs)
+  {
+    // if (highScoreLabel) highScoreLabel.text = $"High Score: {hs}";
+    if (highScoreLabel) highScoreLabel.text = $"{hs}";
+  }
+
+  public void ResetHighScore()
+  {
+    Debug.Log("ResetHighScore EXE");
+    if (!ScoreManagerExists()) return;
+    Debug.Log("ResetHighScore EXE 2");
+    ScoreManager.Instance.ResetHighScore();
+    HandleHighScoreChanged(ScoreManager.Instance.HighScore);
+  }
+
+  bool ScoreManagerExists()
+  {
+    return ScoreManager.Instance != null;
+  }
+
 }
