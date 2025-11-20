@@ -96,7 +96,7 @@ public class SettingsUI : MonoBehaviour
   void UpdateMuteLabel()
   {
     if (muteButtonLabel)
-      muteButtonLabel.text = isMuted ? "Unmute Game Sound" : "Mute Game Sound";
+      muteButtonLabel.text = isMuted ? "On" : "Off";
   }
 
   // 🔁 Restart from Settings panel
