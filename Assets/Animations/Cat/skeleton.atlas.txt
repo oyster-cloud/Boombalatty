@@ -1,0 +1,14 @@
+skeleton.png
+size:1365,969
+filter:Linear,Linear
+Cat/Cat_Body
+bounds:2,2,965,1072
+offsets:33,263,1024,1501
+rotate:90
+Cat/Cat_LeftArm
+bounds:1076,559,408,287
+offsets:610,648,1021,1501
+rotate:90
+Cat/Cat_RightArm
+bounds:1076,318,287,239
+offsets:0,683,1021,1501
