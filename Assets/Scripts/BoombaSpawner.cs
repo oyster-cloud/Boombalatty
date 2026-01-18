@@ -8,11 +8,13 @@ using TMPro;
 public class BoombaVariant
 {
   public Sprite sprite;
+  public GameObject visualPrefab; // SpriteVisual OR SpineVisual
   [Range(0.3f, 5.0f)]
   public float size;
   public int value;
   [Range(0.1f, 2f)]
   public float ImageScale = 1f;
+
 }
 
 public class BoombaSpawner : MonoBehaviour
@@ -39,6 +41,9 @@ public class BoombaSpawner : MonoBehaviour
 
   /// Fired once when the initial wave finishes.
   public event System.Action OnInitialSpawnComplete;
+
+  private int _nextSortingOrder = 0;
+
 
   void OnEnable()
   {
@@ -134,13 +139,57 @@ public class BoombaSpawner : MonoBehaviour
     GameObject boomba = boombaPool.GetBoomba(position);
     boomba.transform.localScale = Vector3.one * variant.size;
 
-    SpriteRenderer renderer = boomba.GetComponentInChildren<SpriteRenderer>();
-    if (renderer != null)
+    // Find visual containers
+    Transform art = boomba.transform.Find("Art");
+    if (art == null) {
+      Debug.LogError("Boomba prefab missing child: Art");
+      return boomba;
+    }
+    
+    var sortingGroup = art.GetComponent<UnityEngine.Rendering.SortingGroup>();
+    if (sortingGroup != null)
     {
-      renderer.sprite = variant.sprite;
+      sortingGroup.sortingOrder = _nextSortingOrder++;
+    }
 
-      // Optional: scale only the image, not the collider/physics
-      renderer.transform.localScale = Vector3.one * variant.ImageScale; // e.g., 0.8f
+    Transform spriteArt = art.Find("SpriteArt");
+    Transform animationArt = art.Find("AnimationArt");
+    if (spriteArt == null || animationArt == null) {
+      Debug.LogError("Boomba prefab missing SpriteArt or AnimationArt under Art");
+      return boomba;
+    }
+
+    // Always reset visuals (important for pooling)
+    spriteArt.gameObject.SetActive(false);
+    animationArt.gameObject.SetActive(false);
+
+    // Clear previous animation visuals
+    for (int i = animationArt.childCount - 1; i >= 0; i--)
+    {
+      Destroy(animationArt.GetChild(i).gameObject);
+    }
+
+    if (variant.visualPrefab != null)
+    {
+      var sr = spriteArt.GetComponent<SpriteRenderer>();
+      if (sr) sr.sprite = null;
+
+      // 👉 Spine / animated variant
+      animationArt.gameObject.SetActive(true);
+
+      GameObject visual = Instantiate(variant.visualPrefab, animationArt);
+      visual.transform.localPosition = Vector3.zero;
+      visual.transform.localRotation = Quaternion.identity;
+      visual.transform.localScale = Vector3.one * variant.ImageScale;
+    }
+    else
+    {
+      // 👉 Sprite variant
+      spriteArt.gameObject.SetActive(true);
+
+      SpriteRenderer sr = spriteArt.GetComponent<SpriteRenderer>();
+      sr.sprite = variant.sprite;
+      sr.transform.localScale = Vector3.one * variant.ImageScale;
     }
 
     BoombaProperties props = boomba.GetComponent<BoombaProperties>();

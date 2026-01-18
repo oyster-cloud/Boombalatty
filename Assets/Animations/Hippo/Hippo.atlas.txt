@@ -1,0 +1,10 @@
+Hippo.png
+size:1408,970
+filter:Linear,Linear
+HippoArm
+bounds:1119,541,287,427
+offsets:9,8,297,443
+HippoTorso
+bounds:2,2,966,1115
+offsets:4,5,979,1126
+rotate:90

@@ -1675,139 +1675,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &448601916
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 448601920}
-  - component: {fileID: 448601919}
-  - component: {fileID: 448601918}
-  - component: {fileID: 448601917}
-  m_Layer: 0
-  m_Name: Spine GameObject (skeleton)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &448601917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448601916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: spine-unity::Spine.Unity.SkeletonAnimation
-  skeletonDataAsset: {fileID: 11400000, guid: 67d7939fe590e429887f74077f3c7c28, type: 2}
-  initialSkinName: 
-  fixPrefabOverrideViaMeshFilter: 2
-  initialFlipX: 0
-  initialFlipY: 0
-  updateWhenInvisible: 3
-  separatorSlotNames: []
-  zSpacing: 0
-  useClipping: 1
-  immutableTriangles: 0
-  pmaVertexColors: 0
-  clearStateOnDisable: 0
-  tintBlack: 0
-  singleSubmesh: 0
-  fixDrawOrder: 0
-  addNormals: 0
-  calculateTangents: 0
-  maskInteraction: 0
-  maskMaterials:
-    materialsMaskDisabled: []
-    materialsInsideMask: []
-    materialsOutsideMask: []
-  disableRenderingOnOverride: 1
-  physicsPositionInheritanceFactor: {x: 1, y: 1}
-  physicsRotationInheritanceFactor: 1
-  physicsMovementRelativeTo: {fileID: 0}
-  updateTiming: 1
-  unscaledTime: 0
-  _animationName: animation
-  loop: 1
-  timeScale: 1
---- !u!23 &448601918
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448601916}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8d961b654aa0d44a1b3765f021534f26, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 206071617
-  m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &448601919
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448601916}
-  m_Mesh: {fileID: 0}
---- !u!4 &448601920
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448601916}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 0.29, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,31 +2057,38 @@ MonoBehaviour:
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.5
   boombaVariants:
-  - sprite: {fileID: -1177013875623287103, guid: f2899ba81eb53498aa79b6992b04740f, type: 3}
-    size: 0.5
+  - sprite: {fileID: -3578019587575532720, guid: 5ca89bebe56344062b9593cf0d1197a4, type: 3}
+    visualPrefab: {fileID: 0}
+    size: 0.8
     value: 1
     ImageScale: 0.1
-  - sprite: {fileID: -7232521027535748977, guid: ba846f7d7758344b7a67e55c182bd664, type: 3}
-    size: 0.8
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 4832906348505139363, guid: f8a4413bb80f140dbbbed2332d3c497d, type: 3}
+    size: 1
     value: 2
-    ImageScale: 0.1
-  - sprite: {fileID: 2820281516306304949, guid: 28aa39652dc15447aa6eea25bc6712d1, type: 3}
-    size: 1.5
+    ImageScale: 0.12
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 2843883925610408784, guid: 1c9a28700f06f49a88edb26b48ed9650, type: 3}
+    size: 1.3
     value: 3
-    ImageScale: 0.1
-  - sprite: {fileID: -9122695006515159614, guid: 9c2ed7c7175294f338501df821426c7b, type: 3}
-    size: 2.2
-    value: 4
     ImageScale: 0.11
-  - sprite: {fileID: 6602966838755796383, guid: ef37e653f7fdd4329a07f3cb0bcf05fe, type: 3}
-    size: 3
+  - sprite: {fileID: -4098283773633671117, guid: e07d7ac10a51049fd9843d590ea9da73, type: 3}
+    visualPrefab: {fileID: 0}
+    size: 1.8
+    value: 4
+    ImageScale: 0.12
+  - sprite: {fileID: -691035985028169050, guid: af21eb644b3df4cfba7a186f58ac8021, type: 3}
+    visualPrefab: {fileID: 0}
+    size: 2.2
     value: 5
-    ImageScale: 0.1
-  - sprite: {fileID: -4376745654473388752, guid: 5df3f34f0d47f4b20ad93f14e5be274d, type: 3}
-    size: 4
+    ImageScale: 0.12
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 237003628472135909, guid: 330839a9cc6eb4b74acaeef2863f85cd, type: 3}
+    size: 3
     value: 6
-    ImageScale: 0.1
+    ImageScale: 0.12
   - sprite: {fileID: -7896656059444677529, guid: b23eb96e01d764efaa35b1732146b12f, type: 3}
+    visualPrefab: {fileID: 0}
     size: 5
     value: 7
     ImageScale: 0.11
@@ -6328,4 +6202,3 @@ SceneRoots:
   - {fileID: 1929754084}
   - {fileID: 45674181}
   - {fileID: 744479428}
-  - {fileID: 448601920}

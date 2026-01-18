@@ -1,0 +1,14 @@
+babyLayers2ColorCorrection.png
+size:1486,855
+filter:Linear,Linear
+BabyLeftArm2
+bounds:1176,466,387,297
+offsets:2,3,412,302
+rotate:90
+BabyRightArm2
+bounds:1176,112,308,352
+offsets:7,4,317,383
+BabyTorso
+bounds:2,2,851,1172
+offsets:7,1,955,1179
+rotate:90
