@@ -8,6 +8,8 @@ public class BoombaPool : MonoBehaviour
 
   private List<GameObject> boombaPool;
 
+  // What it does: Pre-instantiates a set of inactive boomba objects and stores them in a list.
+  // What it's used for: Sets up the object pool so the game can reuse boombas instead of constantly instantiating/destroying.
   public void Initialize()
   {
     boombaPool = new List<GameObject>();
@@ -19,14 +21,15 @@ public class BoombaPool : MonoBehaviour
     }
   }
 
-
+  // What it does: Automatically initializes the pool when the component awakens.
+  // What it's used for: Ensures the BoombaPool is ready to serve objects as soon as the scene starts.
   void Awake()
   {
     Initialize(); // still runs during real game play
   }
 
-
-  // Retrieves an inactive boomba from the pool and repositions it
+  // What it does: Returns an inactive boomba from the pool (or creates a new one) and positions/activates it.
+  // What it's used for: Called whenever the game needs a boomba instance, minimizing runtime instantiation costs.
   public GameObject GetBoomba(Vector2 position)
   {
     foreach (GameObject boomba in boombaPool)
@@ -47,7 +50,8 @@ public class BoombaPool : MonoBehaviour
     return newBoomba;
   }
 
-  // Returns all boombas in the pool (used for resetting or restarts)
+  // What it does: Returns the internal list of all boombas managed by this pool.
+  // What it's used for: Used by systems like restart logic to iterate over and reset all pooled boombas.
   public List<GameObject> GetAllBoombas()
   {
     return boombaPool;

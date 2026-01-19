@@ -3,6 +3,8 @@ using UnityEngine;
 using Spine;
 using Spine.Unity;
 
+// What it does: Randomly alternates a Spine skeleton between a looping idle animation and occasional "wiggle" animations.
+// What it's used for: Gives Boomba Spine characters a bit of life by triggering random idle motions without extra game logic.
 public class BoombaSpineIdleRandomizer : MonoBehaviour
 {
   [SerializeField] private SkeletonAnimation skeletonAnimation;
@@ -16,12 +18,16 @@ public class BoombaSpineIdleRandomizer : MonoBehaviour
 
   private Coroutine routine;
 
+  // What it does: Ensures the SkeletonAnimation reference is set, defaulting to the component on the same GameObject.
+  // What it's used for: Avoids manual wiring in the inspector and guarantees the script has a target skeleton to animate.
   void Awake()
   {
     if (!skeletonAnimation)
       skeletonAnimation = GetComponent<SkeletonAnimation>();
   }
 
+  // What it does: Initializes the skeleton, starts the idle animation, and begins the coroutine that triggers random wiggles.
+  // What it's used for: Automatically starts the idle/wiggle behavior whenever the Spine GameObject is enabled or reused from a pool.
   void OnEnable()
   {
     if (!skeletonAnimation) return;
@@ -35,6 +41,8 @@ public class BoombaSpineIdleRandomizer : MonoBehaviour
     routine = StartCoroutine(IdleRoutine());
   }
 
+  // What it does: Stops the idle coroutine when the object is disabled and clears the handle.
+  // What it's used for: Prevents coroutines from running on inactive/pooled objects and avoids duplicate routines.
   void OnDisable()
   {
     if (routine != null)
@@ -44,6 +52,8 @@ public class BoombaSpineIdleRandomizer : MonoBehaviour
     }
   }
 
+  // What it does: Waits a random time in idle, plays a random wiggle animation once, then returns to idle in a loop.
+  // What it's used for: Drives the timing pattern of idle → wiggle → idle so Spine characters feel alive without extra scene logic.
   private IEnumerator IdleRoutine()
   {
     var state = skeletonAnimation.AnimationState;

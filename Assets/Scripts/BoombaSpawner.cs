@@ -14,7 +14,6 @@ public class BoombaVariant
   public int value;
   [Range(0.1f, 2f)]
   public float ImageScale = 1f;
-
 }
 
 public class BoombaSpawner : MonoBehaviour
@@ -44,18 +43,23 @@ public class BoombaSpawner : MonoBehaviour
 
   private int _nextSortingOrder = 0;
 
-
+  // What it does: Registers this instance with the global Services locator when enabled.
+  // What it's used for: Allows other systems to easily find the active BoombaSpawner.
   void OnEnable()
   {
     Services.BoombaSpawner = this;
   }
 
+  // What it does: Clears the Services reference when this spawner is disabled.
+  // What it's used for: Prevents stale references to an inactive BoombaSpawner.
   void OnDisable()
   {
     if (Services.BoombaSpawner == this)
       Services.BoombaSpawner = null;
   }
 
+  // What it does: Validates that the pool and variant list are configured correctly.
+  // What it's used for: Called to ensure the spawner is safe to use before spawning begins.
   public void Initialize()
   {
     if (boombaPool == null)
@@ -71,6 +75,8 @@ public class BoombaSpawner : MonoBehaviour
     }
   }
 
+  // What it does: Starts the initial spawn coroutine on game start.
+  // What it's used for: Kicks off the first wave of boombas when the scene begins.
   void Start()
   {
     // Spawn boombas when game starts
@@ -78,6 +84,8 @@ public class BoombaSpawner : MonoBehaviour
     StartCoroutine(SpawnBoombasWithDelay());
   }
 
+  // What it does: Listens for a debug key (R) to restart the game for testing.
+  // What it's used for: Allows quick in-editor restarts without building UI for it.
   void Update()
   {
     // Press 'R' to restart (for testing)
@@ -87,7 +95,8 @@ public class BoombaSpawner : MonoBehaviour
     }
   }
 
-  // Coroutine to spawn a series of boombas with delay
+  // What it does: Spawns a randomized batch of boombas over time within the configured spawn area.
+  // What it's used for: Creates the initial wave of falling boombas and signals when that wave is done.
   IEnumerator SpawnBoombasWithDelay()
   {
     if (boombaPool == null)
@@ -126,7 +135,8 @@ public class BoombaSpawner : MonoBehaviour
     OnInitialSpawnComplete?.Invoke();
   }
 
-  // Allows spawning a boomba with a specific value (e.g. for merges)
+  // What it does: Spawns (or reuses from the pool) a boomba of a specific value at the given position.
+  // What it's used for: Used both by initial spawning and by merge logic to create correctly configured boombas.
   public virtual GameObject SpawnBoombaWithValue(Vector2 position, int value)
   {
     BoombaVariant variant = boombaVariants.Find(v => v.value == value);
@@ -146,6 +156,8 @@ public class BoombaSpawner : MonoBehaviour
       return boomba;
     }
     
+    // What it does: Assigns a unique sorting order for each spawned boomba via its SortingGroup.
+    // What it's used for: Ensures overlapping boombas render in a stable, flicker-free order.
     var sortingGroup = art.GetComponent<UnityEngine.Rendering.SortingGroup>();
     if (sortingGroup != null)
     {
@@ -169,6 +181,8 @@ public class BoombaSpawner : MonoBehaviour
       Destroy(animationArt.GetChild(i).gameObject);
     }
 
+    // What it does: Chooses between a Spine-based visual prefab or a simple Sprite visual for this variant.
+    // What it's used for: Allows different boomba types to use either animated or static visuals with the same spawn pipeline.
     if (variant.visualPrefab != null)
     {
       var sr = spriteArt.GetComponent<SpriteRenderer>();
@@ -195,6 +209,8 @@ public class BoombaSpawner : MonoBehaviour
     BoombaProperties props = boomba.GetComponent<BoombaProperties>();
     if (props != null)
     {
+      // What it does: Detects if this variant is the highest-level one and flags it.
+      // What it's used for: Lets other systems treat the final variant differently (e.g., endgame behavior).
       bool isLast = boombaVariants.Count > 0 &&
               object.ReferenceEquals(variant, boombaVariants[boombaVariants.Count - 1]);
       props.IsLastVariant = isLast;
@@ -205,7 +221,8 @@ public class BoombaSpawner : MonoBehaviour
     return boomba;
   }
 
-  // Clears existing boombas and restarts spawning
+  // What it does: Deactivates all boombas and then restarts the initial spawn coroutine.
+  // What it's used for: Provides a simple way to reset the board for restarts or testing.
   public void RestartGame()
   {
     foreach (GameObject boomba in boombaPool.GetAllBoombas())
@@ -217,7 +234,8 @@ public class BoombaSpawner : MonoBehaviour
     StartCoroutine(SpawnBoombasWithDelay());
   }
 
-  // BoombaSpawner.cs
+  // What it does: Stops all current spawn coroutines and starts a fresh initial wave.
+  // What it's used for: Called when you want to fully reset spawning behavior from external code.
   public void ResetAndStartInitialSpawn()
   {
     StopAllCoroutines();

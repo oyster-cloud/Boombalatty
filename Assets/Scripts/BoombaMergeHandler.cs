@@ -11,11 +11,15 @@ public class BoombaMergeHandler : MonoBehaviour
   [SerializeField] string snackLayerName = "Snack";
   [SerializeField] string boombaLayerName = "Boomba";
 
+  // What it does: Resets the merging flag whenever this component is enabled.
+  // What it's used for: Ensures pooled or reactivated boombas can merge again correctly.
   public void OnEnable()
   {
     isMerging = false;
   }
 
+  // What it does: Handles collision logic to determine if a merge should occur between this boomba and another.
+  // What it's used for: Runs the core rules for merging Snacks and Boombas, preventing double merges and triggering merged spawn.
   private void OnCollisionEnter2D(Collision2D collision)
   {
     // Don't proceed if already merging or disabled
@@ -33,7 +37,8 @@ public class BoombaMergeHandler : MonoBehaviour
     if (thisProps == null || otherProps == null)
       return;
 
-    // Skip all interactions if either is the last variant
+    // What it does: Prevents merging if either boomba is the final variant in the chain.
+    // What it's used for: Enforces the rule that "last variant" pieces cannot merge further.
     if (thisProps.IsLastVariant || otherProps.IsLastVariant)
     {
       Physics2D.IgnoreCollision(
@@ -53,23 +58,18 @@ public class BoombaMergeHandler : MonoBehaviour
     bool aIsBoomba = (boombaLayer != -1) && (gameObject.layer == boombaLayer);
     bool bIsBoomba = (boombaLayer != -1) && (collision.gameObject.layer == boombaLayer);
 
-
-
-    // // 1) Snack + Snack -> never merge
-    // if (aIsSnack && bIsSnack) return;
-
-    // // 2) Boomba + Boomba => now disabled
-    // if (!aIsSnack && !bIsSnack) return;
-
-    // Only proceed for Snack-Boomba pair (in either order)
+    // What it does: Ensures only Snack–Boomba pairs (in either order) can proceed to merge.
+    // What it's used for: Prevents Snack–Snack and Boomba–Boomba collisions from triggering merge logic.
     if (!((aIsSnack && bIsBoomba) || (aIsBoomba && bIsSnack)))
       return;
 
-    // Only merge if the values match, according to game rules
+    // What it does: Checks if the values on both boombas qualify for merging according to the merge rules.
+    // What it's used for: Enforces merge eligibility based on their logical level/value.
     if (!BoombaMergeRules.ShouldMerge(thisProps.Value, otherProps.Value))
       return;
 
-    // Prevent both objects from merging simultaneously; one side "wins" based on instance ID
+    // What it does: Ensures only one side of the collision initiates the merge (based on instance ID).
+    // What it's used for: Avoids duplicate merge coroutines being started for the same collision pair.
     if (GetInstanceID() < other.GetInstanceID())
     {
       isMerging = true; // should is merging be set in the function below?
@@ -78,7 +78,8 @@ public class BoombaMergeHandler : MonoBehaviour
     }
   }
 
-  // Coroutine that spawns a new merged boomba, then disables the original two
+  // What it does: Waits for cooldown, spawns a merged boomba at the midpoint, purges matching Snacks, and disables originals.
+  // What it's used for: Encapsulates the full merge sequence, from spawning the result to handling last-variant special behavior.
   private IEnumerator SpawnMergedBoombaAndDisable(GameObject otherGO)
   {
     // prevent rapid chain merges
@@ -126,9 +127,13 @@ public class BoombaMergeHandler : MonoBehaviour
 
     var otherProps = otherGO ? otherGO.GetComponent<BoombaProperties>() : null;
     var resultProps = mergedGO ? mergedGO.GetComponent<BoombaProperties>() : null;
+
+    // What it does: Raises a global event describing the merge participants and result.
+    // What it's used for: Notifies other systems (e.g., scoring, effects, UI) that a merge just occurred.
     BoombaEvents.RaiseMerged(thisProps, otherProps, resultProps);
 
-    // --- Handle last variant behavior ---
+    // What it does: Handles special behavior when the merged boomba is the final variant (centering, freezing, hiding).
+    // What it's used for: Implements endgame or special-case logic when the highest-level boomba appears.
     if (resultProps != null && resultProps.IsLastVariant)
     {
       Vector3 center = Camera.main != null
@@ -145,11 +150,9 @@ public class BoombaMergeHandler : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
       }
 
-
       var gm = GameManager.Instance ?? FindAnyObjectByType<GameManager>();
       if (gm != null)
         gm.HideAfterSecondsRealtime(mergedGO, 2f);
-
     }
 
     // Only now disable the originals (after coroutine finishes)
@@ -158,8 +161,8 @@ public class BoombaMergeHandler : MonoBehaviour
     isMerging = false;
   }
 
-  // Despawn all *other* snacks that match a given value.
-// Skips the two merging objects (exceptions).
+  // What it does: Finds and deactivates all other Snack objects that share the given value, excluding the two merging ones.
+  // What it's used for: Cleans up extra Snacks of the same level when a merge happens, to enforce your game’s merge rules.
   void PurgeOtherSnacksOfValue(int value, GameObject exceptA, GameObject exceptB)
   {
     int snackLayer = LayerMask.NameToLayer(snackLayerName); // uses your serialized field
@@ -179,6 +182,4 @@ public class BoombaMergeHandler : MonoBehaviour
       go.SetActive(false);                          // or return to pool if you have one
     }
   }
-
-
 }

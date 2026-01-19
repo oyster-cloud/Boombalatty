@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// What it does: Manages the in-game Settings panel, including mute state, score labels, and restart-from-settings behavior.
+// What it's used for: Provides UI controls for pausing via the settings panel, toggling audio, viewing/resetting high score,
+//                     and restarting the game without leaving the current scene.
 public class SettingsUI : MonoBehaviour
 {
   [Header("Score UI")]
@@ -22,6 +25,9 @@ public class SettingsUI : MonoBehaviour
   float prevTimeScale = 1f;
   bool panelOpen = false;
 
+  // What it does: Loads the saved mute preference, applies it, updates the mute button label,
+  //               and subscribes to ScoreManager events if available.
+  // What it's used for: Ensures audio state and score labels are initialized correctly when the settings UI is created.
   void Awake()
   {
     isMuted = PlayerPrefs.GetInt(PrefKeyMuted, 0) == 1;
@@ -35,6 +41,8 @@ public class SettingsUI : MonoBehaviour
     }
   }
 
+  // What it does: Unsubscribes from ScoreManager events when this UI object is destroyed.
+  // What it's used for: Prevents event-handler leaks or null-reference issues after the settings UI is gone.
   void OnDestroy()
   {
     if (ScoreManagerExists())
@@ -45,6 +53,8 @@ public class SettingsUI : MonoBehaviour
   }
 
   // ⚙️ Settings (gear) button
+  // What it does: Opens the settings panel, pauses gameplay (saving prior timescale), and refreshes score labels.
+  // What it's used for: Called by the gear/settings button to show the settings UI and pause the game.
   public void OpenSettings()
   {
     if (panelOpen) return;
@@ -64,6 +74,8 @@ public class SettingsUI : MonoBehaviour
   }
 
   // X Close on the panel
+  // What it does: Closes the settings panel and restores the previous timescale unless the game is already over.
+  // What it's used for: Called by the close button to hide the settings UI and resume play (if not in game-over state).
   public void CloseSettings()
   {
     if (!panelOpen) return;
@@ -80,6 +92,8 @@ public class SettingsUI : MonoBehaviour
   }
 
   // 🔊 Mute toggle
+  // What it does: Flips the current mute state, applies it to the AudioListener, saves it, and updates the label.
+  // What it's used for: Bound to the mute button so the player can toggle audio on/off from the settings panel.
   public void ToggleMute()
   {
     isMuted = !isMuted;
@@ -87,12 +101,16 @@ public class SettingsUI : MonoBehaviour
     UpdateMuteLabel();
   }
 
+  // What it does: Sets the global AudioListener volume based on the mute flag and optionally persists the value to PlayerPrefs.
+  // What it's used for: Central place where the actual audio mute/unmute behavior is applied and remembered.
   void ApplyMute(bool mute, bool save)
   {
     AudioListener.volume = mute ? 0f : 1f;
     if (save) PlayerPrefs.SetInt(PrefKeyMuted, mute ? 1 : 0);
   }
 
+  // What it does: Updates the mute button text to reflect the current mute state.
+  // What it's used for: Gives visual feedback in the UI showing whether sound is currently muted or not.
   void UpdateMuteLabel()
   {
     if (muteButtonLabel)
@@ -100,6 +118,8 @@ public class SettingsUI : MonoBehaviour
   }
 
   // 🔁 Restart from Settings panel
+  // What it does: Closes the settings panel, unpauses time, and then calls GameManager.Restart().
+  // What it's used for: Provides a restart button inside the settings UI to reset the run without returning to a main menu.
   public void RestartFromSettings()
   {
     // Close panel, ensure unpause, then restart the run
@@ -111,17 +131,23 @@ public class SettingsUI : MonoBehaviour
     if (gm != null) gm.Restart();
   }
 
+  // What it does: Updates the on-panel current score label when the score changes.
+  // What it's used for: Keeps the score display in the settings panel in sync with the ScoreManager.
   void HandleScoreChanged(int s)
   {
     if (currentScoreLabel) currentScoreLabel.text = $"Score: {s}";
   }
 
+  // What it does: Updates the on-panel high score label when the high score changes.
+  // What it's used for: Shows the latest high score in the settings panel, typically as a simple number.
   void HandleHighScoreChanged(int hs)
   {
     // if (highScoreLabel) highScoreLabel.text = $"High Score: {hs}";
     if (highScoreLabel) highScoreLabel.text = $"{hs}";
   }
 
+  // What it does: Resets the stored high score via the ScoreManager and refreshes the high score label.
+  // What it's used for: Bound to the Reset High Score button so players can clear their best score from the settings UI.
   public void ResetHighScore()
   {
     Debug.Log("ResetHighScore EXE");
@@ -131,9 +157,10 @@ public class SettingsUI : MonoBehaviour
     HandleHighScoreChanged(ScoreManager.Instance.HighScore);
   }
 
+  // What it does: Returns true if a ScoreManager singleton instance currently exists.
+  // What it's used for: Safely guards all ScoreManager access to avoid null-reference errors if no score system is present.
   bool ScoreManagerExists()
   {
     return ScoreManager.Instance != null;
   }
-
 }

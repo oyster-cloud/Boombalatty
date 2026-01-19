@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// What it does: Manages the "held and released" spawning of Snacks via mouse/touch input.
+// What it's used for: Lets the player position and drop Snacks into the playfield, similar to how Boombas are spawned.
 public class SnackTouchSpawner : MonoBehaviour
 {
   [Header("Prefab")]
@@ -23,23 +25,31 @@ public class SnackTouchSpawner : MonoBehaviour
   GameObject currentSnack;
   bool waitingForLanding;
 
+  // What it does: Caches the main camera reference and validates that a snack prefab has been assigned.
+  // What it's used for: Ensures the spawner can convert input screen positions to world space and knows what to instantiate.
   void Awake()
   {
     cam = Camera.main;
     if (!snackPrefab) Debug.LogError("SnackTouchSpawner: assign snackPrefab.");
   }
 
+  // What it does: Registers this spawner in the Services locator when enabled.
+  // What it's used for: Allows other systems (like GameManager) to find and control snack spawning.
   void OnEnable()
   {
     Services.SnackTouchSpawner = this;
   }
 
+  // What it does: Clears the Services locator entry when disabled if it still points to this instance.
+  // What it's used for: Prevents stale references when scenes or objects are unloaded.
   void OnDisable()
   {
     if (Services.SnackTouchSpawner == this)
       Services.SnackTouchSpawner = null;
   }
 
+  // What it does: Drives the main snack spawning loop—spawns a hanging snack, then drops it on click/touch when allowed.
+  // What it's used for: Implements the core player input behavior for creating and releasing Snacks into the world.
   void Update()
   {
     if (initialSpawnSource && !initialSpawnSource.InitialSpawnCompleted)
@@ -59,6 +69,8 @@ public class SnackTouchSpawner : MonoBehaviour
       ReleaseAtScreen(Input.GetTouch(0).position);
   }
 
+  // What it does: Spawns a snack at a fixed Y position, centers it between bounds, and freezes it in place.
+// What it's used for: Creates the visible "held" snack above the playfield that the player will later drop.
   void SpawnHeldSnack()
   {
     if (!snackPrefab) return;
@@ -88,6 +100,8 @@ public class SnackTouchSpawner : MonoBehaviour
     }
   }
 
+  // What it does: Drops the currently held snack at the given screen X position and arms a landing callback.
+// What it's used for: Converts click/touch coordinates into world space, moves the snack there, and lets physics take over.
   void ReleaseAtScreen(Vector2 screenPos)
   {
     if (!cam || currentSnack == null) return;
@@ -114,6 +128,8 @@ public class SnackTouchSpawner : MonoBehaviour
     currentSnack = null; // no longer hanging; we’ll spawn another after the callback
   }
 
+  // What it does: Adds or reuses a one-shot collision reporter to call back when the snack first lands/merges.
+// What it's used for: Signals when it's safe to spawn another held snack after the current one interacts with the board.
   void AttachFirstCollisionReporter(GameObject go)
   {
     // Reuse your reporter if you already have BoombaLandingReporter in the project.
@@ -132,22 +148,24 @@ public class SnackTouchSpawner : MonoBehaviour
   // void SpawnAtScreen(Vector2 screenPos)
   // {
   //   if (!cam || !snackPrefab) return;
-
+  //
   //   Vector2 world = cam.ScreenToWorldPoint(screenPos);
   //   float x = Mathf.Clamp(world.x, spawnAreaMin.x, spawnAreaMax.x);
   //   Vector2 pos = new Vector2(x, spawnY);
-
+  //
   //   // Pick a variant (random). If you want “by value”, add a SpawnSnackWithValue like Boomba.
   //   SnackVariant variant = (snackVariants.Count > 0)
   //     ? snackVariants[Random.Range(0, snackVariants.Count)]
   //     : null;
-
+  //
   //   var go = Instantiate(snackPrefab, pos, Quaternion.identity);
   //   if (go && !go.activeSelf) go.SetActive(true);
-
+  //
   //   ApplyVariant(go, variant);
   // }
 
+  // What it does: Applies visual and physical properties from a SnackVariant onto an instantiated snack GameObject.
+// What it's used for: Configures sprite, scale, collider radius, and value so different snack types behave and look distinct.
   void ApplyVariant(GameObject go, SnackVariant v)
   {
     if (go == null || v == null) return;
@@ -168,6 +186,8 @@ public class SnackTouchSpawner : MonoBehaviour
     if (props) props.SetValue(v.value);
   }
 
+  // What it does: Clears any currently held snack and resets state so a new one can be armed.
+// What it's used for: Called on game restart to ensure there are no leftover hanging snacks from the previous run.
   public void ResetHeldAndArm()
   {
     // kill any held instance

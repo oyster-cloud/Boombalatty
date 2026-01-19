@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+// What it does: Centralizes game state, game-over handling, board clearing, and restart behavior.
+// What it's used for: Acts as the top-level controller for starting, ending, and resetting a run of the game.
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance { get; private set; }
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
 
   public bool IsGameOver { get; private set; } = false;
 
+  // What it does: Enforces a singleton instance, initializes game state, and hides the game-over UI on startup.
+  // What it's used for: Ensures there’s exactly one persistent GameManager across scenes and that time/UI start in a known state.
   void Awake()
   {
     if (Instance != null && Instance != this) {
@@ -33,33 +37,44 @@ public class GameManager : MonoBehaviour
     Time.timeScale = 1f;
   }
 
-  // Call this to hide any GameObject after N seconds (unscaled time)
+  // What it does: Starts a coroutine that hides the target GameObject after a real-time delay.
+  // What it's used for: Used to temporarily show objects (like the final merged boomba) and then hide them cleanly.
   public void HideAfterSecondsRealtime(GameObject target, float seconds)
   {
     StartCoroutine(HideRoutine(target, seconds));
   }
 
+  // What it does: Waits for the given unscaled time, then disables the target GameObject if it still exists.
+  // What it's used for: Implements the timing behavior for HideAfterSecondsRealtime.
   IEnumerator HideRoutine(GameObject target, float seconds)
   {
     yield return new WaitForSecondsRealtime(seconds);
     if (target) target.SetActive(false);
   }
 
+  // What it does: Subscribes to the ceiling-cross event when enabled.
+  // What it's used for: Lets GameManager trigger game-over when a boomba crosses the top boundary.
   void OnEnable()
   {
     EndGameWhenBoombaCrossesCeiling.OnBoombaCrossedCeiling += HandleCeilingCross;
   }
 
+  // What it does: Unsubscribes from the ceiling-cross event when disabled.
+  // What it's used for: Prevents dangling event subscriptions if the GameManager is turned off or destroyed.
   void OnDisable()
   {
     EndGameWhenBoombaCrossesCeiling.OnBoombaCrossedCeiling -= HandleCeilingCross;
   }
 
+  // What it does: Handles the boomba-crossed-ceiling event by triggering game over.
+// What it's used for: Connects ceiling detection to the global game-over pipeline.
   void HandleCeilingCross(BoombaProperties who)
   {
     TriggerGameOver();
   }
 
+  // What it does: Restarts the game by unpausing, hiding the game-over UI, re-enabling systems, clearing the board, and restarting spawners.
+  // What it's used for: Called by UI buttons or debug actions to start a fresh run without reloading the scene.
   public void Restart()
   {
     // I don't think I need pauseOnEnd
@@ -99,7 +114,8 @@ public class GameManager : MonoBehaviour
     IsGameOver = false;
   }
 
-  // Destroys all dynamic pieces. If you pool, replace Destroy with SetActive(false).
+  // What it does: Destroys all active boomba and snack objects in the scene, plus any stragglers on snack-related layers.
+  // What it's used for: Resets the board so a new game can start with a clean playfield.
   void ClearBoard()
   {
     // Boombas (anything that has BoombaProperties)
@@ -125,7 +141,8 @@ public class GameManager : MonoBehaviour
     }
   }
 
-  // Call this instead of directly setting panel active in TriggerGameOver
+  // What it does: Disables gameplay systems, shows/fades in the game-over UI, and optionally pauses time.
+  // What it's used for: Called when a fail condition happens (like crossing the ceiling or re-entering the game-over zone).
   public void TriggerGameOver()
   {
     if (IsGameOver) return;
@@ -141,6 +158,8 @@ public class GameManager : MonoBehaviour
     if (pauseOnEnd) Time.timeScale = 0f;
   }
 
+  // What it does: Prepares the game-over panel, then starts a fade-in animation via a CanvasGroup.
+// What it's used for: Smoothly introduces the game-over UI instead of an abrupt pop-in.
   void StartFadeInGameOverPanel(float duration)
   {
     if (!gameOverPanel)
@@ -164,6 +183,8 @@ public class GameManager : MonoBehaviour
     }));
   }
 
+  // What it does: Lerps a CanvasGroup’s alpha over time using unscaled deltaTime, then calls an optional callback.
+// What it's used for: Drives both fade-in and fade-out transitions for the game-over panel.
   IEnumerator FadeCanvasGroup(CanvasGroup cg, float from, float to, float duration, System.Action onDone = null)
   {
     float t = 0f;

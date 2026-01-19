@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using System;                    // <-- add
 
+// What it does: Tracks and displays the current score and high score, and exposes events for score changes.
+// What it's used for: Central scoring authority used by UI, settings, and gameplay systems to show and persist player progress.
 public class ScoreManager : MonoBehaviour
 {
   public static ScoreManager Instance { get; private set; }
@@ -16,6 +18,8 @@ public class ScoreManager : MonoBehaviour
   public event Action<int> OnHighScoreChanged;
   const string PrefKeyHighScore = "HighScore";
 
+  // What it does: Enforces a singleton instance, loads the saved high score, and resets the current score.
+// What it's used for: Ensures one persistent ScoreManager exists and initializes score state on startup.
   void Awake()
   {
     Debug.Log("ResetHighScore EXE 4");
@@ -32,9 +36,16 @@ public class ScoreManager : MonoBehaviour
     ResetScore();
   }
 
+  // What it does: Subscribes to boomba offscreen events to update score.
+// What it's used for: Listens for last-variant boombas leaving the screen and awards points when they do.
   void OnEnable()  => BoombaAutoDespawn.OnBoombaOffscreen += HandleOffscreen;
+
+  // What it does: Unsubscribes from boomba offscreen events when disabled.
+// What it's used for: Prevents event leaks if the ScoreManager is ever disabled or destroyed.
   void OnDisable() => BoombaAutoDespawn.OnBoombaOffscreen -= HandleOffscreen;
 
+  // What it does: Increments score when a last-variant boomba goes offscreen, updates UI, and checks high score.
+// What it's used for: Implements the rule that only final-variant boombas contribute to the player's score.
   void HandleOffscreen(BoombaProperties props)
   {
     if (props != null && props.IsLastVariant)
@@ -46,11 +57,15 @@ public class ScoreManager : MonoBehaviour
     }
   }
 
+  // What it does: Refreshes the on-screen score label based on the current score.
+// What it's used for: Keeps the HUD text in sync with the internal score value.
   void UpdateUI()
   {
     if (scoreText) scoreText.text = $"Score: {score}";
   }
 
+  // What it does: Resets the current score to zero and updates UI and listeners.
+// What it's used for: Called on new runs or restarts to clear the previous score.
   public void ResetScore()
   {
     score = 0;
@@ -59,6 +74,9 @@ public class ScoreManager : MonoBehaviour
   }
 
   // --- NEW: high score helpers ---
+
+  // What it does: Compares the current score to the stored high score and updates/saves if higher.
+// What it's used for: Maintains and persists the best score across runs and sessions.
   void TryUpdateHighScore()
   {
     if (score > HighScore)
@@ -69,6 +87,8 @@ public class ScoreManager : MonoBehaviour
     }
   }
 
+  // What it does: Clears the saved high score and notifies listeners of the change.
+// What it's used for: Used by the settings UI to allow the player to reset their high score.
   public void ResetHighScore()
   {
     Debug.Log("ResetHighScore EXE 3");
