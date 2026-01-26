@@ -279,8 +279,8 @@ Transform:
   m_GameObject: {fileID: 45674179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.25, z: 0}
-  m_LocalScale: {x: 5.9875, y: 1.4875, z: 1}
+  m_LocalPosition: {x: 0, y: 4.1625, z: 0}
+  m_LocalScale: {x: 5.9875, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2053,9 +2053,9 @@ MonoBehaviour:
   requireInitialSpawnCompleted: 0
   minBoombas: 10
   maxBoombas: 10
-  spawnAreaMin: {x: -2.5, y: 4.5}
+  spawnAreaMin: {x: -2.5, y: 4}
   spawnAreaMax: {x: 2.5, y: 5}
-  spawnDelay: 0.5
+  spawnDelay: 0.6
   boombaVariants:
   - sprite: {fileID: -3578019587575532720, guid: 5ca89bebe56344062b9593cf0d1197a4, type: 3}
     visualPrefab: {fileID: 0}
