@@ -490,6 +490,7 @@ MonoBehaviour:
   isMerging: 0
   snackLayerName: Snack
   boombaLayerName: Boomba
+  snackPoofPrefab: {fileID: 899561871428575141, guid: 81e3ad61f9a664fb98b4b52d9bb51a28, type: 3}
 --- !u!114 &-7887069673449653442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,4 +534,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptTests::GameOverZoneFlipLayer
   preZoneLayerName: SnackPreZone
   liveLayerName: Snack
-  topZoneTag: TopZone
+  gameOverZoneTag: GameOverZone

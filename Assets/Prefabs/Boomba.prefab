@@ -534,6 +534,7 @@ MonoBehaviour:
   isMerging: 0
   snackLayerName: Snack
   boombaLayerName: Boomba
+  snackPoofPrefab: {fileID: 0}
 --- !u!114 &-7887069673449653442
 MonoBehaviour:
   m_ObjectHideFlags: 0

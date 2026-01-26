@@ -1,0 +1,292 @@
+fileFormatVersion: 2
+guid: 26ff9b6722337446f80da4d21655d7d5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -407978910366865152
+    second: PoofSpriteSheet2c_0
+  - first:
+      213: -2381599170200617021
+    second: PoofSpriteSheet2c_1
+  - first:
+      213: 5847029588979910575
+    second: PoofSpriteSheet2c_2
+  - first:
+      213: -8317497824863520085
+    second: PoofSpriteSheet2c_3
+  - first:
+      213: 4626900961973083203
+    second: PoofSpriteSheet2c_4
+  - first:
+      213: -4663309449507867286
+    second: PoofSpriteSheet2c_5
+  - first:
+      213: -1331688821637398932
+    second: PoofSpriteSheet2c_6
+  - first:
+      213: -8187904538367053617
+    second: PoofSpriteSheet2c_7
+  - first:
+      213: 2141051058966028431
+    second: PoofSpriteSheet2c_8
+  - first:
+      213: -8018749856139312353
+    second: PoofSpriteSheet2c_9
+  - first:
+      213: 2470557522070438774
+    second: PoofSpriteSheet2c_10
+  - first:
+      213: 2523982654473639971
+    second: PoofSpriteSheet2c_11
+  - first:
+      213: -6546406105850496747
+    second: PoofSpriteSheet2c_12
+  - first:
+      213: 935516093354543236
+    second: PoofSpriteSheet2c_13
+  - first:
+      213: -2295355959207296537
+    second: PoofSpriteSheet2c_14
+  - first:
+      213: -7235692419621000761
+    second: PoofSpriteSheet2c_15
+  - first:
+      213: -505432756024411066
+    second: PoofSpriteSheet2c_16
+  - first:
+      213: -8397024316718424520
+    second: PoofSpriteSheet2c_17
+  - first:
+      213: 5720241038548051078
+    second: PoofSpriteSheet2c_18
+  - first:
+      213: -7126223608429541837
+    second: PoofSpriteSheet2c_19
+  - first:
+      213: -2712265190816053829
+    second: PoofSpriteSheet2c_20
+  - first:
+      213: -7530880308489563648
+    second: PoofSpriteSheet2c_21
+  - first:
+      213: 1757689045262195097
+    second: PoofSpriteSheet2c_22
+  - first:
+      213: -6231084398541232147
+    second: PoofSpriteSheet2c_23
+  - first:
+      213: 6803793716475391210
+    second: PoofSpriteSheet2c_24
+  - first:
+      213: -9084997947449713897
+    second: PoofSpriteSheet2c_25
+  - first:
+      213: -8787961566110615264
+    second: PoofSpriteSheet2c_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PoofSpriteSheet2c_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 500
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0096bb3b751965af0800000000000000
+      internalID: -407978910366865152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoofSpriteSheet2c_1
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 0
+        width: 500
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cfb3d64c2cd2fed0800000000000000
+      internalID: -2381599170200617021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoofSpriteSheet2c_2
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 500
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa7885aae62d42150800000000000000
+      internalID: 5847029588979910575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PoofSpriteSheet2c_3
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 0
+        width: 500
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baafce8dbcf429c80800000000000000
+      internalID: -8317497824863520085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9cf5f3b950b2b40d78817ac185f3725b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":500.0,"y":269.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      PoofSpriteSheet2c_0: -407978910366865152
+      PoofSpriteSheet2c_1: -2381599170200617021
+      PoofSpriteSheet2c_2: 5847029588979910575
+      PoofSpriteSheet2c_3: -8317497824863520085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

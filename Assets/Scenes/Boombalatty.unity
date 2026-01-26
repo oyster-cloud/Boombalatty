@@ -1993,7 +1993,7 @@ MonoBehaviour:
   snackPrefab: {fileID: 8793317536880415919, guid: 8455adaf9120341aa8fcbb56c251cbba, type: 3}
   snackVariants:
   - sprite: {fileID: 8322249557181746279, guid: 0ca8fda3a564b4dbd9b7cae0330b8802, type: 3}
-    size: 0.5
+    size: 0.4
     value: 1
     imageScale: 0.05
   - sprite: {fileID: 4355406826481311455, guid: 906a5b9d8e6514500bbe0d514888dc9b, type: 3}
@@ -2001,19 +2001,19 @@ MonoBehaviour:
     value: 2
     imageScale: 0.1
   - sprite: {fileID: -3366272070310193754, guid: b3597095de4fb4047b8b6bd56995cd89, type: 3}
-    size: 0.5
+    size: 0.6
     value: 3
     imageScale: 0.1
-  - sprite: {fileID: -6521346793507321066, guid: f35bd5bc186614a4f9603564dffe756e, type: 3}
-    size: 0.5
+  - sprite: {fileID: -7944502702452990849, guid: f35bd5bc186614a4f9603564dffe756e, type: 3}
+    size: 0.7
     value: 4
     imageScale: 0.1
-  - sprite: {fileID: -1052293630627624191, guid: b689f8ed18d2a44ed981fba50e77f8e1, type: 3}
-    size: 0.5
+  - sprite: {fileID: 8071137556939600459, guid: b689f8ed18d2a44ed981fba50e77f8e1, type: 3}
+    size: 0.8
     value: 5
-    imageScale: 0.1
-  - sprite: {fileID: 8532703672136922592, guid: f9752cfcf484347f9819cd47907f23db, type: 3}
-    size: 0.5
+    imageScale: 0.12
+  - sprite: {fileID: -8558258358756935692, guid: f9752cfcf484347f9819cd47907f23db, type: 3}
+    size: 0.8
     value: 6
     imageScale: 0.1
   initialSpawnSource: {fileID: 600681270}
@@ -2051,8 +2051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBoombas: 15
-  maxBoombas: 15
+  minBoombas: 10
+  maxBoombas: 10
   spawnAreaMin: {x: -2.5, y: 4.5}
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.5
@@ -2083,7 +2083,7 @@ MonoBehaviour:
     value: 5
     ImageScale: 0.12
   - sprite: {fileID: 0}
-    visualPrefab: {fileID: 237003628472135909, guid: 330839a9cc6eb4b74acaeef2863f85cd, type: 3}
+    visualPrefab: {fileID: 6996552183140158016, guid: 116e00214f9e5455b9e2ee4f2327809b, type: 3}
     size: 3
     value: 6
     ImageScale: 0.12
