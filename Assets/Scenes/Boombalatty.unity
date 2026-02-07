@@ -1992,28 +1992,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snackPrefab: {fileID: 8793317536880415919, guid: 8455adaf9120341aa8fcbb56c251cbba, type: 3}
   snackVariants:
-  - sprite: {fileID: 8322249557181746279, guid: 0ca8fda3a564b4dbd9b7cae0330b8802, type: 3}
-    size: 0.4
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 9179347592256897804, guid: f541ed348cc734d1fb5e8e8255754a6b, type: 3}
+    size: 0.05
     value: 1
-    imageScale: 0.05
-  - sprite: {fileID: 4355406826481311455, guid: 906a5b9d8e6514500bbe0d514888dc9b, type: 3}
-    size: 0.5
+    imageScale: 0.1
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 3171249341690717495, guid: 9fa65d021e8f44c30b2943f8e114d47a, type: 3}
+    size: 0.1
     value: 2
     imageScale: 0.1
-  - sprite: {fileID: -3366272070310193754, guid: b3597095de4fb4047b8b6bd56995cd89, type: 3}
-    size: 0.6
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 6880975472775766648, guid: 001dc8fe1bb3c41f5b57f96c44f278a7, type: 3}
+    size: 0.1
     value: 3
     imageScale: 0.1
-  - sprite: {fileID: -7944502702452990849, guid: f35bd5bc186614a4f9603564dffe756e, type: 3}
-    size: 0.7
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 2641016525175603690, guid: 5a14a5482c5024e2dab8eac96c4a4d2f, type: 3}
+    size: 0.1
     value: 4
     imageScale: 0.1
-  - sprite: {fileID: 8071137556939600459, guid: b689f8ed18d2a44ed981fba50e77f8e1, type: 3}
-    size: 0.8
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 2121922519885276264, guid: 3b772e644f9a84ba2b839f42efb9a6b3, type: 3}
+    size: 0.1
     value: 5
-    imageScale: 0.12
-  - sprite: {fileID: -8558258358756935692, guid: f9752cfcf484347f9819cd47907f23db, type: 3}
-    size: 0.8
+    imageScale: 0.1
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 1778479924352517243, guid: 4e5eee123f006413ea00932b2f3352f0, type: 3}
+    size: 0.1
     value: 6
     imageScale: 0.1
   initialSpawnSource: {fileID: 600681270}
@@ -2057,36 +2063,36 @@ MonoBehaviour:
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.6
   boombaVariants:
-  - sprite: {fileID: -3578019587575532720, guid: 5ca89bebe56344062b9593cf0d1197a4, type: 3}
-    visualPrefab: {fileID: 0}
-    size: 0.8
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 1866487917158626307, guid: cd587957469364843a20358fe1ea86aa, type: 3}
+    size: 0.6
     value: 1
-    ImageScale: 0.1
+    ImageScale: 0.15
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 4832906348505139363, guid: f8a4413bb80f140dbbbed2332d3c497d, type: 3}
     size: 1
     value: 2
-    ImageScale: 0.12
+    ImageScale: 0.14
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 2843883925610408784, guid: 1c9a28700f06f49a88edb26b48ed9650, type: 3}
-    size: 1.3
+    size: 1.2
     value: 3
-    ImageScale: 0.11
-  - sprite: {fileID: -4098283773633671117, guid: e07d7ac10a51049fd9843d590ea9da73, type: 3}
-    visualPrefab: {fileID: 0}
-    size: 1.8
+    ImageScale: 0.15
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 4499992404906132472, guid: e0be1e3f61c7542208a62d211bbd314d, type: 3}
+    size: 1.5
     value: 4
-    ImageScale: 0.12
-  - sprite: {fileID: -691035985028169050, guid: af21eb644b3df4cfba7a186f58ac8021, type: 3}
-    visualPrefab: {fileID: 0}
+    ImageScale: 0.15
+  - sprite: {fileID: 0}
+    visualPrefab: {fileID: 1137903945521001578, guid: fe559162d7c5e422da877e49b0919bcc, type: 3}
     size: 2.2
     value: 5
-    ImageScale: 0.12
+    ImageScale: 0.14
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 6996552183140158016, guid: 116e00214f9e5455b9e2ee4f2327809b, type: 3}
-    size: 3
+    size: 2.5
     value: 6
-    ImageScale: 0.12
+    ImageScale: 0.15
   - sprite: {fileID: -7896656059444677529, guid: b23eb96e01d764efaa35b1732146b12f, type: 3}
     visualPrefab: {fileID: 0}
     size: 5

@@ -75,11 +75,9 @@ public class SnackTouchSpawner : MonoBehaviour
   {
     if (!snackPrefab) return;
 
-    // center X between bounds
     float centerX = 0.5f * (spawnAreaMin.x + spawnAreaMax.x);
     Vector2 pos = new Vector2(centerX, spawnY);
 
-    // pick a variant up front so the player sees the snack while it hangs
     SnackVariant variant = (snackVariants.Count > 0)
       ? snackVariants[Random.Range(0, snackVariants.Count)]
       : null;
@@ -90,7 +88,7 @@ public class SnackTouchSpawner : MonoBehaviour
     // apply art/size like your original spawner
     ApplyVariant(currentSnack, variant);
 
-    // make it hang in place
+    // make it hang in place...
     var rb = currentSnack.GetComponent<Rigidbody2D>();
     if (rb)
     {
@@ -165,26 +163,48 @@ public class SnackTouchSpawner : MonoBehaviour
   // }
 
   // What it does: Applies visual and physical properties from a SnackVariant onto an instantiated snack GameObject.
-// What it's used for: Configures sprite, scale, collider radius, and value so different snack types behave and look distinct.
+  // What it's used for: Configures sprite, scale, collider radius, and value so different snack types behave and look distinct.
   void ApplyVariant(GameObject go, SnackVariant v)
   {
     if (go == null || v == null) return;
 
-    // Sprite on child "Art" (same structure as your Boomba prefab)
-    var sr = go.GetComponentInChildren<SpriteRenderer>(true);
-    if (sr) {
-      sr.sprite = v.sprite;
-      float s = Mathf.Max(0.05f, v.imageScale);
-      sr.transform.localScale = new Vector3(s, s, 1f);
+    // 1. Find the visual root (Art) under this snack
+    Transform visualRoot = go.transform.Find("Art");
+    if (visualRoot == null)
+    {
+        Debug.LogWarning("SnackTouchSpawner: no 'Art' child found on snackPrefab; using root instead.");
+        visualRoot = go.transform;
     }
 
-    // Physics size
-    var circle = go.GetComponent<CircleCollider2D>();
-    if (circle) circle.radius = Mathf.Max(0.01f, v.size * 0.5f);
+    // 2. Clear any previous visuals
+    for (int i = visualRoot.childCount - 1; i >= 0; i--)
+    {
+        Destroy(visualRoot.GetChild(i).gameObject);
+    }
 
+    // 3. Instantiate the visual prefab and scale it
+    if (v.visualPrefab != null)
+    {
+        GameObject visual = Instantiate(v.visualPrefab, visualRoot);
+        visual.transform.localPosition = Vector3.zero;
+        visual.transform.localRotation = Quaternion.identity;
+
+        // single slider that scales both sprite *and* colliders
+        float s = Mathf.Max(0.05f, v.size);   // use SnackVariant.size as the master scale
+        visual.transform.localScale = new Vector3(s, s, 1f);
+    }
+    else
+    {
+        Debug.LogWarning($"SnackTouchSpawner: SnackVariant {v.value} has no visualPrefab assigned.");
+    }
+
+    // 4. Set the snack's logical value
     var props = go.GetComponent<BoombaProperties>();
     if (props) props.SetValue(v.value);
   }
+
+
+
 
   // What it does: Clears any currently held snack and resets state so a new one can be armed.
 // What it's used for: Called on game restart to ensure there are no leftover hanging snacks from the previous run.

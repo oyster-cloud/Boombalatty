@@ -150,7 +150,7 @@ public class BoombaSpawner : MonoBehaviour
     boomba.transform.localScale = Vector3.one * variant.size;
 
     // Find visual containers
-    Transform art = boomba.transform.Find("Art");
+    Transform art = boomba.transform.Find("VisualRoot");
     if (art == null) {
       Debug.LogError("Boomba prefab missing child: Art");
       return boomba;
