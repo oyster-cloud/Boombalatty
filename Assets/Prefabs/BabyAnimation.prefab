@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bc3c8ca82ddd346ea9382e85a13d4d78, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ea9f092aadc4dd794eb3b6e03fdadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ScriptTests::BoombaSpineIdleRandomizer
-  skeletonAnimation: {fileID: 0}
+  skeletonAnimation: {fileID: 1648312550154678086}
   idleAnimation: still
   wiggleAnimations:
   - arm_wave

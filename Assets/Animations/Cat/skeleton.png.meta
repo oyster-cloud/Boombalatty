@@ -14,11 +14,14 @@ TextureImporter:
   - first:
       213: -1861396428348373837
     second: skeleton_3
+  - first:
+      213: 770891633333027474
+    second: skeleton_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -66,7 +69,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -81,7 +84,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -114,8 +117,8 @@ TextureImporter:
         serializedVersion: 2
         x: 1
         y: 1
-        width: 1074
-        height: 967
+        width: 1081
+        height: 936
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +137,10 @@ TextureImporter:
       name: skeleton_1
       rect:
         serializedVersion: 2
-        x: 1075
-        y: 417
-        width: 289
-        height: 235
+        x: 467
+        y: 915
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,10 +159,10 @@ TextureImporter:
       name: skeleton_2
       rect:
         serializedVersion: 2
-        x: 1348
-        y: 411
-        width: 6
-        height: 6
+        x: 1085
+        y: 729
+        width: 367
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,9 +182,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1075
-        y: 1
-        width: 289
-        height: 410
+        y: 352
+        width: 452
+        height: 377
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,6 +195,28 @@ TextureImporter:
       bones: []
       spriteID: 3b44d1e7fcdfa26e0800000000000000
       internalID: -1861396428348373837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_4
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 1
+        width: 492
+        height: 351
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292c22d2bd1c2ba00800000000000000
+      internalID: 770891633333027474
       vertices: []
       indices: 
       edges: []
@@ -214,6 +239,7 @@ TextureImporter:
       skeleton_1: -3264722998049715623
       skeleton_2: 1664357772287024801
       skeleton_3: -1861396428348373837
+      skeleton_4: 770891633333027474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

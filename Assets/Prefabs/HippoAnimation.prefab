@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ea9f092aadc4dd794eb3b6e03fdadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ScriptTests::BoombaSpineIdleRandomizer
-  skeletonAnimation: {fileID: 0}
+  skeletonAnimation: {fileID: 3648591588024098674}
   idleAnimation: still
   wiggleAnimations:
   - arm_wave
