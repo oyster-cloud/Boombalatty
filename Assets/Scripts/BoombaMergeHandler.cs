@@ -179,22 +179,14 @@ public class BoombaMergeHandler : MonoBehaviour
       if (go == exceptA || go == exceptB) continue;
       if (go.layer != snackLayer) continue;        // only purge Snacks
       if (bp.Value != value) continue;             // only same-level Snacks
-
-      Debug.Log("About to Poof");
-      Debug.Log(snackPoofPrefab != null);
-
       // Spawn smoke poof effect
       if (snackPoofPrefab != null)
       {
-        Debug.Log("POOFING");
         // use the snack's position; adjust Z to be safe for sorting
         Vector3 pos = go.transform.position;
         pos.z = 0f;
-        Debug.Log($"About to poof on {go.name}, prefab = {snackPoofPrefab.name}");
         Instantiate(snackPoofPrefab, pos, Quaternion.identity);
-        Debug.Log("Poof instantiated.");
       }
-      Debug.Log("About to set active false");
       go.SetActive(false);                          // or return to pool if you have one
     }
   }

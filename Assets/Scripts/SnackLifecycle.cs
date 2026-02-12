@@ -56,6 +56,5 @@ public class SnackLifecycle : MonoBehaviour
     if (snackLayer == -1) return;
     gameObject.layer = snackLayer;
     snackLayerEnabled = true;
-    // Debug.Log($"Snack {name} is now on Snack layer at y={transform.position.y}");
   }
 }

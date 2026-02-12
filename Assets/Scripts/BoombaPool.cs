@@ -56,4 +56,24 @@ public class BoombaPool : MonoBehaviour
   {
     return boombaPool;
   }
+
+  /// <summary>
+  /// Fills the given set with all distinct values currently present
+  /// on ACTIVE boombas in this pool.
+  /// </summary>
+  public HashSet<int> GetActiveBoombaValues()
+  {
+    var result = new HashSet<int>();
+    if (boombaPool == null) return result;
+
+    foreach (var go in boombaPool)
+    {
+      if (!go || !go.activeInHierarchy) continue;
+      var props = go.GetComponent<BoombaProperties>();
+      if (props && props.Value != 0 && props.Value != 7)
+        result.Add(props.Value);
+    }
+
+    return result;
+  }
 }

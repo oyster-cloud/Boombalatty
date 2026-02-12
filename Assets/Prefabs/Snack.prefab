@@ -425,4 +425,4 @@ MonoBehaviour:
   isMerging: 0
   snackLayerName: Snack
   boombaLayerName: Boomba
-  snackPoofPrefab: {fileID: 0}
+  snackPoofPrefab: {fileID: 899561871428575141, guid: 81e3ad61f9a664fb98b4b52d9bb51a28, type: 3}

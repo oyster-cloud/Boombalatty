@@ -43,7 +43,6 @@ public class GameOverZoneFlipLayer : MonoBehaviour
       foreach (var t in GetComponentsInChildren<Transform>(true))
         t.gameObject.layer = liveLayer;
       flipped = true;
-      // Debug.Log($"{name} flipped to live layer '{liveLayerName}' after exiting GameOverZone");
     }
   }
 

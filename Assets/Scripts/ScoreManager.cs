@@ -22,7 +22,6 @@ public class ScoreManager : MonoBehaviour
 // What it's used for: Ensures one persistent ScoreManager exists and initializes score state on startup.
   void Awake()
   {
-    Debug.Log("ResetHighScore EXE 4");
     if (Instance != null && Instance != this)
     {
       Destroy(gameObject);
@@ -91,7 +90,6 @@ public class ScoreManager : MonoBehaviour
 // What it's used for: Used by the settings UI to allow the player to reset their high score.
   public void ResetHighScore()
   {
-    Debug.Log("ResetHighScore EXE 3");
     HighScore = 0;
     PlayerPrefs.SetInt(PrefKeyHighScore, 0);
     OnHighScoreChanged?.Invoke(HighScore);

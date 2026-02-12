@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 // What it does: Manages the "held and released" spawning of Snacks via mouse/touch input.
 // What it's used for: Lets the player position and drop Snacks into the playfield, similar to how Boombas are spawned.
 public class SnackTouchSpawner : MonoBehaviour
 {
+  public BoombaPool boombaPool;  // assign in Inspector
+  // private readonly HashSet<int> _activeBoombaValues = new HashSet<int>();
+
   [Header("Prefab")]
   [SerializeField] GameObject snackPrefab;
 
@@ -78,9 +82,7 @@ public class SnackTouchSpawner : MonoBehaviour
     float centerX = 0.5f * (spawnAreaMin.x + spawnAreaMax.x);
     Vector2 pos = new Vector2(centerX, spawnY);
 
-    SnackVariant variant = (snackVariants.Count > 0)
-      ? snackVariants[Random.Range(0, snackVariants.Count)]
-      : null;
+    SnackVariant variant = PickVariantByActiveBoombas();
 
     currentSnack = Instantiate(snackPrefab, pos, Quaternion.identity);
     if (!currentSnack.activeSelf) currentSnack.SetActive(true);
@@ -99,7 +101,7 @@ public class SnackTouchSpawner : MonoBehaviour
   }
 
   // What it does: Drops the currently held snack at the given screen X position and arms a landing callback.
-// What it's used for: Converts click/touch coordinates into world space, moves the snack there, and lets physics take over.
+  // What it's used for: Converts click/touch coordinates into world space, moves the snack there, and lets physics take over.
   void ReleaseAtScreen(Vector2 screenPos)
   {
     if (!cam || currentSnack == null) return;
@@ -143,25 +145,6 @@ public class SnackTouchSpawner : MonoBehaviour
     });
   }
 
-  // void SpawnAtScreen(Vector2 screenPos)
-  // {
-  //   if (!cam || !snackPrefab) return;
-  //
-  //   Vector2 world = cam.ScreenToWorldPoint(screenPos);
-  //   float x = Mathf.Clamp(world.x, spawnAreaMin.x, spawnAreaMax.x);
-  //   Vector2 pos = new Vector2(x, spawnY);
-  //
-  //   // Pick a variant (random). If you want “by value”, add a SpawnSnackWithValue like Boomba.
-  //   SnackVariant variant = (snackVariants.Count > 0)
-  //     ? snackVariants[Random.Range(0, snackVariants.Count)]
-  //     : null;
-  //
-  //   var go = Instantiate(snackPrefab, pos, Quaternion.identity);
-  //   if (go && !go.activeSelf) go.SetActive(true);
-  //
-  //   ApplyVariant(go, variant);
-  // }
-
   // What it does: Applies visual and physical properties from a SnackVariant onto an instantiated snack GameObject.
   // What it's used for: Configures sprite, scale, collider radius, and value so different snack types behave and look distinct.
   void ApplyVariant(GameObject go, SnackVariant v)
@@ -203,11 +186,8 @@ public class SnackTouchSpawner : MonoBehaviour
     if (props) props.SetValue(v.value);
   }
 
-
-
-
   // What it does: Clears any currently held snack and resets state so a new one can be armed.
-// What it's used for: Called on game restart to ensure there are no leftover hanging snacks from the previous run.
+  // What it's used for: Called on game restart to ensure there are no leftover hanging snacks from the previous run.
   public void ResetHeldAndArm()
   {
     // kill any held instance
@@ -222,4 +202,46 @@ public class SnackTouchSpawner : MonoBehaviour
     // Optionally force immediate held-spawn here:
     // SpawnHeldSnack();  // if your flow expects it right away
   }
+
+  // Pick a SnackVariant whose value matches one of the currently active Boombas.
+  // If no Boombas are active or no variants match, we fall back to the full list.
+  SnackVariant PickVariantByActiveBoombas()
+  {
+    if (snackVariants == null || snackVariants.Count == 0)
+      return null;
+
+    HashSet<int> activeValues = null;
+
+    if (boombaPool != null)
+    {
+      // reuse the private buffer to avoid allocations:
+      activeValues = boombaPool.GetActiveBoombaValues();
+    }
+
+    List<SnackVariant> candidates;
+
+    if (activeValues != null && activeValues.Count > 0)
+    {
+      // only variants whose value matches an active Boomba value
+      candidates = snackVariants.FindAll(v => activeValues.Contains(v.value));
+
+      // Safety: if for some reason there's no matching variant, fall back to all
+      if (candidates.Count == 0) {
+        string valuesLog = (activeValues == null)
+            ? "NULL"
+            : string.Join(",", activeValues);
+
+        candidates = snackVariants;
+      }
+    }
+    else
+    {
+      // No active Boombas → allow all snack values
+      candidates = snackVariants;
+    }
+
+    int index = Random.Range(0, candidates.Count);
+    return candidates[index];
+  }
+
 }

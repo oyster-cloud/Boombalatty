@@ -150,9 +150,7 @@ public class SettingsUI : MonoBehaviour
   // What it's used for: Bound to the Reset High Score button so players can clear their best score from the settings UI.
   public void ResetHighScore()
   {
-    Debug.Log("ResetHighScore EXE");
     if (!ScoreManagerExists()) return;
-    Debug.Log("ResetHighScore EXE 2");
     ScoreManager.Instance.ResetHighScore();
     HandleHighScoreChanged(ScoreManager.Instance.HighScore);
   }
