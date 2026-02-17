@@ -80,10 +80,10 @@ public class BoombaSpawnerTests
     BoombaProperties props = fakeBoomba.AddComponent<BoombaProperties>();
 
     // Add TextMeshPro and assign
-    GameObject textGO = new GameObject("ValueText");
-    textGO.transform.SetParent(fakeBoomba.transform);
-    var tmp = textGO.AddComponent<TextMeshProUGUI>();
-    props.valueText = tmp;
+    // GameObject textGO = new GameObject("ValueText");
+    // textGO.transform.SetParent(fakeBoomba.transform);
+    // var tmp = textGO.AddComponent<TextMeshProUGUI>();
+    // props.valueText = tmp;
 
     return fakeBoomba;
   }

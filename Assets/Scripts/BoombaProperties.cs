@@ -5,19 +5,34 @@ public class BoombaProperties : MonoBehaviour
 {
   public bool IsLastVariant { get; set; }
 
-  public int Value;                      // Boomba's current logical value
-  public TextMeshProUGUI valueText;     // Reference to the TextMeshPro label in the boomba
+  [Header("Value")]
+  public int Value;
 
-  // Updates the displayed number and internal value.
+  [Header("UI")]
+  [SerializeField] private TextMeshProUGUI valueText;
+
+  void OnEnable()
+  {
+    RefreshValueText();
+  }
+
   public void SetValue(int newValue)
   {
     Value = newValue;
+    RefreshValueText();
+  }
 
+  private void RefreshValueText()
+  {
     if (valueText != null)
     {
-        valueText.text = Value.ToString();
-    } else {
-      Debug.LogWarning("valueText is not assigned on: " + gameObject.name);
+      valueText.text = Value.ToString();
     }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    else
+    {
+      Debug.LogWarning($"BoombaProperties: valueText is not assigned on {gameObject.name}");
+    }
+#endif
   }
 }

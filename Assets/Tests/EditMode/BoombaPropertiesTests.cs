@@ -16,7 +16,7 @@ public class BoombaPropertiesTests
     canvasGO.AddComponent<Canvas>();
     var text = canvasGO.AddComponent<TextMeshProUGUI>();
 
-    props.valueText = text;
+    // props.valueText = text;
 
     // Act
     props.SetValue(42);

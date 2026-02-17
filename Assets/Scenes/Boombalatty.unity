@@ -2052,8 +2052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBoombas: 10
-  maxBoombas: 10
+  minBoombas: 5
+  maxBoombas: 5
   spawnAreaMin: {x: -2.5, y: 4}
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.6
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 000000003fb78a9c75f461d24167480c3dd66a93
+  m_ApplyToSortingLayers: 000000003fb78a9c75f461d24167480c3dd66a9391535c95
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

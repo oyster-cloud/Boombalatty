@@ -378,8 +378,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1037c9595fe4b609b8a529af7b3839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalSortingLayer: Dynamic
+  whaleSortingLayer: Whale
   Value: 0
   valueText: {fileID: 5274072891565868427}
+  whaleValue: 7
 --- !u!114 &1537969445835531454
 MonoBehaviour:
   m_ObjectHideFlags: 0

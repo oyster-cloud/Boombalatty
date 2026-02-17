@@ -51,6 +51,9 @@ TagManager:
   - name: Dynamic
     uniqueID: 206071617
     locked: 0
+  - name: Whale
+    uniqueID: 2505855889
+    locked: 0
   - name: UI
     uniqueID: 2473252413
     locked: 0
