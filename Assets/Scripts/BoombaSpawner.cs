@@ -147,6 +147,21 @@ public class BoombaSpawner : MonoBehaviour
     }
 
     GameObject boomba = boombaPool.GetBoomba(position);
+
+    // --- POOL SAFETY: reset physics state on every spawn/reuse ---
+    Rigidbody2D rb = boomba.GetComponent<Rigidbody2D>();
+    if (rb != null)
+    {
+      rb.simulated = true;
+      rb.bodyType = RigidbodyType2D.Dynamic;
+      rb.linearVelocity = Vector2.zero;
+      rb.angularVelocity = 0f;
+      rb.constraints = RigidbodyConstraints2D.None; // base state; whale/etc. can change this later
+      rb.WakeUp();
+    }
+
+    // Make sure position & scale are correct
+    boomba.transform.position = position;
     boomba.transform.localScale = Vector3.one * variant.size;
 
     // Find visual containers
