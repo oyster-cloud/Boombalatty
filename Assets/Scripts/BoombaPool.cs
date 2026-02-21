@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BoombaPool : MonoBehaviour
 {
-  public GameObject boombaPrefab;   // Prefab to instantiate when creating new boombas
+  public GameObject boombaPrefab;   // Wired Boomba prefab
   public int poolSize = 20;       // Initial number of pooled boombas
 
   private List<GameObject> boombaPool;
@@ -28,6 +28,23 @@ public class BoombaPool : MonoBehaviour
     Initialize(); // still runs during real game play
   }
 
+  // do I need to return something here?
+  private void ActivateBoomba(GameObject inactiveBoomba)
+  {
+    // --- POOL SAFETY: reset physics state on every spawn/reuse ---
+    Rigidbody2D rb = inactiveBoomba.GetComponent<Rigidbody2D>();
+    if (rb != null)
+    {
+      rb.simulated = true;
+      rb.bodyType = RigidbodyType2D.Dynamic;
+      rb.linearVelocity = Vector2.zero;
+      rb.angularVelocity = 0f;
+      rb.constraints = RigidbodyConstraints2D.None;
+      rb.WakeUp();
+    }
+    inactiveBoomba.SetActive(true);
+  }
+
   // What it does: Returns an inactive boomba from the pool (or creates a new one) and positions/activates it.
   // What it's used for: Called whenever the game needs a boomba instance, minimizing runtime instantiation costs.
   public GameObject GetBoomba(Vector2 position)
@@ -37,16 +54,15 @@ public class BoombaPool : MonoBehaviour
       if (boomba != null && !boomba.activeInHierarchy)
       {
         boomba.transform.position = position;
-        boomba.SetActive(true);
+        ActivateBoomba(boomba);
         return boomba;
       }
     }
-
     // If none available, create a new one
     GameObject newBoomba = Instantiate(boombaPrefab);
     newBoomba.transform.position = position;
-    newBoomba.SetActive(true);
     boombaPool.Add(newBoomba);
+    ActivateBoomba(newBoomba);
     return newBoomba;
   }
 

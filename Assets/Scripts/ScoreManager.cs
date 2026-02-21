@@ -36,11 +36,11 @@ public class ScoreManager : MonoBehaviour
   }
 
   // What it does: Subscribes to boomba offscreen events to update score.
-// What it's used for: Listens for last-variant boombas leaving the screen and awards points when they do.
+  // What it's used for: Listens for last-variant boombas leaving the screen and awards points when they do.
   void OnEnable()  => BoombaAutoDespawn.OnBoombaOffscreen += HandleOffscreen;
 
   // What it does: Unsubscribes from boomba offscreen events when disabled.
-// What it's used for: Prevents event leaks if the ScoreManager is ever disabled or destroyed.
+  // What it's used for: Prevents event leaks if the ScoreManager is ever disabled or destroyed.
   void OnDisable() => BoombaAutoDespawn.OnBoombaOffscreen -= HandleOffscreen;
 
   // What it does: Increments score when a last-variant boomba goes offscreen, updates UI, and checks high score.
@@ -51,8 +51,8 @@ public class ScoreManager : MonoBehaviour
     {
       score++;
       UpdateUI();
-      OnScoreChanged?.Invoke(score);   // <-- NEW
-      TryUpdateHighScore();            // <-- NEW
+      OnScoreChanged?.Invoke(score);
+      TryUpdateHighScore();
     }
   }
 

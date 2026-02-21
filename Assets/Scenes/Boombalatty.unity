@@ -2052,8 +2052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBoombas: 5
-  maxBoombas: 5
+  minBoombas: 15
+  maxBoombas: 15
   spawnAreaMin: {x: -2.5, y: 4}
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.6
@@ -2825,7 +2825,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819361149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 816b5c6a217e64e7f8056486119c0633, type: 3}
   m_Name: 

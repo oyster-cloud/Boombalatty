@@ -14,6 +14,7 @@ public class BoombaMergeHandler : MonoBehaviour
 
   // What it does: Resets the merging flag whenever this component is enabled.
   // What it's used for: Ensures pooled or reactivated boombas can merge again correctly.
+  // Refactor?: Handle this in BoombaEvents?
   public void OnEnable()
   {
     isMerging = false;
@@ -81,6 +82,7 @@ public class BoombaMergeHandler : MonoBehaviour
 
   // What it does: Waits for cooldown, spawns a merged boomba at the midpoint, purges matching Snacks, and disables originals.
   // What it's used for: Encapsulates the full merge sequence, from spawning the result to handling last-variant special behavior.
+  // Refactor?: Handle last-variant (Whale) logic in WhaleBehavior.cs?
   private IEnumerator SpawnMergedBoombaAndDisable(GameObject otherGO)
   {
     // prevent rapid chain merges
@@ -119,6 +121,7 @@ public class BoombaMergeHandler : MonoBehaviour
       else
       {
         // Fallback: set Boomba layer on root + children
+        // Refactor?: this seems like excesive logic
         int liveBoombaLayer = LayerMask.NameToLayer(boombaLayerName);
         var trs = mergedGO.GetComponentsInChildren<Transform>(true);
         for (int i = 0; i < trs.Length; i++)
@@ -131,10 +134,12 @@ public class BoombaMergeHandler : MonoBehaviour
 
     // What it does: Raises a global event describing the merge participants and result.
     // What it's used for: Notifies other systems (e.g., scoring, effects, UI) that a merge just occurred.
+    // Refactor?: Only used for Sounds Effects right now. Should I use it for other stuff?
     BoombaEvents.RaiseMerged(thisProps, otherProps, resultProps);
 
     // What it does: Handles special behavior when the merged boomba is the final variant (centering, freezing, hiding).
     // What it's used for: Implements endgame or special-case logic when the highest-level boomba appears.
+    // Refactor?: Should all of this be handled in WhaleBehavior.cs?
     if (resultProps != null && resultProps.IsLastVariant)
     {
       Vector3 center = Camera.main != null
@@ -157,6 +162,7 @@ public class BoombaMergeHandler : MonoBehaviour
     }
 
     // Only now disable the originals (after coroutine finishes)
+    // REfactor?: Should I be resetting bodyType to Dynamic?
     gameObject.SetActive(false);
     if (otherGO) otherGO.SetActive(false);
     isMerging = false;

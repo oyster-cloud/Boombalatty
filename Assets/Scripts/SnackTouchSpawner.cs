@@ -129,7 +129,7 @@ public class SnackTouchSpawner : MonoBehaviour
   }
 
   // What it does: Adds or reuses a one-shot collision reporter to call back when the snack first lands/merges.
-// What it's used for: Signals when it's safe to spawn another held snack after the current one interacts with the board.
+  // What it's used for: Signals when it's safe to spawn another held snack after the current one interacts with the board.
   void AttachFirstCollisionReporter(GameObject go)
   {
     // Reuse your reporter if you already have BoombaLandingReporter in the project.
