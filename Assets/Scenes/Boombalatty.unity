@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 819361152}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, ScriptTests
         m_MethodName: Restart
         m_Mode: 1
@@ -2825,18 +2825,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819361149}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816b5c6a217e64e7f8056486119c0633, type: 3}
+  m_Script: {fileID: 11500000, guid: ab5b75b892af34a4688fe57c8b5a8eef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  toDisable:
-  - {fileID: 600681270}
-  - {fileID: 548325239}
+  m_EditorClassIdentifier: ScriptTests::GameManager
   gameOverPanel: {fileID: 1174010835}
-  pauseOnEnd: 1
-  boombaSpawner: {fileID: 0}
-  snackTouchSpawner: {fileID: 0}
 --- !u!1 &857806946
 GameObject:
   m_ObjectHideFlags: 0
