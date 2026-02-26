@@ -7,7 +7,6 @@ using System.Linq;
 public class SnackTouchSpawner : MonoBehaviour
 {
   public BoombaPool boombaPool;  // assign in Inspector
-  // private readonly HashSet<int> _activeBoombaValues = new HashSet<int>();
 
   [Header("Prefab")]
   [SerializeField] GameObject snackPrefab;
@@ -74,7 +73,7 @@ public class SnackTouchSpawner : MonoBehaviour
   }
 
   // What it does: Spawns a snack at a fixed Y position, centers it between bounds, and freezes it in place.
-// What it's used for: Creates the visible "held" snack above the playfield that the player will later drop.
+  // What it's used for: Creates the visible "held" snack above the playfield that the player will later drop.
   void SpawnHeldSnack()
   {
     if (!snackPrefab) return;
@@ -87,17 +86,8 @@ public class SnackTouchSpawner : MonoBehaviour
     currentSnack = Instantiate(snackPrefab, pos, Quaternion.identity);
     if (!currentSnack.activeSelf) currentSnack.SetActive(true);
 
-    // apply art/size like your original spawner
     ApplyVariant(currentSnack, variant);
-
-    // make it hang in place...
-    var rb = currentSnack.GetComponent<Rigidbody2D>();
-    if (rb)
-    {
-      rb.linearVelocity = Vector2.zero;
-      rb.angularVelocity = 0f;
-      rb.bodyType = RigidbodyType2D.Kinematic; // ignore gravity until release
-    }
+    FreezeSnack(currentSnack);
   }
 
   // What it does: Drops the currently held snack at the given screen X position and arms a landing callback.
@@ -109,39 +99,52 @@ public class SnackTouchSpawner : MonoBehaviour
     Vector2 world = cam.ScreenToWorldPoint(screenPos);
     float x = Mathf.Clamp(world.x, spawnAreaMin.x, spawnAreaMax.x);
 
-    // move the hanging snack to the chosen X (keep spawnY)
+    // Move the hanging snack to the chosen X (keep spawnY)
     currentSnack.transform.position = new Vector2(x, spawnY);
 
-    // switch to dynamic so physics takes over
-    var rb = currentSnack.GetComponent<Rigidbody2D>();
-    if (rb)
-    {
-      rb.bodyType = RigidbodyType2D.Dynamic;
-      rb.linearVelocity = Vector2.zero;      // clean start
-      rb.angularVelocity = 0f;
-    }
-
-    // listen for the FIRST collision/merge, then queue the next held snack
+    ReleaseSnack(currentSnack);
     AttachFirstCollisionReporter(currentSnack);
 
     waitingForLanding = true;
-    currentSnack = null; // no longer hanging; we’ll spawn another after the callback
+    currentSnack = null; // No longer hanging; we'll spawn another after the callback
+  }
+
+  // What it does: Sets a snack to Kinematic mode so it hangs in place without physics.
+  // What it's used for: Freezes the held snack above the playfield until the player releases it.
+  private void FreezeSnack(GameObject snack)
+  {
+    var rb = snack.GetComponent<Rigidbody2D>();
+    if (rb)
+    {
+      rb.linearVelocity = Vector2.zero;
+      rb.angularVelocity = 0f;
+      rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+  }
+
+  // What it does: Sets a snack to Dynamic mode so physics takes over.
+  // What it's used for: Releases the snack to fall and interact with the game world.
+  private void ReleaseSnack(GameObject snack)
+  {
+    var rb = snack.GetComponent<Rigidbody2D>();
+    if (rb)
+    {
+      rb.bodyType = RigidbodyType2D.Dynamic;
+      rb.linearVelocity = Vector2.zero;
+      rb.angularVelocity = 0f;
+    }
   }
 
   // What it does: Adds or reuses a one-shot collision reporter to call back when the snack first lands/merges.
   // What it's used for: Signals when it's safe to spawn another held snack after the current one interacts with the board.
   void AttachFirstCollisionReporter(GameObject go)
   {
-    // Reuse your reporter if you already have BoombaLandingReporter in the project.
-    // If not, add a tiny one-shot component with OnCollisionEnter2D that calls the lambda.
     var reporter = go.GetComponent<BoombaLandingReporter>();
     if (reporter == null) reporter = go.AddComponent<BoombaLandingReporter>();
 
-    // reporter.Init(Action onFirstCollision)
     reporter.Init(() =>
     {
-      waitingForLanding = false; // allow the next hanging spawn
-      // (Optionally: SFX/UI for "snack landed/merged")
+      waitingForLanding = false; // Allow the next hanging spawn
     });
   }
 
@@ -151,37 +154,55 @@ public class SnackTouchSpawner : MonoBehaviour
   {
     if (go == null || v == null) return;
 
-    // 1. Find the visual root (Art) under this snack
+    SetupSnackVisual(go, v);
+    SetupSnackProperties(go, v);
+  }
+
+  // What it does: Configures the visual rendering for a snack.
+  // What it's used for: Sets up the sprite/animated visual and scales it appropriately.
+  private void SetupSnackVisual(GameObject go, SnackVariant v)
+  {
     Transform visualRoot = go.transform.Find("Art");
     if (visualRoot == null)
     {
-        Debug.LogWarning("SnackTouchSpawner: no 'Art' child found on snackPrefab; using root instead.");
-        visualRoot = go.transform;
+      Debug.LogWarning("SnackTouchSpawner: no 'Art' child found on snackPrefab; using root instead.");
+      visualRoot = go.transform;
     }
 
-    // 2. Clear any previous visuals
+    ClearPreviousVisuals(visualRoot);
+    InstantiateVisualPrefab(visualRoot, v);
+  }
+
+  // What it does: Removes any existing visual children from the visual root.
+  // What it's used for: Clears old visuals before applying new ones (important for pooling or reuse).
+  private void ClearPreviousVisuals(Transform visualRoot)
+  {
     for (int i = visualRoot.childCount - 1; i >= 0; i--)
+      Destroy(visualRoot.GetChild(i).gameObject);
+  }
+
+  // What it does: Instantiates and scales the visual prefab for a snack variant.
+  // What it's used for: Creates the actual visible representation of the snack.
+  private void InstantiateVisualPrefab(Transform visualRoot, SnackVariant v)
+  {
+    if (v.visualPrefab == null)
     {
-        Destroy(visualRoot.GetChild(i).gameObject);
+      Debug.LogWarning($"SnackTouchSpawner: SnackVariant {v.value} has no visualPrefab assigned.");
+      return;
     }
 
-    // 3. Instantiate the visual prefab and scale it
-    if (v.visualPrefab != null)
-    {
-        GameObject visual = Instantiate(v.visualPrefab, visualRoot);
-        visual.transform.localPosition = Vector3.zero;
-        visual.transform.localRotation = Quaternion.identity;
+    GameObject visual = Instantiate(v.visualPrefab, visualRoot);
+    visual.transform.localPosition = Vector3.zero;
+    visual.transform.localRotation = Quaternion.identity;
+    
+    float s = Mathf.Max(0.05f, v.size);
+    visual.transform.localScale = new Vector3(s, s, 1f);
+  }
 
-        // single slider that scales both sprite *and* colliders
-        float s = Mathf.Max(0.05f, v.size);   // use SnackVariant.size as the master scale
-        visual.transform.localScale = new Vector3(s, s, 1f);
-    }
-    else
-    {
-        Debug.LogWarning($"SnackTouchSpawner: SnackVariant {v.value} has no visualPrefab assigned.");
-    }
-
-    // 4. Set the snack's logical value
+  // What it does: Sets the value property on a snack's BoombaProperties component.
+  // What it's used for: Initializes the data that other systems read from the snack.
+  private void SetupSnackProperties(GameObject go, SnackVariant v)
+  {
     var props = go.GetComponent<BoombaProperties>();
     if (props) props.SetValue(v.value);
   }
@@ -190,58 +211,41 @@ public class SnackTouchSpawner : MonoBehaviour
   // What it's used for: Called on game restart to ensure there are no leftover hanging snacks from the previous run.
   public void ResetHeldAndArm()
   {
-    // kill any held instance
     if (currentSnack)
     {
       Destroy(currentSnack);
       currentSnack = null;
     }
 
-    // reset internal flags so Start/Update will spawn the held snack again
     waitingForLanding = false;
-    // Optionally force immediate held-spawn here:
-    // SpawnHeldSnack();  // if your flow expects it right away
   }
 
-  // Pick a SnackVariant whose value matches one of the currently active Boombas.
-  // If no Boombas are active or no variants match, we fall back to the full list.
+  // What it does: Picks a SnackVariant whose value matches one of the currently active Boombas.
+  // What it's used for: Ensures spawned snacks can merge with existing boombas on the board.
   SnackVariant PickVariantByActiveBoombas()
   {
     if (snackVariants == null || snackVariants.Count == 0)
       return null;
 
-    HashSet<int> activeValues = null;
-
-    if (boombaPool != null)
-    {
-      // reuse the private buffer to avoid allocations:
-      activeValues = boombaPool.GetActiveBoombaValues();
-    }
-
-    List<SnackVariant> candidates;
-
-    if (activeValues != null && activeValues.Count > 0)
-    {
-      // only variants whose value matches an active Boomba value
-      candidates = snackVariants.FindAll(v => activeValues.Contains(v.value));
-
-      // Safety: if for some reason there's no matching variant, fall back to all
-      if (candidates.Count == 0) {
-        string valuesLog = (activeValues == null)
-            ? "NULL"
-            : string.Join(",", activeValues);
-
-        candidates = snackVariants;
-      }
-    }
-    else
-    {
-      // No active Boombas → allow all snack values
-      candidates = snackVariants;
-    }
-
+    var activeValues = boombaPool?.GetActiveBoombaValues();
+    var candidates = GetCandidateVariants(activeValues);
+    
     int index = Random.Range(0, candidates.Count);
     return candidates[index];
   }
 
+  // What it does: Returns a list of snack variants that match active boomba values, or all variants if no matches.
+  // What it's used for: Filters the available snack pool based on what's currently on the board.
+  private List<SnackVariant> GetCandidateVariants(HashSet<int> activeValues)
+  {
+    // No active boombas? Allow all variants
+    if (activeValues == null || activeValues.Count == 0)
+      return snackVariants;
+
+    // Filter to matching values
+    var matches = snackVariants.FindAll(v => activeValues.Contains(v.value));
+    
+    // Fallback to all if no matches (safety)
+    return matches.Count > 0 ? matches : snackVariants;
+  }
 }

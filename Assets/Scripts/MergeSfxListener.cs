@@ -20,7 +20,7 @@ public class MergeSfxListener : MonoBehaviour
   public struct ClipByValue { public int value; public AudioClip clip; }
 
   // What it does: Ensures there is an AudioSource on this GameObject and configures it for 2D SFX.
-// What it's used for: Sets up a reliable SFX channel without requiring manual AudioSource configuration.
+  // What it's used for: Sets up a reliable SFX channel without requiring manual AudioSource configuration.
   void Reset()
   {
     sfx = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
@@ -29,15 +29,15 @@ public class MergeSfxListener : MonoBehaviour
   }
 
   // What it does: Subscribes to the global boomba merge event when enabled.
-// What it's used for: Starts listening for merges so SFX can be played.
+  // What it's used for: Starts listening for merges so SFX can be played.
   void OnEnable()  => BoombaEvents.OnMerged += HandleMerged;
 
   // What it does: Unsubscribes from the global boomba merge event when disabled.
-// What it's used for: Prevents duplicate subscriptions and leaks if this listener is turned off or destroyed.
+  // What it's used for: Prevents duplicate subscriptions and leaks if this listener is turned off or destroyed.
   void OnDisable() => BoombaEvents.OnMerged -= HandleMerged;
 
   // What it does: Picks a merge clip based on the result boomba and plays it with slight pitch variation.
-// What it's used for: Provides responsive audio feedback whenever a merge occurs, with variety to avoid repetitive sound.
+  // What it's used for: Provides responsive audio feedback whenever a merge occurs, with variety to avoid repetitive sound.
   void HandleMerged(BoombaProperties a, BoombaProperties b, BoombaProperties result)
   {
     var clip = PickClip(result);
@@ -50,7 +50,7 @@ public class MergeSfxListener : MonoBehaviour
   }
 
   // What it does: Chooses the appropriate AudioClip based on whether this is the last variant or a specific value.
-// What it's used for: Allows special SFX for the final variant and optional per-level sound variations.
+  // What it's used for: Allows special SFX for the final variant and optional per-level sound variations.
   AudioClip PickClip(BoombaProperties result)
   {
     // If you set this earlier when spawning (as we did for scoring)

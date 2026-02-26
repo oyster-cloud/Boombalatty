@@ -16,7 +16,7 @@ public class GameOverZoneFlipLayer : MonoBehaviour
   bool flipped;
 
   // What it does: Resolves the integer layer indices for the pre-zone and live layers.
-// What it's used for: Prepares the component to quickly switch layers at runtime without repeated lookups.
+  // What it's used for: Prepares the component to quickly switch layers at runtime without repeated lookups.
   void Awake()
   {
     preLayer = LayerMask.NameToLayer(preZoneLayerName);
@@ -24,7 +24,7 @@ public class GameOverZoneFlipLayer : MonoBehaviour
   }
 
   // What it does: Resets the flipped flag and assigns the pre-zone layer when the object is enabled.
-// What it's used for: Ensures newly spawned or pooled snacks start in a safe, non-live layer inside the GameOverZone.
+  // What it's used for: Ensures newly spawned or pooled snacks start in a safe, non-live layer inside the GameOverZone.
   void OnEnable()
   {
     flipped = false;
@@ -32,7 +32,7 @@ public class GameOverZoneFlipLayer : MonoBehaviour
   }
 
   // What it does: When this object exits the GameOverZone trigger for the first time, switches it and all children to the live layer.
-// What it's used for: Activates snacks as "in play" only after they fully leave the game-over area, preventing accidental game-overs.
+  // What it's used for: Activates snacks as "in play" only after they fully leave the game-over area, preventing accidental game-overs.
   void OnTriggerExit2D(Collider2D other)
   {
     if (flipped) return;
@@ -47,7 +47,7 @@ public class GameOverZoneFlipLayer : MonoBehaviour
   }
 
   // What it does: Forces this object and all children to the live layer immediately, marking it as already flipped.
-// What it's used for: Used by other systems (e.g., merge logic) to ensure a boomba/snack is fully in the live layer after special events.
+  // What it's used for: Used by other systems (e.g., merge logic) to ensure a boomba/snack is fully in the live layer after special events.
   public void ForceLiveLayer()
   {
     if (liveLayer == -1) return;

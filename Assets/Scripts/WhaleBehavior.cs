@@ -68,18 +68,28 @@ public class WhaleBehavior : MonoBehaviour
 
     _wasWhaleLastFrame = isWhale;
 
-    // Sorting layer change (SortingGroup is authoritative)
-    string targetLayer = isWhale ? whaleSortingLayer : dynamicSortingLayer;
-    ApplySortingLayer(targetLayer);
+    if (isWhale)
+      TransitionToWhale();
+    else
+      TransitionFromWhale();
+  }
 
-    // Restore constraints when leaving whale state (pool safe)
-    if (!isWhale)
-    {
-      _whaleUprightApplied = false;
+  // What it does: Applies whale-specific state when a boomba becomes a whale.
+  // What it's used for: Changes sorting layer to make the whale visually prominent.
+  private void TransitionToWhale()
+  {
+    ApplySortingLayer(whaleSortingLayer);
+  }
 
-      if (_rb != null)
-        _rb.constraints = _baseConstraints;
-    }
+  // What it does: Restores normal boomba state when no longer a whale.
+  // What it's used for: Resets sorting layer and physics constraints (pool safe).
+  private void TransitionFromWhale()
+  {
+    ApplySortingLayer(dynamicSortingLayer);
+    _whaleUprightApplied = false;
+    
+    if (_rb != null)
+      _rb.constraints = _baseConstraints;
   }
 
   private void ApplySortingLayer(string layerName)
