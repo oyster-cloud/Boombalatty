@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5450244727255391500}
   - component: {fileID: 7084687656856256357}
   - component: {fileID: 4631896796209612664}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HayImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

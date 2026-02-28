@@ -2052,8 +2052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBoombas: 15
-  maxBoombas: 15
+  minBoombas: 1
+  maxBoombas: 1
   spawnAreaMin: {x: -2.5, y: 4}
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.6
@@ -2419,7 +2419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 600681270}
-  initialSpawnSource: {fileID: 0}
 --- !u!1 &726512578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,6 +2830,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ScriptTests::GameManager
   gameOverPanel: {fileID: 1174010835}
+  whaleValue: 7
+  whaleCompletionDelay: 2
 --- !u!1 &857806946
 GameObject:
   m_ObjectHideFlags: 0
