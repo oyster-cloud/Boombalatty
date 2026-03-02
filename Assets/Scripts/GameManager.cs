@@ -162,8 +162,6 @@ public class GameManager : MonoBehaviour
   // What it's used for: Kicks off fresh boomba and snack spawning after a restart.
   private void RestartSpawners()
   {
-    Services.Ceiling?.ResetListening();
-
     var boombaSpawner = Services.BoombaSpawner;
     var snackSpawner = Services.SnackTouchSpawner;
 
