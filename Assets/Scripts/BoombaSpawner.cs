@@ -25,8 +25,9 @@ public class BoombaSpawner : MonoBehaviour
   public bool requireInitialSpawnCompleted = false; // test-only hook
 
   [Header("Spawn Settings")]
-  public int minBoombas = 3;
-  public int maxBoombas = 7;
+  [SerializeField] int startingBoombaCount = 3; // Starting number of boombas
+  [SerializeField] int boombaCountIncrement = 1; // How much to increase per whale completion
+  [SerializeField] int maxBoombaCount = 10; // Cap for boomba count
   public Vector2 spawnAreaMin = new Vector2(-2.5f, 2.5f);
   public Vector2 spawnAreaMax = new Vector2(2.5f, 2.5f);
   public float spawnDelay = 0.8f;
@@ -41,24 +42,19 @@ public class BoombaSpawner : MonoBehaviour
   public event System.Action OnInitialSpawnComplete;
 
   private int _nextSortingOrder = 0;
+  private int _currentBoombaCount; // Tracks the current difficulty level
 
-  // What it does: Registers this instance with the global Services locator when enabled.
-  // What it's used for: Allows other systems to easily find the active BoombaSpawner.
   void OnEnable()
   {
     Services.BoombaSpawner = this;
   }
 
-  // What it does: Clears the Services reference when this spawner is disabled.
-  // What it's used for: Prevents stale references to an inactive BoombaSpawner.
   void OnDisable()
   {
     if (Services.BoombaSpawner == this)
       Services.BoombaSpawner = null;
   }
 
-  // What it does: Validates that the pool and variant list are configured correctly.
-  // What it's used for: Called to ensure the spawner is safe to use before spawning begins.
   public void Initialize()
   {
     if (boombaPool == null)
@@ -74,20 +70,18 @@ public class BoombaSpawner : MonoBehaviour
     }
   }
 
-  // What it does: Validates setup and starts the initial spawn coroutine on game start.
-  // What it's used for: Kicks off the first wave of boombas when the scene begins.
   void Start()
   {
     Initialize();
+    _currentBoombaCount = startingBoombaCount; // Start at base difficulty
     InitialSpawnCompleted = false;
     StartCoroutine(SpawnBoombasWithDelay());
   }
 
-  // What it does: Spawns a randomized batch of boombas over time within the configured spawn area.
-  // What it's used for: Creates the initial wave of falling boombas and signals when that wave is done.
   IEnumerator SpawnBoombasWithDelay()
   {
-    int boombaCount = Random.Range(minBoombas, maxBoombas + 1);
+    // Spawn exact count - no range
+    int boombaCount = _currentBoombaCount;
     
     for (int i = 0; i < boombaCount; i++)
     {      
@@ -106,13 +100,10 @@ public class BoombaSpawner : MonoBehaviour
       yield return new WaitForSeconds(spawnDelay);
     }
 
-    // Mark complete and notify
     InitialSpawnCompleted = true;
     OnInitialSpawnComplete?.Invoke();
   }
 
-  // What it does: Spawns (or reuses from the pool) a boomba of a specific value at the given position.
-  // What it's used for: Used both by initial spawning and by merge logic to create correctly configured boombas.
   public virtual GameObject SpawnBoombaWithValue(Vector2 position, int value)
   {
     BoombaVariant variant = boombaVariants.Find(v => v.value == value);
@@ -128,8 +119,6 @@ public class BoombaSpawner : MonoBehaviour
     return boomba;
   }
 
-  // What it does: Configures the visual rendering pipeline for a spawned boomba.
-  // What it's used for: Sets up either sprite or animated visuals and assigns sorting order.
   private void SetupBoombaVisuals(GameObject boomba, BoombaVariant variant)
   {
     Transform art = boomba.transform.Find("VisualRoot");
@@ -139,7 +128,6 @@ public class BoombaSpawner : MonoBehaviour
       return;
     }
 
-    // Assign unique sorting order
     var sortingGroup = art.GetComponent<UnityEngine.Rendering.SortingGroup>();
     if (sortingGroup != null)
       sortingGroup.sortingOrder = _nextSortingOrder++;
@@ -153,15 +141,12 @@ public class BoombaSpawner : MonoBehaviour
       return;
     }
 
-    // Reset both visual types (important for pooling)
     spriteArt.gameObject.SetActive(false);
     animationArt.gameObject.SetActive(false);
 
-    // Clear previous animation visuals
     for (int i = animationArt.childCount - 1; i >= 0; i--)
       Destroy(animationArt.GetChild(i).gameObject);
 
-    // Setup new visuals based on variant type
     if (variant.visualPrefab != null)
     {
       SetupAnimatedVisual(animationArt, variant);
@@ -172,8 +157,6 @@ public class BoombaSpawner : MonoBehaviour
     }
   }
 
-  // What it does: Instantiates and configures a Spine-based animated visual for a boomba.
-  // What it's used for: Handles the setup of complex animated boombas.
   private void SetupAnimatedVisual(Transform animationArt, BoombaVariant variant)
   {
     animationArt.gameObject.SetActive(true);
@@ -184,8 +167,6 @@ public class BoombaSpawner : MonoBehaviour
     visual.transform.localScale = Vector3.one * variant.ImageScale;
   }
 
-  // What it does: Configures a simple sprite-based visual for a boomba.
-  // What it's used for: Handles the setup of static sprite boombas.
   private void SetupSpriteVisual(Transform spriteArt, BoombaVariant variant)
   {
     spriteArt.gameObject.SetActive(true);
@@ -195,8 +176,6 @@ public class BoombaSpawner : MonoBehaviour
     sr.transform.localScale = Vector3.one * variant.ImageScale;
   }
 
-  // What it does: Sets the value and last-variant flag on a boomba's properties component.
-  // What it's used for: Initializes the data/state that other systems read from the boomba.
   private void SetupBoombaProperties(GameObject boomba, BoombaVariant variant)
   {
     BoombaProperties props = boomba.GetComponent<BoombaProperties>();
@@ -209,11 +188,16 @@ public class BoombaSpawner : MonoBehaviour
     props.SetValue(variant.value);
   }
 
-  // What it does: Stops all spawn coroutines, clears the board, and starts a fresh initial wave.
-  // What it's used for: Called by GameManager.Restart() to reset just the spawning system (not the full game).
-  public void ResetAndStartInitialSpawn()
+  // What it does: Resets spawning and starts a new wave, optionally increasing difficulty.
+  // What it's used for: Called by GameManager on restart. Pass true to increase difficulty after whale completion.
+  public void ResetAndStartInitialSpawn(bool increaseDifficulty = false)
   {
-    // Board already cleared by BoardCleaner
+    if (increaseDifficulty)
+    {
+      _currentBoombaCount = Mathf.Min(_currentBoombaCount + boombaCountIncrement, maxBoombaCount);
+      Debug.Log($"Difficulty increased! Boomba count: {_currentBoombaCount}");
+    }
+
     StopAllCoroutines();
     InitialSpawnCompleted = false;
     StartCoroutine(SpawnBoombasWithDelay());
