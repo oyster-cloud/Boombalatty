@@ -2052,8 +2052,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  minBoombas: 1
-  maxBoombas: 1
+  startingBoombaCount: 3
+  boombaCountIncrement: 1
+  maxBoombaCount: 10
   spawnAreaMin: {x: -2.5, y: 4}
   spawnAreaMax: {x: 2.5, y: 5}
   spawnDelay: 0.6
@@ -4399,8 +4400,8 @@ Transform:
   m_GameObject: {fileID: 1412124159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -2.86, y: 0.5, z: 0}
-  m_LocalScale: {x: 9, y: 0.1, z: 0}
+  m_LocalPosition: {x: -2.86, y: -0.1074, z: 0}
+  m_LocalScale: {x: 10.215, y: 0.1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5070,8 +5071,8 @@ Transform:
   m_GameObject: {fileID: 1520546171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 6, y: 0.1, z: 0}
+  m_LocalPosition: {x: -0.0436, y: -4.59, z: 0}
+  m_LocalScale: {x: 6.61037, y: 0.1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5688,8 +5689,8 @@ Transform:
   m_GameObject: {fileID: 1901041220}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 2.86, y: 0.5, z: 0}
-  m_LocalScale: {x: 9, y: 0.1, z: 0}
+  m_LocalPosition: {x: 2.86, y: -0.1053, z: 0}
+  m_LocalScale: {x: 10.210096, y: 0.10746, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
