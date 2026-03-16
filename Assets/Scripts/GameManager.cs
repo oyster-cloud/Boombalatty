@@ -3,22 +3,28 @@ using System.Collections;
 
 // What it does: Centralizes game state, game-over handling, and restart orchestration.
 // What it's used for: Acts as the top-level controller for starting, ending, and resetting a run of the game.
+[DefaultExecutionOrder(-100)] // Run before BoombaSpawner
 public class GameManager : MonoBehaviour
 {
   public static GameManager Instance { get; private set; }
 
   [Header("UI")]
   [SerializeField] GameObject gameOverPanel;
+  [SerializeField] GameObject stageTransitionPanel;
 
   [Header("Whale Completion")]
   [SerializeField] int whaleValue = 7;
-  [SerializeField] float whaleCompletionDelay = 2f; // Time to show whale before resetting
+  [SerializeField] float whaleCompletionDelay = 2f;
+  [SerializeField] float stageTransitionDuration = 2f;
 
   public bool IsGameOver { get; private set; } = false;
-  private bool _wasWhaleCompletion = false; // Track if last restart was from whale completion
+  private bool _wasWhaleCompletion = false;
 
   private GameOverUIHandler _uiHandler;
   private BoardCleaner _boardCleaner;
+  private StageTransitionUI _stageTransitionUI;
+  private GameStateManager _gameStateManager;
+  private int _currentStage = 1;
 
   void Awake()
   {
@@ -33,11 +39,23 @@ public class GameManager : MonoBehaviour
 
     _uiHandler = new GameOverUIHandler(gameOverPanel, this);
     _boardCleaner = new BoardCleaner();
+    _stageTransitionUI = new StageTransitionUI(stageTransitionPanel, this);
+    _gameStateManager = new GameStateManager();
 
     if (gameOverPanel)
       gameOverPanel.SetActive(false);
+    
+    if (stageTransitionPanel)
+      stageTransitionPanel.SetActive(false);
 
     Time.timeScale = 1f;
+  }
+
+  // What it does: Loads saved state after Awake but before any Start methods.
+  // What it's used for: Ensures saved difficulty is loaded before BoombaSpawner.Start() runs.
+  void Start()
+  {
+    LoadAndApplySavedState();
   }
 
   void OnEnable()
@@ -52,6 +70,38 @@ public class GameManager : MonoBehaviour
     BoombaEvents.OnMerged -= HandleMerge;
   }
 
+  // What it does: Loads saved progress and applies it to the spawner before first spawn.
+  // What it's used for: Restores player's stage and difficulty on game start.
+  void LoadAndApplySavedState()
+  {
+    _currentStage = _gameStateManager.LoadCurrentStage();
+    
+    var spawner = Services.BoombaSpawner;
+    if (spawner != null)
+    {
+      int savedBoombaCount = _gameStateManager.LoadCurrentBoombaCount(spawner.StartingBoombaCount);
+      spawner.LoadSavedStateAndStart(savedBoombaCount);
+      
+      Debug.Log($"[GameManager] Loaded: Stage {_currentStage}, Boomba Count {savedBoombaCount}");
+    }
+    else
+    {
+      Debug.LogWarning("[GameManager] BoombaSpawner not found during load!");
+    }
+  }
+
+  // What it does: Saves current stage and difficulty to PlayerPrefs.
+  // What it's used for: Persists player progress so it survives game restarts.
+  void SaveGameState()
+  {
+    var spawner = Services.BoombaSpawner;
+    if (spawner != null)
+    {
+      _gameStateManager.SaveGameState(_currentStage, spawner.CurrentBoombaCount);
+      Debug.Log($"[GameManager] Saved: Stage {_currentStage}, Boomba Count {spawner.CurrentBoombaCount}");
+    }
+  }
+
   void HandleCeilingCross(BoombaProperties who)
   {
     TriggerGameOver();
@@ -59,7 +109,6 @@ public class GameManager : MonoBehaviour
 
   void HandleMerge(BoombaProperties a, BoombaProperties b, BoombaProperties result)
   {
-    // Only check if the result is a whale
     if (result != null && result.Value == whaleValue)
     {
       StartCoroutine(CheckForWhaleCompletion());
@@ -101,11 +150,15 @@ public class GameManager : MonoBehaviour
     return activeCount > 0 && activeCount == whaleCount;
   }
 
-  // What it does: Waits for the whale display duration, marks it as whale completion, then restarts.
-  // What it's used for: Gives the player time to see their achievement before increasing difficulty and restarting.
   IEnumerator HandleWhaleCompletion()
   {
     yield return new WaitForSecondsRealtime(whaleCompletionDelay);
+
+    _boardCleaner.ClearBoard();
+
+    // Increment stage and show transition
+    _currentStage++;
+    yield return _stageTransitionUI.ShowStageTransition(_currentStage, stageTransitionDuration);
 
     _wasWhaleCompletion = true;
     Restart();
@@ -120,18 +173,25 @@ public class GameManager : MonoBehaviour
     Time.timeScale = 0f;
   }
 
-  // What it does: Restarts the game by resetting state, clearing the board, and restarting spawners.
-  // What it's used for: Called by UI buttons (game over) or after whale completion (auto-restart with difficulty increase).
   public void Restart()
   {
     bool increaseDifficulty = _wasWhaleCompletion;
     
     ResetGameState();
     _uiHandler.HideGameOverPanel();
-    _boardCleaner.ClearBoard();
+    
+    if (!_wasWhaleCompletion)
+    {
+      _boardCleaner.ClearBoard();
+      _currentStage = 1; // Reset stage on game over restart
+    }
+    
     RestartSpawners(increaseDifficulty);
     
-    _wasWhaleCompletion = false; // Reset flag after use
+    // Save progress after restart
+    SaveGameState();
+    
+    _wasWhaleCompletion = false;
   }
 
   private void ResetGameState()
@@ -140,8 +200,6 @@ public class GameManager : MonoBehaviour
     Time.timeScale = 1f;
   }
 
-  // What it does: Resets and restarts all spawning systems, optionally increasing difficulty.
-  // What it's used for: Kicks off fresh spawning after a restart, with difficulty increase only after whale completion.
   private void RestartSpawners(bool increaseDifficulty)
   {
     var boombaSpawner = Services.BoombaSpawner;
@@ -149,12 +207,52 @@ public class GameManager : MonoBehaviour
 
     if (boombaSpawner != null)
     {
-      // Pass the flag - only increases if true (whale completion)
       boombaSpawner.ResetAndStartInitialSpawn(increaseDifficulty);
     }
     
     if (snackSpawner != null) 
       snackSpawner.ResetHeldAndArm();
+  }
+
+  // What it does: Resets all progress back to stage 1.
+  // What it's used for: Called from settings menu or "New Game" button.
+  public void ResetProgress()
+  {
+    _gameStateManager.ResetProgress();
+    _currentStage = 1;
+    
+    var spawner = Services.BoombaSpawner;
+    if (spawner != null)
+    {
+      spawner.ResetToStartingDifficulty();
+    }
+    
+    Debug.Log("[GameManager] Progress reset to Stage 1");
+  }
+
+  // What it does: Ends the current game session and resets all progress.
+  // What it's used for: Called from "End Game" button to wipe progress and start fresh from Stage 1.
+  public void EndGame()
+  {
+    // Reset all progress
+    ResetProgress();
+    
+    // Clear the board
+    _boardCleaner.ClearBoard();
+    
+    // Reset to stage 1
+    _currentStage = 1;
+    
+    // Reset game state
+    ResetGameState();
+    
+    // Hide any UI
+    _uiHandler.HideGameOverPanel();
+    
+    // Restart spawners at base difficulty
+    RestartSpawners(increaseDifficulty: false);
+    
+    Debug.Log("[GameManager] Game ended - reset to Stage 1");
   }
 
   public void HideAfterSecondsRealtime(GameObject target, float seconds)

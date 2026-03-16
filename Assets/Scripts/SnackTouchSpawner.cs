@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -137,6 +138,7 @@ public class SnackTouchSpawner : MonoBehaviour
 
   // What it does: Adds or reuses a one-shot collision reporter to call back when the snack first lands/merges.
   // What it's used for: Signals when it's safe to spawn another held snack after the current one interacts with the board.
+  // In SnackTouchSpawner.cs - update AttachFirstCollisionReporter
   void AttachFirstCollisionReporter(GameObject go)
   {
     var reporter = go.GetComponent<BoombaLandingReporter>();
@@ -144,8 +146,16 @@ public class SnackTouchSpawner : MonoBehaviour
 
     reporter.Init(() =>
     {
-      waitingForLanding = false; // Allow the next hanging spawn
+      // Wait a frame to let merges complete before spawning next snack
+      StartCoroutine(DelayedUnlockSpawning());
     });
+  }
+
+  // Add this new method
+  IEnumerator DelayedUnlockSpawning()
+  {
+    yield return new WaitForEndOfFrame();
+    waitingForLanding = false; // Allow the next hanging spawn
   }
 
   // What it does: Applies visual and physical properties from a SnackVariant onto an instantiated snack GameObject.

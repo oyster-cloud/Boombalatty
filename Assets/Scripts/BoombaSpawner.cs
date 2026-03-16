@@ -43,6 +43,10 @@ public class BoombaSpawner : MonoBehaviour
 
   private int _nextSortingOrder = 0;
   private int _currentBoombaCount; // Tracks the current difficulty level
+  private bool _hasLoadedSavedState = false; // Track if we've loaded from save
+
+  public int CurrentBoombaCount => _currentBoombaCount; // Expose for saving
+  public int StartingBoombaCount => startingBoombaCount; // Expose for loading
 
   void OnEnable()
   {
@@ -73,9 +77,14 @@ public class BoombaSpawner : MonoBehaviour
   void Start()
   {
     Initialize();
-    _currentBoombaCount = startingBoombaCount; // Start at base difficulty
-    InitialSpawnCompleted = false;
-    StartCoroutine(SpawnBoombasWithDelay());
+    
+    // Only auto-start if GameManager hasn't loaded saved state
+    if (!_hasLoadedSavedState)
+    {
+      _currentBoombaCount = startingBoombaCount;
+      InitialSpawnCompleted = false;
+      StartCoroutine(SpawnBoombasWithDelay());
+    }
   }
 
   IEnumerator SpawnBoombasWithDelay()
@@ -188,6 +197,18 @@ public class BoombaSpawner : MonoBehaviour
     props.SetValue(variant.value);
   }
 
+  // What it does: Loads saved state and starts spawning with that difficulty.
+  // What it's used for: Called by GameManager on startup to restore progress.
+  public void LoadSavedStateAndStart(int savedBoombaCount)
+  {
+    _currentBoombaCount = Mathf.Clamp(savedBoombaCount, startingBoombaCount, maxBoombaCount);
+    _hasLoadedSavedState = true;
+    InitialSpawnCompleted = false;
+    StartCoroutine(SpawnBoombasWithDelay());
+    
+    Debug.Log($"BoombaSpawner loaded saved state: {_currentBoombaCount} boombas");
+  }
+
   // What it does: Resets spawning and starts a new wave, optionally increasing difficulty.
   // What it's used for: Called by GameManager on restart. Pass true to increase difficulty after whale completion.
   public void ResetAndStartInitialSpawn(bool increaseDifficulty = false)
@@ -201,5 +222,13 @@ public class BoombaSpawner : MonoBehaviour
     StopAllCoroutines();
     InitialSpawnCompleted = false;
     StartCoroutine(SpawnBoombasWithDelay());
+  }
+
+  // What it does: Resets difficulty and boomba count to starting values.
+  // What it's used for: Called when player resets progress or after game over.
+  public void ResetToStartingDifficulty()
+  {
+    _currentBoombaCount = startingBoombaCount;
+    _hasLoadedSavedState = false;
   }
 }

@@ -161,4 +161,23 @@ public class SettingsUI : MonoBehaviour
   {
     return ScoreManager.Instance != null;
   }
+
+  // 🛑 End Game from Settings panel
+  // What it does: Closes the settings panel, resets all progress, and restarts the game.
+  // What it's used for: Provides an "End Game" button inside the settings UI to wipe all progress and start fresh.
+  public void EndGameFromSettings()
+  {
+    // Close panel
+    if (settingsPanel) settingsPanel.SetActive(false);
+    panelOpen = false;
+
+    Time.timeScale = 1f; // make sure GameManager flow runs in real time
+    
+    var gm = GameManager.Instance;
+    if (gm != null) 
+    {
+      gm.ResetProgress(); // Wipe saved progress
+      gm.Restart();       // Restart at base difficulty
+    }
+  }
 }

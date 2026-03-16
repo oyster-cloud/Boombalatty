@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: af21eb644b3df4cfba7a186f58ac8021
+guid: e25f0b48647ad46c1a8f3b3328776d0e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -691035985028169050
-    second: Cow 1_0
+      213: -6623713969663581333
+    second: BaleOfHayRound8_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cow 1_0
+      name: BaleOfHayRound8_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 999
-        height: 1121
+        y: 8
+        width: 1024
+        height: 1517
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a24261de62f866f0800000000000000
-      internalID: -691035985028169050
+      spriteID: b63e8601d37d314a0800000000000000
+      internalID: -6623713969663581333
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cow 1_0: -691035985028169050
+      BaleOfHayRound8_0: -6623713969663581333
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
