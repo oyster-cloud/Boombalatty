@@ -912,9 +912,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 819361152}
-        m_TargetAssemblyTypeName: GameManager, ScriptTests
-        m_MethodName: EndGame
+      - m_Target: {fileID: 1944381341}
+        m_TargetAssemblyTypeName: SettingsUI, ScriptTests
+        m_MethodName: EndGameFromSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1855,6 +1855,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383160380}
   m_CullTransparentMesh: 1
+--- !u!1 &417287700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417287701}
+  - component: {fileID: 417287703}
+  - component: {fileID: 417287702}
+  m_Layer: 5
+  m_Name: TitleLogo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &417287701
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417287700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1425785701}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.00080228, y: 52}
+  m_SizeDelta: {x: 546.29, y: 680.634}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &417287702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417287700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 6944447031546875295, guid: 69cdba3a4467d4b728e756b2a469898f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &417287703
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417287700}
+  m_CullTransparentMesh: 1
 --- !u!1 &433260041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,7 +2243,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1944381341}
         m_TargetAssemblyTypeName: SettingsUI, ScriptTests
-        m_MethodName: EndGameFromSettings
+        m_MethodName: RestartFromSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2322,7 +2397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boombaPool: {fileID: 1319032625}
   requireInitialSpawnCompleted: 0
-  startingBoombaCount: 1
+  startingBoombaCount: 3
   boombaCountIncrement: 1
   maxBoombaCount: 20
   spawnAreaMin: {x: -2.5, y: 4}
@@ -2336,27 +2411,27 @@ MonoBehaviour:
     ImageScale: 0.15
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 4832906348505139363, guid: f8a4413bb80f140dbbbed2332d3c497d, type: 3}
-    size: 1
+    size: 0.9
     value: 2
     ImageScale: 0.14
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 2843883925610408784, guid: 1c9a28700f06f49a88edb26b48ed9650, type: 3}
-    size: 1.2
+    size: 1.1
     value: 3
     ImageScale: 0.15
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 4499992404906132472, guid: e0be1e3f61c7542208a62d211bbd314d, type: 3}
-    size: 1.5
+    size: 1.4
     value: 4
     ImageScale: 0.15
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 1137903945521001578, guid: fe559162d7c5e422da877e49b0919bcc, type: 3}
-    size: 2.2
+    size: 2.1
     value: 5
     ImageScale: 0.14
   - sprite: {fileID: 0}
     visualPrefab: {fileID: 6996552183140158016, guid: 116e00214f9e5455b9e2ee4f2327809b, type: 3}
-    size: 2.5
+    size: 2.3
     value: 6
     ImageScale: 0.15
   - sprite: {fileID: -7896656059444677529, guid: b23eb96e01d764efaa35b1732146b12f, type: 3}
@@ -2971,6 +3046,7 @@ RectTransform:
   - {fileID: 146516567}
   - {fileID: 2024546888}
   - {fileID: 1996134264}
+  - {fileID: 1425785701}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4905,6 +4981,82 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1425785700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425785701}
+  - component: {fileID: 1425785703}
+  - component: {fileID: 1425785702}
+  m_Layer: 5
+  m_Name: SplashPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1425785701
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425785700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 417287701}
+  m_Father: {fileID: 754882718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.5112915, y: 0}
+  m_SizeDelta: {x: 13.2914, y: 14.6317}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1425785702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425785700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.627451, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1425785703
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425785700}
+  m_CullTransparentMesh: 1
 --- !u!1 &1440775873
 GameObject:
   m_ObjectHideFlags: 0
@@ -6513,6 +6665,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2049939432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2049939434}
+  - component: {fileID: 2049939433}
+  m_Layer: 5
+  m_Name: SplashScreenManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2049939433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049939432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4facf22100d6469e9e8e8d2010aa17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ScriptTests::SplashScreen
+  splashPanel: {fileID: 1425785700}
+  displayDuration: 2
+  fadeOutDuration: 0.2
+--- !u!224 &2049939434
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049939432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 266.5, y: 474}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2112920902
 GameObject:
   m_ObjectHideFlags: 0
@@ -6755,6 +6958,7 @@ SceneRoots:
   - {fileID: 600681271}
   - {fileID: 773188093}
   - {fileID: 548325238}
+  - {fileID: 2049939434}
   - {fileID: 754882718}
   - {fileID: 819361151}
   - {fileID: 1929754084}

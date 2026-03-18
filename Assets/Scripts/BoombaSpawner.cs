@@ -48,15 +48,20 @@ public class BoombaSpawner : MonoBehaviour
   public int CurrentBoombaCount => _currentBoombaCount; // Expose for saving
   public int StartingBoombaCount => startingBoombaCount; // Expose for loading
 
+  private bool _canStartSpawning = false;
+
   void OnEnable()
   {
     Services.BoombaSpawner = this;
+    SplashScreen.OnSplashComplete += HandleSplashComplete;
   }
 
   void OnDisable()
   {
     if (Services.BoombaSpawner == this)
       Services.BoombaSpawner = null;
+    
+    SplashScreen.OnSplashComplete -= HandleSplashComplete;
   }
 
   public void Initialize()
@@ -74,6 +79,12 @@ public class BoombaSpawner : MonoBehaviour
     }
   }
 
+  void HandleSplashComplete()
+  {
+    _canStartSpawning = true;
+    Debug.Log("Splash complete - spawning enabled");
+  }
+
   void Start()
   {
     Initialize();
@@ -83,8 +94,18 @@ public class BoombaSpawner : MonoBehaviour
     {
       _currentBoombaCount = startingBoombaCount;
       InitialSpawnCompleted = false;
-      StartCoroutine(SpawnBoombasWithDelay());
+      StartCoroutine(WaitForSplashThenSpawn());
     }
+  }
+
+  IEnumerator WaitForSplashThenSpawn()
+  {
+    // Wait until splash completes
+    while (!_canStartSpawning)
+      yield return null;
+    
+    Debug.Log("Starting spawn after splash");
+    StartCoroutine(SpawnBoombasWithDelay());
   }
 
   IEnumerator SpawnBoombasWithDelay()
@@ -197,16 +218,18 @@ public class BoombaSpawner : MonoBehaviour
     props.SetValue(variant.value);
   }
 
-  // What it does: Loads saved state and starts spawning with that difficulty.
+  // What it does: Loads saved state and starts spawning with that difficulty after splash completes.
   // What it's used for: Called by GameManager on startup to restore progress.
   public void LoadSavedStateAndStart(int savedBoombaCount)
   {
     _currentBoombaCount = Mathf.Clamp(savedBoombaCount, startingBoombaCount, maxBoombaCount);
     _hasLoadedSavedState = true;
     InitialSpawnCompleted = false;
-    StartCoroutine(SpawnBoombasWithDelay());
     
-    Debug.Log($"BoombaSpawner loaded saved state: {_currentBoombaCount} boombas");
+    // Also wait for splash before spawning
+    StartCoroutine(WaitForSplashThenSpawn());
+    
+    Debug.Log($"BoombaSpawner loaded saved state: {_currentBoombaCount} boombas - waiting for splash");
   }
 
   // What it does: Resets spawning and starts a new wave, optionally increasing difficulty.
