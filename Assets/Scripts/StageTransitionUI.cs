@@ -33,7 +33,7 @@ public class StageTransitionUI
     // Set the text
     if (_stageText)
     {
-      _stageText.text = $"Stage {stageNumber}";
+      _stageText.text = $"Level {stageNumber}";
     }
 
     _transitionPanel.SetActive(true);

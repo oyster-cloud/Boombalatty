@@ -135,7 +135,7 @@ public class SettingsUI : MonoBehaviour
   // What it's used for: Keeps the score display in the settings panel in sync with the ScoreManager.
   void HandleScoreChanged(int s)
   {
-    if (currentScoreLabel) currentScoreLabel.text = $"Score: {s}";
+    if (currentScoreLabel) currentScoreLabel.text = $"{s}";
   }
 
   // What it does: Updates the on-panel high score label when the high score changes.

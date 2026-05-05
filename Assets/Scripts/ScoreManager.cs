@@ -60,7 +60,7 @@ public class ScoreManager : MonoBehaviour
   // What it's used for: Keeps the HUD text in sync with the internal score value.
   void UpdateUI()
   {
-    if (scoreText) scoreText.text = $"Score: {score}";
+    if (scoreText) scoreText.text = $"{score}";
   }
 
   // What it does: Resets the current score to zero and updates UI and listeners.
