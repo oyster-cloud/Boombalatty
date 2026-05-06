@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
   [SerializeField] float stageTransitionDuration = 2f;
 
   public bool IsGameOver { get; private set; } = false;
+  public bool IsInteractionLocked { get; private set; } = false;
   private bool _wasWhaleCompletion = false;
 
   private GameOverUIHandler _uiHandler;
@@ -197,6 +198,7 @@ public class GameManager : MonoBehaviour
   private void ResetGameState()
   {
     IsGameOver = false;
+    IsInteractionLocked = false;
     Time.timeScale = 1f;
   }
 
@@ -255,14 +257,35 @@ public class GameManager : MonoBehaviour
     Debug.Log("[GameManager] Game ended - reset to Stage 1");
   }
 
-  public void HideAfterSecondsRealtime(GameObject target, float seconds)
-  {
-    StartCoroutine(HideRoutine(target, seconds));
-  }
-
   private IEnumerator HideRoutine(GameObject target, float seconds)
   {
     yield return new WaitForSecondsRealtime(seconds);
     if (target) target.SetActive(false);
+  }
+
+  // What it does: Freezes physics and blocks input for the duration of a whale display.
+  // What it's used for: Called when a whale is spawned so the player can't interact until it disappears.
+  public void LockForWhaleDisplay(GameObject whaleGO, float seconds)
+  {
+    IsInteractionLocked = true;
+    StartCoroutine(WhaleDisplayRoutine(whaleGO, seconds));
+  }
+
+  private IEnumerator WhaleDisplayRoutine(GameObject whaleGO, float seconds)
+  {
+    // Wait one fixed update so WhaleBehavior.FixedUpdate can orient the whale
+    yield return new WaitForFixedUpdate();
+    Time.timeScale = 0f;
+
+    yield return new WaitForSecondsRealtime(seconds);
+
+    if (whaleGO) whaleGO.SetActive(false);
+
+    // Only unlock if we haven't transitioned to a proper game-over or completion state
+    if (!IsGameOver)
+    {
+        IsInteractionLocked = false;
+        Time.timeScale = 1f;
+    }
   }
 }

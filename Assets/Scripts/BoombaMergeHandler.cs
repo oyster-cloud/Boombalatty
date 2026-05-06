@@ -156,9 +156,10 @@ public class BoombaMergeHandler : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
       }
 
+      // Lock physics + input for the whale display duration, then hide and unlock
       var gm = GameManager.Instance ?? FindAnyObjectByType<GameManager>();
       if (gm != null)
-        gm.HideAfterSecondsRealtime(mergedGO, 2f);
+        gm.LockForWhaleDisplay(mergedGO, 2f);
     }
 
     // Only now disable the originals (after coroutine finishes)

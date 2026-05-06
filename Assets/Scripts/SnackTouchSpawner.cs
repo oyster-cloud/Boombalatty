@@ -97,6 +97,10 @@ public class SnackTouchSpawner : MonoBehaviour
   {
     if (!cam || currentSnack == null) return;
 
+    var gm = GameManager.Instance;
+    if (gm != null && (gm.IsGameOver || gm.IsInteractionLocked))
+        return;
+
     Vector2 world = cam.ScreenToWorldPoint(screenPos);
     float x = Mathf.Clamp(world.x, spawnAreaMin.x, spawnAreaMax.x);
 
