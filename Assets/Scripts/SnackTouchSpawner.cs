@@ -28,6 +28,7 @@ public class SnackTouchSpawner : MonoBehaviour
   // hold/release state
   GameObject currentSnack;
   bool waitingForLanding;
+  private int _lastPickedValue = -1;
 
   // What it does: Caches the main camera reference and validates that a snack prefab has been assigned.
   // What it's used for: Ensures the spawner can convert input screen positions to world space and knows what to instantiate.
@@ -237,16 +238,22 @@ public class SnackTouchSpawner : MonoBehaviour
   // What it does: Picks a SnackVariant whose value matches one of the currently active Boombas.
   // What it's used for: Ensures spawned snacks can merge with existing boombas on the board.
   SnackVariant PickVariantByActiveBoombas()
-  {
+{
     if (snackVariants == null || snackVariants.Count == 0)
-      return null;
+        return null;
 
     var activeValues = boombaPool?.GetActiveBoombaValues();
     var candidates = GetCandidateVariants(activeValues);
-    
+
+    // If more than one candidate, exclude the last picked to prevent streaks
+    if (candidates.Count > 1)
+        candidates = candidates.FindAll(v => v.value != _lastPickedValue);
+
     int index = Random.Range(0, candidates.Count);
-    return candidates[index];
-  }
+    var picked = candidates[index];
+    _lastPickedValue = picked.value;
+    return picked;
+}
 
   // What it does: Returns a list of snack variants that match active boomba values, or all variants if no matches.
   // What it's used for: Filters the available snack pool based on what's currently on the board.
