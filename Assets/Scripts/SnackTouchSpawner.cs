@@ -151,16 +151,8 @@ public class SnackTouchSpawner : MonoBehaviour
 
     reporter.Init(() =>
     {
-      // Wait a frame to let merges complete before spawning next snack
-      StartCoroutine(DelayedUnlockSpawning());
+        waitingForLanding = false;
     });
-  }
-
-  // Add this new method
-  IEnumerator DelayedUnlockSpawning()
-  {
-    yield return new WaitForEndOfFrame();
-    waitingForLanding = false; // Allow the next hanging spawn
   }
 
   // What it does: Applies visual and physical properties from a SnackVariant onto an instantiated snack GameObject.
