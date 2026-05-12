@@ -56,4 +56,6 @@ public class GameOverZoneFlipLayer : MonoBehaviour
       trs[i].gameObject.layer = liveLayer;
     flipped = true; // mark as already handled
   }
+
+  public void MarkFlipped() => flipped = true;
 }

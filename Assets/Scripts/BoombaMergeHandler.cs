@@ -113,20 +113,14 @@ public class BoombaMergeHandler : MonoBehaviour
     // --- Force merged Boomba into LIVE layer so it can continue merging ---
     if (mergedGO != null)
     {
+      int liveBoombaLayer = LayerMask.NameToLayer(boombaLayerName);
+      var trs = mergedGO.GetComponentsInChildren<Transform>(true);
+      for (int i = 0; i < trs.Length; i++)
+        trs[i].gameObject.layer = liveBoombaLayer;
+
       var flip = mergedGO.GetComponent<GameOverZoneFlipLayer>();
       if (flip != null)
-      {
-        flip.ForceLiveLayer(); // ensures it's Boomba-layer now (and marks it flipped)
-      }
-      else
-      {
-        // Fallback: set Boomba layer on root + children
-        // Refactor?: this seems like excesive logic
-        int liveBoombaLayer = LayerMask.NameToLayer(boombaLayerName);
-        var trs = mergedGO.GetComponentsInChildren<Transform>(true);
-        for (int i = 0; i < trs.Length; i++)
-          trs[i].gameObject.layer = liveBoombaLayer;
-      }
+        flip.ForceLiveLayer();
     }
 
     var otherProps = otherGO ? otherGO.GetComponent<BoombaProperties>() : null;
