@@ -2318,7 +2318,7 @@ MonoBehaviour:
     size: 2.3
     value: 6
     ImageScale: 0.15
-  - sprite: {fileID: -7896656059444677529, guid: b23eb96e01d764efaa35b1732146b12f, type: 3}
+  - sprite: {fileID: 21300000, guid: 1ba2a685786f24afda9bd9a4754be9ae, type: 3}
     visualPrefab: {fileID: 0}
     size: 5
     value: 7
