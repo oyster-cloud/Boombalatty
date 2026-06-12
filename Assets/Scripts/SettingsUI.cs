@@ -171,13 +171,16 @@ public class SettingsUI : MonoBehaviour
     if (settingsPanel) settingsPanel.SetActive(false);
     panelOpen = false;
 
-    Time.timeScale = 1f; // make sure GameManager flow runs in real time
+    Time.timeScale = 1f;
     
+    if (ScoreManager.Instance != null)
+        ScoreManager.Instance.ResetScore();
+
     var gm = GameManager.Instance;
     if (gm != null) 
     {
-      gm.ResetProgress(); // Wipe saved progress
-      gm.Restart();       // Restart at base difficulty
+        gm.ResetProgress();
+        gm.Restart();
     }
   }
 }
