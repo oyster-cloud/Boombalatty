@@ -120,7 +120,7 @@ public class BoombaMergeHandler : MonoBehaviour
 
       var flip = mergedGO.GetComponent<GameOverZoneFlipLayer>();
       if (flip != null)
-        flip.ForceLiveLayer();
+        flip.MarkFlipped();
     }
 
     var otherProps = otherGO ? otherGO.GetComponent<BoombaProperties>() : null;
