@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
   public event Action<int> OnScoreChanged;
   public event Action<int> OnHighScoreChanged;
   const string PrefKeyHighScore = "HighScore";
+  const string PrefKeyScore = "CurrentScore";
 
   // What it does: Enforces a singleton instance, loads the saved high score, and resets the current score.
   // What it's used for: Ensures one persistent ScoreManager exists and initializes score state on startup.
@@ -32,7 +33,9 @@ public class ScoreManager : MonoBehaviour
     DontDestroyOnLoad(gameObject); // <-- Allows Settings panel to work across restarts
 
     HighScore = PlayerPrefs.GetInt(PrefKeyHighScore, 0);
-    ResetScore();
+    score = PlayerPrefs.GetInt(PrefKeyScore, 0);
+    UpdateUI();
+    OnScoreChanged?.Invoke(score);
   }
 
   // What it does: Subscribes to boomba offscreen events to update score.
@@ -50,6 +53,7 @@ public class ScoreManager : MonoBehaviour
     if (props != null && props.IsLastVariant)
     {
       score++;
+      PlayerPrefs.SetInt(PrefKeyScore, score);
       UpdateUI();
       OnScoreChanged?.Invoke(score);
       TryUpdateHighScore();
@@ -68,6 +72,7 @@ public class ScoreManager : MonoBehaviour
   public void ResetScore()
   {
     score = 0;
+    PlayerPrefs.SetInt(PrefKeyScore, 0);
     UpdateUI();
     OnScoreChanged?.Invoke(score);
   }
